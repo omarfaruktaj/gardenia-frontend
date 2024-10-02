@@ -1,5 +1,6 @@
 'use client';
 
+import { Button } from '@/components/ui/button';
 import { ErrorCard } from '@/components/ui/error-card';
 import {
   Form,
@@ -12,30 +13,31 @@ import {
 import { Input } from '@/components/ui/input';
 import LoadingButton from '@/components/ui/loading-button';
 import { PasswordInput } from '@/components/ui/password-input';
-import { registerSchema, TRegisterSchema } from '@/schemas/register-schema';
-import { register } from '@/services/auth';
+import { loginSchema, TLoginSchema } from '@/schemas/login-schema';
+import { login } from '@/services/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 
-export default function RegisterForm() {
+export default function LoginForm() {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>(undefined);
   const router = useRouter();
-  const form = useForm<TRegisterSchema>({
-    resolver: zodResolver(registerSchema),
+  const form = useForm<TLoginSchema>({
+    resolver: zodResolver(loginSchema),
     defaultValues: {
-      name: 'omar',
       email: 'omar@gmail.com',
       password: '123456',
     },
   });
 
-  function onSubmit(values: TRegisterSchema) {
+  function onSubmit(values: TLoginSchema) {
+    setError(undefined);
+
     startTransition(async () => {
-      const { data, error } = await register(values);
+      const { data, error } = await login(values);
 
       if (error) {
         form.reset();
@@ -51,20 +53,6 @@ export default function RegisterForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter your Name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
         <FormField
           control={form.control}
           name="email"
@@ -102,13 +90,13 @@ export default function RegisterForm() {
         <ErrorCard message={error} />
 
         <LoadingButton loading={isPending} type="submit" className="w-full">
-          Register
+          {isPending ? 'Logging in...' : 'Login'}
         </LoadingButton>
-        <div className="mt-4 text-center text-sm">
-          Already have an account?{' '}
-          <Link href="/login" className="underline">
-            Login in
-          </Link>
+        <div className="mt-4 text-center text-sm text-muted-foreground">
+          Don’t have an account?{' '}
+          <Button variant={'link'} asChild className="pl-1">
+            <Link href="/signup"> Sign up here</Link>
+          </Button>
         </div>
       </form>
     </Form>
