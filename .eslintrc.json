@@ -1,5 +1,11 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript", "next", "prettier"],
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript",
+    "next",
+    "prettier",
+    "plugin:@tanstack/query/recommended"
+  ],
   "plugins": ["check-file"],
   "rules": {
     "prefer-arrow-callback": "error",
