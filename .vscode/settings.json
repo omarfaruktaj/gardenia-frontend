@@ -1,0 +1,17 @@
+{
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always",
+    "source.fixAll.ts": "always",
+    "source.sortImports": "always",
+    "source.removeUnusedImports": "always",
+    "source.organizeImports": "always",
+    "source.addMissingImports.ts": "always",
+    "source.removeUnused.ts": "always"
+  },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "editor.fontSize": 18
+}
