@@ -4,7 +4,6 @@ import { useState, useTransition } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
@@ -19,36 +18,40 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import LoadingButton from '@/components/ui/loading-button';
-import { PasswordInput } from '@/components/ui/password-input';
-import { TSignUpSchema, signUpSchema } from '@/schemas/auth-schema';
-import { singUp } from '@/services/auth-service';
+import { SuccessCard } from '@/components/ui/success-card';
+import {
+  TForgotPasswordSchema,
+  forgotPasswordSchema,
+} from '@/schemas/auth-schema';
+import { forgotPassword } from '@/services/auth-service';
 
-export default function SignUpForm() {
+export default function ForgotPasswordForm() {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>(undefined);
-  const router = useRouter();
-  const form = useForm<TSignUpSchema>({
-    resolver: zodResolver(signUpSchema),
+  const [success, setSuccess] = useState<string | undefined>('');
+
+  const form = useForm<TForgotPasswordSchema>({
+    resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {
-      name: 'omar',
       email: 'omar@gmail.com',
-      password: '123456',
     },
   });
 
-  function onSubmit(values: TSignUpSchema) {
+  function onSubmit(values: TForgotPasswordSchema) {
     setError(undefined);
+    setSuccess(undefined);
 
     startTransition(async () => {
-      const { data, error } = await singUp(values);
+      const { success, error } = await forgotPassword(values);
 
       if (error) {
         form.reset();
         setError(error);
       }
 
-      if (data) {
-        router.push('/');
+      if (success) {
+        form.reset();
+        setSuccess(success);
       }
     });
   }
@@ -56,20 +59,6 @@ export default function SignUpForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter your Name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
         <FormField
           control={form.control}
           name="email"
@@ -84,29 +73,16 @@ export default function SignUpForm() {
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <PasswordInput {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
         <ErrorCard message={error} />
+        <SuccessCard message={success} />
 
         <LoadingButton loading={isPending} type="submit" className="w-full">
-          {isPending ? 'Signing up...' : 'Sign Up'}
+          {isPending ? 'Reset link sending...' : 'Send link email'}
         </LoadingButton>
         <div className="mt-4 text-center text-sm text-muted-foreground">
-          Already have an account?
+          Remembered your password?
           <Button variant={'link'} asChild className="pl-1">
-            <Link href="/login">Log in here</Link>
+            <Link href="/login"> Log in</Link>
           </Button>
         </div>
       </form>

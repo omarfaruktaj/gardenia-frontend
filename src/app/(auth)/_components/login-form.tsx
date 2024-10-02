@@ -13,8 +13,9 @@ import {
 import { Input } from '@/components/ui/input';
 import LoadingButton from '@/components/ui/loading-button';
 import { PasswordInput } from '@/components/ui/password-input';
-import { loginSchema, TLoginSchema } from '@/schemas/login-schema';
-import { login } from '@/services/auth';
+import { TLoginSchema, loginSchema } from '@/schemas/auth-schema';
+import { login } from '@/services/auth-service';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';

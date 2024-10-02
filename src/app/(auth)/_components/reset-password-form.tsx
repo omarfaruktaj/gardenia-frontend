@@ -4,7 +4,7 @@ import { useState, useTransition } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
@@ -17,30 +17,38 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import LoadingButton from '@/components/ui/loading-button';
 import { PasswordInput } from '@/components/ui/password-input';
-import { TSignUpSchema, signUpSchema } from '@/schemas/auth-schema';
-import { singUp } from '@/services/auth-service';
+import {
+  TResetPasswordSchema,
+  resetPasswordSchema,
+} from '@/schemas/auth-schema';
+import { resetPassword } from '@/services/auth-service';
 
-export default function SignUpForm() {
+export default function ResetPasswordForm() {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>(undefined);
   const router = useRouter();
-  const form = useForm<TSignUpSchema>({
-    resolver: zodResolver(signUpSchema),
+  const searchParams = useSearchParams();
+  const token = searchParams.get('token');
+
+  const form = useForm<TResetPasswordSchema>({
+    resolver: zodResolver(resetPasswordSchema),
     defaultValues: {
-      name: 'omar',
-      email: 'omar@gmail.com',
-      password: '123456',
+      password: '',
+      confirmPassword: '',
     },
   });
 
-  function onSubmit(values: TSignUpSchema) {
+  if (!token) {
+    router.push('/login');
+  }
+
+  async function onSubmit(values: TResetPasswordSchema) {
     setError(undefined);
 
     startTransition(async () => {
-      const { data, error } = await singUp(values);
+      const { data, error } = await resetPassword(values.password, token!);
 
       if (error) {
         form.reset();
@@ -48,6 +56,7 @@ export default function SignUpForm() {
       }
 
       if (data) {
+        form.reset();
         router.push('/');
       }
     });
@@ -58,40 +67,26 @@ export default function SignUpForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter your Name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input type="email" placeholder="Enter your email" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>New Password</FormLabel>
               <FormControl>
-                <PasswordInput {...field} />
+                <PasswordInput placeholder="Enter new password" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Confirm Password</FormLabel>
+              <FormControl>
+                <PasswordInput placeholder="Confirm your password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -101,12 +96,13 @@ export default function SignUpForm() {
         <ErrorCard message={error} />
 
         <LoadingButton loading={isPending} type="submit" className="w-full">
-          {isPending ? 'Signing up...' : 'Sign Up'}
+          {isPending ? 'Resetting password...' : 'Reset Password'}
         </LoadingButton>
+
         <div className="mt-4 text-center text-sm text-muted-foreground">
-          Already have an account?
+          Remembered your password?
           <Button variant={'link'} asChild className="pl-1">
-            <Link href="/login">Log in here</Link>
+            <Link href="/login"> Log in</Link>
           </Button>
         </div>
       </form>
