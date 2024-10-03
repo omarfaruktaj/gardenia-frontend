@@ -1,6 +1,10 @@
-import Providers from '@/lib/providers';
 import { Metadata } from 'next';
+
 import { Open_Sans } from 'next/font/google';
+
+import Navbar from '@/components/layout/navbar';
+import Providers from '@/lib/providers';
+
 import './globals.css';
 
 const openSans = Open_Sans({
@@ -23,7 +27,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${openSans.className} antialiased`}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <Navbar />
+          {children}
+        </Providers>
       </body>
     </html>
   );

@@ -32,7 +32,7 @@ export const singUp = async (userData: TSignUpSchema) => {
 export const login = async (userData: TLoginSchema) => {
   try {
     const { data } = await api.post('/auth/signIn', userData);
-
+    console.log(data);
     if (data.success) {
       cookies().set('access_token', data.data.accessToken);
       cookies().set('refresh_token', data.data.refreshToken);
@@ -80,4 +80,9 @@ export const resetPassword = async (password: string, token: string) => {
       return { error: 'An unexpected error occurred' };
     }
   }
+};
+
+export const logout = () => {
+  cookies().delete('access_token');
+  cookies().delete('refresh_token');
 };
