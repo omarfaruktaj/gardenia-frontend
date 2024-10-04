@@ -4,8 +4,13 @@ export interface TUser {
   avatar: string;
   username: string;
   email: string;
+  bio?: string;
   isVerified: boolean;
   role: 'user' | 'admin';
+}
+export interface TUserExtended extends TUser {
+  followers: string[];
+  following: string[];
 }
 
 export interface TCategory {

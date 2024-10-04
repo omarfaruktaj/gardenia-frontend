@@ -10,13 +10,13 @@ export default function SidebarNav() {
   const pathName = usePathname();
   const routes = [
     {
-      path: '/dashboard/my-post',
+      path: '/dashboard/my-posts',
       label: 'My Posts',
       icon: Book,
     },
     {
-      path: '/dashboard/saved',
-      label: 'Saved Posts',
+      path: '/dashboard/bookmarks',
+      label: 'Book Mark',
       icon: BookMarked,
     },
     {
@@ -25,7 +25,7 @@ export default function SidebarNav() {
       icon: User,
     },
     {
-      path: '/dashboard/following',
+      path: '/dashboard/followings',
       label: 'Following',
       icon: Tag,
     },

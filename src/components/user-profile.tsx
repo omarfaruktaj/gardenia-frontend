@@ -14,6 +14,7 @@ import {
 import { useUser } from '@/context/user-provider';
 import { publicRoutes } from '@/routes';
 import { logout } from '@/services/auth-service';
+import { getCurrentUser } from '@/services/user-service';
 
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 
@@ -23,8 +24,9 @@ export default function UserProfile() {
 
   const pathname = usePathname();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     logout();
+    await getCurrentUser();
     setUser(null);
     if (!publicRoutes.includes(pathname)) {
       router.push('/');

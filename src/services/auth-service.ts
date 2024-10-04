@@ -101,6 +101,7 @@ export const getNewAccessToken = async () => {
     }
 
     return res.data;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return null;
   }

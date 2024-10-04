@@ -12,10 +12,12 @@ import {
 import { buttonVariants } from './button';
 
 interface AlertModalProps {
+  title?: string;
+  description?: string;
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
-  loading: boolean;
+  loading?: boolean;
 }
 
 export default function AlertModal({
@@ -23,6 +25,8 @@ export default function AlertModal({
   onClose,
   onConfirm,
   loading,
+  title = 'Are you sure you want to proceed?',
+  description = 'This action will mark the item for deletion, but it can be recovered if needed.',
 }: AlertModalProps) {
   const onOpenChange = (open: boolean) => {
     if (!open) {
@@ -33,11 +37,8 @@ export default function AlertModal({
     <AlertDialog open={isOpen} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you sure you want to proceed?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action will mark the item for deletion, but it can be recovered
-            if needed.
-          </AlertDialogDescription>
+          <AlertDialogTitle>{title}</AlertDialogTitle>
+          <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="mt-2">
           <AlertDialogCancel disabled={loading}>Cancel</AlertDialogCancel>
