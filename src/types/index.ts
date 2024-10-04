@@ -7,3 +7,8 @@ export interface TUser {
   isVerified: boolean;
   role: 'user' | 'admin';
 }
+
+export interface TCategory {
+  name: string;
+  description?: string | undefined;
+}
