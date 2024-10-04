@@ -51,7 +51,7 @@ export default function UserProfile() {
         )}
         {user?.role === 'admin' && (
           <DropdownMenuItem>
-            <Link href={'admin/dashboard'}>Dashboard</Link>
+            <Link href={'/admin/dashboard'}>Dashboard</Link>
           </DropdownMenuItem>
         )}
         <DropdownMenuSeparator />

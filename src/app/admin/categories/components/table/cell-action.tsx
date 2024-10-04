@@ -55,11 +55,7 @@ export function CellAction({ data }: { data: TCategory }) {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem
-          //   onClick={() => onCopy(data.id)
-
-          //   }
-          >
+          <DropdownMenuItem>
             <Copy className="mr-2 h-4 w-4" />
             Copy ID
           </DropdownMenuItem>

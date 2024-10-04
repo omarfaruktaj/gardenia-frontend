@@ -13,3 +13,13 @@ export interface TCategory {
   name: string;
   description?: string | undefined;
 }
+
+export interface IPayment {
+  user: TUser;
+  amount: number;
+  description?: string;
+  transactionID: string;
+  paymentProvider?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
