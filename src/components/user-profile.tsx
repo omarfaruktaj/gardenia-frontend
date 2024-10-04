@@ -15,17 +15,17 @@ import { useUser } from '@/context/user-provider';
 import { publicRoutes } from '@/routes';
 import { logout } from '@/services/auth-service';
 
-import { Avatar, AvatarFallback } from './ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 
 export default function UserProfile() {
-  const { user } = useUser();
+  const { user, setUser } = useUser();
   const router = useRouter();
 
   const pathname = usePathname();
 
   const handleLogout = () => {
     logout();
-
+    setUser(null);
     if (!publicRoutes.includes(pathname)) {
       router.push('/');
     }
@@ -37,6 +37,7 @@ export default function UserProfile() {
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Avatar>
+          <AvatarImage src={user?.avatar} alt={user?.name} />
           <AvatarFallback>
             <User2 />
           </AvatarFallback>

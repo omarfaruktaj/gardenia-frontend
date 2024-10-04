@@ -20,6 +20,7 @@ import {
 import { Input } from '@/components/ui/input';
 import LoadingButton from '@/components/ui/loading-button';
 import { PasswordInput } from '@/components/ui/password-input';
+import { useUser } from '@/context/user-provider';
 import { TSignUpSchema, signUpSchema } from '@/schemas/auth-schema';
 import { singUp } from '@/services/auth-service';
 
@@ -27,6 +28,8 @@ export default function SignUpForm() {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>(undefined);
   const router = useRouter();
+  const { setUser } = useUser();
+
   const form = useForm<TSignUpSchema>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
@@ -48,6 +51,7 @@ export default function SignUpForm() {
       }
 
       if (data) {
+        setUser(data.user);
         router.push('/');
       }
     });

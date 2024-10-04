@@ -1,5 +1,12 @@
 'use client';
 
+import { useState, useTransition } from 'react';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+
 import { Button } from '@/components/ui/button';
 import { ErrorCard } from '@/components/ui/error-card';
 import {
@@ -13,19 +20,15 @@ import {
 import { Input } from '@/components/ui/input';
 import LoadingButton from '@/components/ui/loading-button';
 import { PasswordInput } from '@/components/ui/password-input';
+import { useUser } from '@/context/user-provider';
 import { TLoginSchema, loginSchema } from '@/schemas/auth-schema';
 import { login } from '@/services/auth-service';
-
-import { zodResolver } from '@hookform/resolvers/zod';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useState, useTransition } from 'react';
-import { useForm } from 'react-hook-form';
 
 export default function LoginForm() {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>(undefined);
   const router = useRouter();
+  const { setUser } = useUser();
   const form = useForm<TLoginSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -46,6 +49,7 @@ export default function LoginForm() {
       }
 
       if (data) {
+        setUser(data.user);
         router.push('/');
       }
     });

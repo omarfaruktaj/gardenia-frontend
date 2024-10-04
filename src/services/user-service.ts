@@ -12,6 +12,7 @@ export const getCurrentUser = async () => {
     decodedToken = await jwtDecode(accessToken);
     return {
       _id: decodedToken?.userId,
+      email: decodedToken.email,
       username: decodedToken?.avatar,
       avatar: decodedToken?.avatar,
       name: decodedToken?.name,

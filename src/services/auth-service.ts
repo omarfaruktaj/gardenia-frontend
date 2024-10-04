@@ -86,3 +86,17 @@ export const logout = () => {
   cookies().delete('access_token');
   cookies().delete('refresh_token');
 };
+
+export const getNewAccessToken = async () => {
+  try {
+    const refreshToken = cookies().get('refresh_token')?.value;
+
+    const res = await api.post('/auth/refreshToken', {
+      refreshToken,
+    });
+
+    return res.data;
+  } catch (error) {
+    throw new Error('Failed to get new access token');
+  }
+};
