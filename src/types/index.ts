@@ -9,6 +9,7 @@ export interface TUser {
 }
 
 export interface TCategory {
+  _id: string;
   name: string;
   description?: string | undefined;
 }

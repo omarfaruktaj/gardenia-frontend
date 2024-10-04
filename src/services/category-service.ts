@@ -19,6 +19,20 @@ export const createCategory = async (userData: CategoryType) => {
     }
   }
 };
+export const deleteCategory = async (id: string) => {
+  try {
+    const { data } = await api.delete(`/categories/${id}`);
+    revalidatePath('/categories');
+    return { data: data.data };
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return { error: error.response?.data.message || 'Creating failed' };
+    } else {
+      return { error: 'An unexpected error occurred' };
+    }
+  }
+};
+
 export const updateCategory = async (id: string, userData: CategoryType) => {
   try {
     const { data } = await api.put(`/categories${id}`, userData);

@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import api from '@/config/axios';
 
+import { DataTable } from '../../../components/ui/data-table';
 import { columns } from './components/table/columns';
-import { DataTable } from './components/table/data-table';
 
 export default async function Users() {
   const response = await api.get('/categories');

@@ -15,12 +15,14 @@ interface AlertModalProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
+  loading: boolean;
 }
 
 export default function AlertModal({
   isOpen,
   onClose,
   onConfirm,
+  loading,
 }: AlertModalProps) {
   const onOpenChange = (open: boolean) => {
     if (!open) {
@@ -38,10 +40,11 @@ export default function AlertModal({
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="mt-2">
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel disabled={loading}>Cancel</AlertDialogCancel>
           <AlertDialogAction
             className={buttonVariants({ variant: 'destructive' })}
             onClick={onConfirm}
+            disabled={loading}
           >
             Continue
           </AlertDialogAction>
