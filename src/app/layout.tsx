@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 
 import { Open_Sans } from 'next/font/google';
 
+import { Toaster } from '@/components/ui/sonner';
 import Providers from '@/lib/providers';
 
 import './globals.css';
@@ -26,6 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${openSans.className} antialiased`}>
+        <Toaster />
         <Providers>{children}</Providers>
       </body>
     </html>

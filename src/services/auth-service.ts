@@ -95,8 +95,13 @@ export const getNewAccessToken = async () => {
       refreshToken,
     });
 
+    if (res.data.success) {
+      cookies().set('access_token', res.data.data.accessToken);
+      cookies().set('refresh_token', res.data.data.refreshToken);
+    }
+
     return res.data;
   } catch (error) {
-    throw new Error('Failed to get new access token');
+    return null;
   }
 };

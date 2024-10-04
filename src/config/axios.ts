@@ -12,10 +12,10 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     const cookieStore = cookies();
-    const accessToken = cookieStore.get('accessToken')?.value;
+    const accessToken = cookieStore.get('access_token')?.value;
 
     if (accessToken) {
-      config.headers.Authorization = accessToken;
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
 
     return config;
@@ -35,12 +35,12 @@ api.interceptors.response.use(
     if (error?.response?.status === 401 && !config?.sent) {
       config.sent = true;
       const res = await getNewAccessToken();
-      const accessToken = res.data.accessToken;
-      const refreshToken = res.data.refreshToken;
 
-      config.headers['Authorization'] = accessToken;
-      cookies().set('access_token', accessToken);
-      cookies().set('refresh_token', refreshToken);
+      if (res) {
+        const accessToken = res?.data?.accessToken;
+
+        config.headers['Authorization'] = `Bearer ${accessToken}`;
+      }
 
       return api(config);
     } else {
