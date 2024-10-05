@@ -37,13 +37,23 @@ export const fetchFollowers = async ({
   pageParam = 1,
   limit = 10,
 }: IFollow) => {
-  const response = await api.get(
-    `/users/${userId}/followers?page=${pageParam}&limit=${limit}`
-  );
-  return {
-    followers: response?.data?.data?.followers,
-    pagination: response?.data?.data?.pagination,
-  };
+  try {
+    const response = await api.get(
+      `/users/${userId}/followers?page=${pageParam}&limit=${limit}`
+    );
+    return {
+      followers: response?.data?.data?.followers,
+      pagination: response?.data?.data?.pagination,
+    };
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(
+        error.response?.data.message || 'Failed to get followers'
+      );
+    } else {
+      throw new Error('An unexpected error occurred');
+    }
+  }
 };
 
 export const fetchFollowing = async ({
@@ -51,13 +61,23 @@ export const fetchFollowing = async ({
   pageParam = 1,
   limit = 10,
 }: IFollow) => {
-  const response = await api.get(
-    `/users/${userId}/following?page=${pageParam}&limit=${limit}`
-  );
-  return {
-    following: response?.data?.data?.following,
-    pagination: response?.data?.data?.pagination,
-  };
+  try {
+    const response = await api.get(
+      `/users/${userId}/following?page=${pageParam}&limit=${limit}`
+    );
+    return {
+      following: response?.data?.data?.following,
+      pagination: response?.data?.data?.pagination,
+    };
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(
+        error.response?.data.message || 'Failed to get followings'
+      );
+    } else {
+      throw new Error('An unexpected error occurred');
+    }
+  }
 };
 
 export const followUser = async (followedId: string) => {

@@ -46,3 +46,20 @@ export const updateCategory = async (id: string, userData: CategoryType) => {
     }
   }
 };
+
+export const getCategories = async () => {
+  try {
+    const response = await api.get('/categories');
+    console.log(response);
+    return response?.data?.data?.categories;
+  } catch (error) {
+    console.log(error);
+    if (axios.isAxiosError(error)) {
+      throw new Error(
+        error.response?.data.message || 'Failed to get categories'
+      );
+    } else {
+      throw new Error('An unexpected error occurred');
+    }
+  }
+};

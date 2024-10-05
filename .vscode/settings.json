@@ -15,6 +15,7 @@
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "editor.fontSize": 18,
   "cSpell.words": [
+    "CLOUDINARY",
     "clsx",
     "cmdk",
     "embla",

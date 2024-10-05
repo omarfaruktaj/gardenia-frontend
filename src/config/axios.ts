@@ -8,7 +8,6 @@ import envConfig from './env-config';
 const api = axios.create({
   baseURL: envConfig.BASE_API,
 });
-
 api.interceptors.request.use(
   (config) => {
     const cookieStore = cookies();
