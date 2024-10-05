@@ -1,6 +1,5 @@
-import TopBar from '@/components/tob-bar';
-
 import Sidebar from './_components/sidebar';
+import TopBar from './_components/tob-bar';
 
 export default function UserLayout({
   children,

@@ -8,12 +8,14 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import { cn } from '@/lib/utils';
 
 import { buttonVariants } from './button';
 
 interface AlertModalProps {
   title?: string;
   description?: string;
+  actionButtonText?: string;
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
@@ -25,6 +27,7 @@ export default function AlertModal({
   onClose,
   onConfirm,
   loading,
+  actionButtonText = 'Continue',
   title = 'Are you sure you want to proceed?',
   description = 'This action will mark the item for deletion, but it can be recovered if needed.',
 }: AlertModalProps) {
@@ -43,11 +46,11 @@ export default function AlertModal({
         <AlertDialogFooter className="mt-2">
           <AlertDialogCancel disabled={loading}>Cancel</AlertDialogCancel>
           <AlertDialogAction
-            className={buttonVariants({ variant: 'destructive' })}
+            className={cn(buttonVariants({ variant: 'destructive' }))}
             onClick={onConfirm}
             disabled={loading}
           >
-            Continue
+            {actionButtonText}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

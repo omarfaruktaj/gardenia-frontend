@@ -2,7 +2,6 @@
 
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
-import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 
 import api from '@/config/axios';
@@ -13,9 +12,11 @@ export const getCurrentUser = async () => {
 
   if (accessToken) {
     decodedToken = await jwtDecode(accessToken);
+
     return {
       _id: decodedToken?.userId,
-      username: decodedToken?.avatar,
+      email: decodedToken?.email,
+      username: decodedToken?.username,
       avatar: decodedToken?.avatar,
       name: decodedToken?.name,
       isVerified: decodedToken?.isVerified,
@@ -25,11 +26,43 @@ export const getCurrentUser = async () => {
 
   return decodedToken;
 };
+interface IFollow {
+  userId: string;
+  pageParam?: number;
+  limit?: number;
+}
+
+export const fetchFollowers = async ({
+  userId,
+  pageParam = 1,
+  limit = 10,
+}: IFollow) => {
+  const response = await api.get(
+    `/users/${userId}/followers?page=${pageParam}&limit=${limit}`
+  );
+  return {
+    followers: response?.data?.data?.followers,
+    pagination: response?.data?.data?.pagination,
+  };
+};
+
+export const fetchFollowing = async ({
+  userId,
+  pageParam = 1,
+  limit = 10,
+}: IFollow) => {
+  const response = await api.get(
+    `/users/${userId}/following?page=${pageParam}&limit=${limit}`
+  );
+  return {
+    following: response?.data?.data?.following,
+    pagination: response?.data?.data?.pagination,
+  };
+};
 
 export const followUser = async (followedId: string) => {
   try {
     const { data } = await api.post(`/users/${followedId}/follow`);
-    revalidatePath(`/users/${followedId}`);
     return { message: data.message };
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
@@ -42,7 +75,6 @@ export const followUser = async (followedId: string) => {
 export const UnfollowUser = async (unFollowedId: string) => {
   try {
     const { data } = await api.delete(`/users/${unFollowedId}/unfollow`);
-    revalidatePath(`/users/${unFollowedId}`);
     return { message: data.message };
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {

@@ -1,6 +1,6 @@
-import MobileSidebar from '@/app/admin/_components/mobile-sidebar';
+import UserProfile from '@/components/user-profile';
 
-import UserProfile from './user-profile';
+import MobileSidebar from './mobile-sidebar';
 
 export default function TopBar() {
   return (

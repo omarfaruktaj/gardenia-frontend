@@ -2,8 +2,7 @@
 
 import { useState, useTransition } from 'react';
 
-import { Copy, Edit, MoreHorizontal, Trash } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { MoreHorizontal, Trash } from 'lucide-react';
 import { toast } from 'sonner';
 
 import AlertModal from '@/components/ui/alert-model';
@@ -19,8 +18,6 @@ import { deleteCategory } from '@/services/category-service';
 import { TCategory } from '@/types';
 
 export function CellAction({ data }: { data: TCategory }) {
-  const router = useRouter();
-
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
 
@@ -55,16 +52,12 @@ export function CellAction({ data }: { data: TCategory }) {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem>
-            <Copy className="mr-2 h-4 w-4" />
-            Copy ID
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={() => router.push(`/categories/${data._id}`)}
+          {/* <DropdownMenuItem
+            onClick={() => router.push(`/admin/categories/${data._id}`)}
           >
             <Edit className="mr-2 h-4 w-4" />
             Update
-          </DropdownMenuItem>
+          </DropdownMenuItem> */}
           <DropdownMenuItem
             onClick={() => setOpen(true)}
             className="!text-red-500"

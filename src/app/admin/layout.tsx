@@ -1,4 +1,4 @@
-import TopBar from '@/components/tob-bar';
+import TopBar from '@/app/admin/_components/tob-bar';
 
 import Sidebar from './_components/sidebar';
 

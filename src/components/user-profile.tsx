@@ -33,8 +33,6 @@ export default function UserProfile() {
     }
   };
 
-  console.log(user);
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>

@@ -32,7 +32,6 @@ export const singUp = async (userData: TSignUpSchema) => {
 export const login = async (userData: TLoginSchema) => {
   try {
     const { data } = await api.post('/auth/signIn', userData);
-    console.log(data);
     if (data.success) {
       cookies().set('access_token', data.data.accessToken);
       cookies().set('refresh_token', data.data.refreshToken);
@@ -41,7 +40,6 @@ export const login = async (userData: TLoginSchema) => {
     return { data: data.data };
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
-      console.log(error.response?.data);
       return { error: error.response?.data.message || 'Login failed' };
     } else {
       return { error: 'An unexpected error occurred' };
