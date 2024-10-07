@@ -9,7 +9,13 @@ import { UserCardSkeleton } from '@/components/skeleton/user-card-skeleton';
 import { fetchFollowing } from '@/services/user-service';
 import { TUser, TUserExtended } from '@/types';
 
-export default function FollowingList({ user }: { user: TUser }) {
+export default function FollowingList({
+  userId,
+  currentUser,
+}: {
+  userId: string;
+  currentUser: TUser;
+}) {
   const {
     data,
     fetchNextPage,
@@ -18,9 +24,9 @@ export default function FollowingList({ user }: { user: TUser }) {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ['followings', user?._id],
+    queryKey: ['followings', userId],
     queryFn: ({ pageParam = 1 }) =>
-      fetchFollowing({ userId: user?._id as string, pageParam, limit: 1 }),
+      fetchFollowing({ userId: userId, pageParam, limit: 1 }),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => lastPage?.pagination?.next ?? null,
   });
@@ -29,7 +35,7 @@ export default function FollowingList({ user }: { user: TUser }) {
 
   if (status === 'pending') {
     return (
-      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+      <section className="grid grid-cols-1 gap-4 mt-4">
         {Array.from({ length: 9 }).map((_, index) => (
           <UserCardSkeleton key={index} />
         ))}
@@ -51,9 +57,13 @@ export default function FollowingList({ user }: { user: TUser }) {
     <InfiniteScrollContainer
       onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
     >
-      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+      <section className="grid grid-cols-1 gap-4 mt-4">
         {followings.map((following: TUserExtended) => (
-          <UserCard key={following?._id} user={following} currentUser={user!} />
+          <UserCard
+            key={following?._id}
+            user={following}
+            currentUser={currentUser!}
+          />
         ))}
       </section>
       {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}

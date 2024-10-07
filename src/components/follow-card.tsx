@@ -24,7 +24,7 @@ export default function UserCard({ user, currentUser }: UserCardProps) {
               <AvatarFallback>{user.name.slice(0, 2)}</AvatarFallback>
             </Avatar>
             <div className="ml-4">
-              <CardTitle className="text-xl">{user.name}</CardTitle>
+              <CardTitle className="text-lg md:text-xl">{user.name}</CardTitle>
               <CardDescription>{user.username}</CardDescription>
             </div>
           </div>

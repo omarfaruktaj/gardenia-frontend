@@ -6,10 +6,16 @@ import { Loader2 } from 'lucide-react';
 import UserCard from '@/components/follow-card';
 import InfiniteScrollContainer from '@/components/infinitive-scroll-container';
 import { UserCardSkeleton } from '@/components/skeleton/user-card-skeleton';
-import { fetchFollowing } from '@/services/user-service';
+import { fetchFollowers } from '@/services/user-service';
 import { TUser, TUserExtended } from '@/types';
 
-export default function FollowingList({ user }: { user: TUser }) {
+export default function FollowerList({
+  userId,
+  currentUser,
+}: {
+  userId: string;
+  currentUser: TUser;
+}) {
   const {
     data,
     fetchNextPage,
@@ -18,18 +24,18 @@ export default function FollowingList({ user }: { user: TUser }) {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ['followings', user?._id],
+    queryKey: ['followers', userId],
     queryFn: ({ pageParam = 1 }) =>
-      fetchFollowing({ userId: user?._id as string, pageParam, limit: 1 }),
+      fetchFollowers({ userId: userId, pageParam, limit: 1 }),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => lastPage?.pagination?.next ?? null,
   });
 
-  const followings = data?.pages?.flatMap((page) => page.following) || [];
+  const followers = data?.pages.flatMap((page) => page.followers) || [];
 
   if (status === 'pending') {
     return (
-      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+      <section className="grid grid-cols-1 sm:grid-cols-2  gap-6 mt-6">
         {Array.from({ length: 9 }).map((_, index) => (
           <UserCardSkeleton key={index} />
         ))}
@@ -37,23 +43,25 @@ export default function FollowingList({ user }: { user: TUser }) {
     );
   }
 
-  if (status === 'success' && followings.length === 0 && !hasNextPage) {
-    return <p className="mt-4">You have no followings.</p>;
+  if (status === 'success' && !followers.length && !hasNextPage) {
+    return <p className="mt-4">You have no followers.</p>;
   }
 
   if (status === 'error') {
-    return (
-      <p className=" mt-4">An error occurred while fetching followings.</p>
-    );
+    return <p className="mt-4">An error occurred while fetching followers.</p>;
   }
 
   return (
     <InfiniteScrollContainer
       onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
     >
-      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-        {followings.map((following: TUserExtended) => (
-          <UserCard key={following?._id} user={following} currentUser={user!} />
+      <section className="grid grid-cols-1 gap-4 mt-4">
+        {followers.map((follower: TUserExtended) => (
+          <UserCard
+            key={follower?._id}
+            user={follower}
+            currentUser={currentUser}
+          />
         ))}
       </section>
       {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}

@@ -2,6 +2,7 @@
 
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
+import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 
 import api from '@/config/axios';
@@ -83,6 +84,8 @@ export const fetchFollowing = async ({
 export const followUser = async (followedId: string) => {
   try {
     const { data } = await api.post(`/users/${followedId}/follow`);
+    revalidatePath(`/${followedId}`);
+
     return { message: data.message };
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
@@ -96,6 +99,8 @@ export const followUser = async (followedId: string) => {
 export const UnfollowUser = async (unFollowedId: string) => {
   try {
     const { data } = await api.delete(`/users/${unFollowedId}/unfollow`);
+    revalidatePath(`/${unFollowedId}`);
+
     return { message: data.message };
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
