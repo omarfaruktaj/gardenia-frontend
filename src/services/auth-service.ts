@@ -99,8 +99,12 @@ export const getNewAccessToken = async () => {
     }
 
     return res.data;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // eslint-disable-ne xt-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    return null;
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data.message || 'Failed to get the user');
+    } else {
+      throw new Error('An unexpected error occurred');
+    }
   }
 };

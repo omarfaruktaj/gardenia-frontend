@@ -7,7 +7,7 @@ import UserCard from '@/components/follow-card';
 import InfiniteScrollContainer from '@/components/infinitive-scroll-container';
 import { UserCardSkeleton } from '@/components/skeleton/user-card-skeleton';
 import { fetchFollowers } from '@/services/user-service';
-import { TUser, TUserExtended } from '@/types';
+import { TUser, UserResponse } from '@/types';
 
 export default function FollowerList({
   userId,
@@ -26,7 +26,7 @@ export default function FollowerList({
   } = useInfiniteQuery({
     queryKey: ['followers', userId],
     queryFn: ({ pageParam = 1 }) =>
-      fetchFollowers({ userId: userId, pageParam, limit: 1 }),
+      fetchFollowers({ userId: userId, pageParam }),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => lastPage?.pagination?.next ?? null,
   });
@@ -44,7 +44,7 @@ export default function FollowerList({
   }
 
   if (status === 'success' && !followers.length && !hasNextPage) {
-    return <p className="mt-4">You have no followers.</p>;
+    return <p className="mt-4">There is no follower.</p>;
   }
 
   if (status === 'error') {
@@ -56,7 +56,7 @@ export default function FollowerList({
       onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
     >
       <section className="grid grid-cols-1 gap-4 mt-4">
-        {followers.map((follower: TUserExtended) => (
+        {followers.map((follower: UserResponse) => (
           <UserCard
             key={follower?._id}
             user={follower}

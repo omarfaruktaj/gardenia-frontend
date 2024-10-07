@@ -8,10 +8,6 @@ export interface TUser {
   isVerified: boolean;
   role: 'user' | 'admin';
 }
-export interface TUserExtended extends TUser {
-  followers: string[];
-  following: string[];
-}
 
 export interface TCategory {
   _id: string;

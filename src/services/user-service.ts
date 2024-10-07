@@ -1,32 +1,43 @@
 'use server';
 
 import axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
 import { revalidatePath } from 'next/cache';
-import { cookies } from 'next/headers';
 
 import api from '@/config/axios';
+import { TUserUpdateSchema } from '@/schemas/user-schema';
 
 export const getCurrentUser = async () => {
-  const accessToken = cookies().get('access_token')?.value;
-  let decodedToken = null;
-
-  if (accessToken) {
-    decodedToken = await jwtDecode(accessToken);
-
-    return {
-      _id: decodedToken?.userId,
-      email: decodedToken?.email,
-      username: decodedToken?.username,
-      avatar: decodedToken?.avatar,
-      name: decodedToken?.name,
-      isVerified: decodedToken?.isVerified,
-      role: decodedToken?.role,
-    };
+  try {
+    const response = await api.get('/users/me');
+    return response?.data?.data || null;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (error) {
+    // console.error('Error fetching current user:', error);
+    return null;
   }
-
-  return decodedToken;
 };
+
+// export const getCurrentUser = async () => {
+//   const accessToken = cookies().get('access_token')?.value;
+//   let decodedToken = null;
+
+//   if (accessToken) {
+//     decodedToken = await jwtDecode(accessToken);
+
+//     return {
+//       _id: decodedToken?.userId,
+//       email: decodedToken?.email,
+//       username: decodedToken?.username,
+//       avatar: decodedToken?.avatar,
+//       name: decodedToken?.name,
+//       isVerified: decodedToken?.isVerified,
+//       role: decodedToken?.role,
+//     };
+//   }
+
+//   return decodedToken;
+// };
+
 interface IFollow {
   userId: string;
   pageParam?: number;
@@ -122,6 +133,20 @@ export const fetchSingleUserWithVerificationEligible = async (
       throw new Error(error.response?.data.message || 'Failed to get the user');
     } else {
       throw new Error('An unexpected error occurred');
+    }
+  }
+};
+
+export const updateUser = async (userData: TUserUpdateSchema) => {
+  try {
+    const { data } = await api.patch('/users/updateMe', userData);
+    revalidatePath('/users/me');
+    return { data: data.data };
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return { error: error.response?.data.message || 'Login failed' };
+    } else {
+      return { error: 'An unexpected error occurred' };
     }
   }
 };

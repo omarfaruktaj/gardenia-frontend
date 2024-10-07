@@ -2,17 +2,20 @@
 import { format } from 'date-fns';
 import { Calendar, CheckCircle2Icon, UserPlus, Users } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
+import FollowButton from '@/components/follow-button';
+import { badgeVariants } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
 import {
   fetchSingleUserWithVerificationEligible,
   getCurrentUser,
 } from '@/services/user-service';
 import { UserResponse } from '@/types';
 
-import { Button } from '../ui/button';
-import { Separator } from '../ui/separator';
 import ProfileBack from './profile-back';
 import ProfileNav from './profile-nav';
+import ProfileUpdateButton from './profile-update-button';
 
 export default async function Profile({ userId }: { userId: string }) {
   const currentUser = await getCurrentUser();
@@ -56,8 +59,10 @@ export default async function Profile({ userId }: { userId: string }) {
             />
           </div>
 
-          {user._id === currentUser?._id && (
-            <Button variant="outline">Edit Profile</Button>
+          {user._id === currentUser?._id ? (
+            <ProfileUpdateButton />
+          ) : (
+            <FollowButton currentUser={currentUser} user={user} />
           )}
         </div>
 
@@ -66,9 +71,16 @@ export default async function Profile({ userId }: { userId: string }) {
             <h1 className="text-xl sm:text-2xl  font-bold leading-tight truncate">
               {user.name}
             </h1>
-            {user.isVerified && (
+            {user.isVerified ? (
               <CheckCircle2Icon className="h-6 w-6 text-blue-600" />
-            )}
+            ) : user.verificationEligible ? (
+              <Link
+                href={`/${user._id}/verify`}
+                className={badgeVariants({ variant: 'outline' })}
+              >
+                Get verify
+              </Link>
+            ) : null}
           </div>
           <p className="text-muted-foreground text-sm md:text-base">
             @{user.username}

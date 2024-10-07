@@ -40,9 +40,10 @@ const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 interface PostFormProps {
   initialData?: TPost;
+  closeModel: () => void;
 }
 
-export default function PostForm({ initialData }: PostFormProps) {
+export default function PostForm({ initialData, closeModel }: PostFormProps) {
   const [isPending, startTransition] = useTransition();
   const { user } = useUser();
 
@@ -113,8 +114,10 @@ export default function PostForm({ initialData }: PostFormProps) {
       const { data, error } = response;
 
       if (error) {
+        closeModel();
         toast.error(error.message);
       } else if (data) {
+        closeModel();
         toast.success(data.message);
       }
     });

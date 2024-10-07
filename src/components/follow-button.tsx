@@ -1,16 +1,18 @@
+'use client';
+
 import { useState } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { UnfollowUser, followUser } from '@/services/user-service';
-import { TUser, TUserExtended } from '@/types';
+import { TUser, UserResponse } from '@/types';
 
 import AlertModal from './ui/alert-model';
 import { Button } from './ui/button';
 
 interface UserCardProps {
-  user: TUserExtended;
+  user: UserResponse;
   currentUser: TUser | null;
 }
 

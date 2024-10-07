@@ -3,9 +3,8 @@
 import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
+import { Button } from '@/components/ui/button';
 import { UserResponse } from '@/types';
-
-import { Button } from '../ui/button';
 
 export default function ProfileBack({ user }: { user: UserResponse }) {
   const router = useRouter();
