@@ -44,6 +44,9 @@ export default function UserProfile() {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
+        <DropdownMenuItem>
+          <Link href={`/${user?._id}`}>My Profile</Link>
+        </DropdownMenuItem>
         {user?.role === 'user' && (
           <DropdownMenuItem>
             <Link href={'/dashboard'}>Dashboard</Link>

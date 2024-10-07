@@ -92,6 +92,7 @@ export const followUser = async (followedId: string) => {
     }
   }
 };
+
 export const UnfollowUser = async (unFollowedId: string) => {
   try {
     const { data } = await api.delete(`/users/${unFollowedId}/unfollow`);
@@ -101,6 +102,21 @@ export const UnfollowUser = async (unFollowedId: string) => {
       return { error: error.response?.data.message || 'Creating failed' };
     } else {
       return { error: 'An unexpected error occurred' };
+    }
+  }
+};
+
+export const fetchSingleUserWithVerificationEligible = async (
+  userId: string
+) => {
+  try {
+    const response = await api.get(`/users/${userId}/status`);
+    return response?.data?.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data.message || 'Failed to get the user');
+    } else {
+      throw new Error('An unexpected error occurred');
     }
   }
 };

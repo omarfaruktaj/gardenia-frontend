@@ -42,3 +42,22 @@ export interface TPost {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+export interface UserResponse {
+  _id: string;
+  name: string;
+  username: string;
+  email: string;
+  isVerified: boolean;
+  followers: string[];
+  following: string[];
+  role: 'user' | 'admin';
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+  avatar?: string;
+  cover?: string;
+  posts?: number;
+  bio: string;
+  verificationEligible: boolean;
+}

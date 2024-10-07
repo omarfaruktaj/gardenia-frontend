@@ -1,0 +1,32 @@
+'use client';
+
+import { ArrowLeft } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+
+import { UserResponse } from '@/types';
+
+import { Button } from '../ui/button';
+
+export default function ProfileBack({ user }: { user: UserResponse }) {
+  const router = useRouter();
+  return (
+    <div className=" w-full py-3 px-2">
+      <div className="flex items-center gap-8 ">
+        <Button
+          onClick={() => router.back()}
+          variant={'ghost'}
+          size={'icon'}
+          className="rounded-full"
+        >
+          <ArrowLeft />
+        </Button>
+        <div>
+          <h1 className="text-xl font-bold leading-tight truncate">
+            {user.name}
+          </h1>
+          <p className=" text-muted-foreground text-sm">{user.posts} posts</p>
+        </div>
+      </div>
+    </div>
+  );
+}
