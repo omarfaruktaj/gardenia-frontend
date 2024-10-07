@@ -1,4 +1,4 @@
-import Profile from '@/app/(main)/[userId]/_components/profile';
+import Profile from '@/app/(main)/[userId]/(profile)/_components/profile';
 
 export default function Default({ params }: { params: { userId: string } }) {
   return <Profile userId={params.userId} />;

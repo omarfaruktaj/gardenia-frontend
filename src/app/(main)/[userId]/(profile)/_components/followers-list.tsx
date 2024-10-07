@@ -35,7 +35,7 @@ export default function FollowerList({
 
   if (status === 'pending') {
     return (
-      <section className="grid grid-cols-1 sm:grid-cols-2  gap-6 mt-6">
+      <section className="grid grid-cols-1   gap-6 mt-6">
         {Array.from({ length: 9 }).map((_, index) => (
           <UserCardSkeleton key={index} />
         ))}

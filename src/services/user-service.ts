@@ -17,6 +17,18 @@ export const getCurrentUser = async () => {
   }
 };
 
+export const VerifyUser = async (userId: string) => {
+  try {
+    const response = await api.get(`/users/${userId}/verify`);
+    revalidatePath('/users/me');
+    return response?.data?.data || null;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (error) {
+    // console.error('Error fetching current user:', error);
+    return null;
+  }
+};
+
 // export const getCurrentUser = async () => {
 //   const accessToken = cookies().get('access_token')?.value;
 //   let decodedToken = null;

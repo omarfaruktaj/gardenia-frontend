@@ -1,3 +1,4 @@
+import { BadgeCheck } from 'lucide-react';
 import Link from 'next/link';
 
 import FollowButton from '@/components/follow-button';
@@ -30,7 +31,12 @@ export default function UserCard({ user, currentUser }: UserCardProps) {
 
             <div className="ml-4">
               <Link href={`/${user._id}`}>
-                <CardTitle className="text-xl">{user.name}</CardTitle>
+                <div className="flex items-center gap-2">
+                  <CardTitle className="text-xl">{user.name}</CardTitle>
+                  {user.isVerified && (
+                    <BadgeCheck className="h-5 w-5 text-primary mt-1" />
+                  )}
+                </div>
                 <CardDescription>{user.username}</CardDescription>
               </Link>
             </div>

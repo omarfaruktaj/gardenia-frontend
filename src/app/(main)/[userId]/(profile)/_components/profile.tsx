@@ -1,11 +1,9 @@
 /* eslint-disable quotes */
 import { format } from 'date-fns';
-import { Calendar, CheckCircle2Icon, UserPlus, Users } from 'lucide-react';
+import { BadgeCheck, Calendar, UserPlus, Users } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 
 import FollowButton from '@/components/follow-button';
-import { badgeVariants } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import {
   fetchSingleUserWithVerificationEligible,
@@ -13,6 +11,7 @@ import {
 } from '@/services/user-service';
 import { UserResponse } from '@/types';
 
+import GetVerifiedButton from './get-verified-button';
 import ProfileBack from './profile-back';
 import ProfileNav from './profile-nav';
 import ProfileUpdateButton from './profile-update-button';
@@ -34,6 +33,7 @@ export default async function Profile({ userId }: { userId: string }) {
     : user._id === currentUser?._id
       ? "You haven't added a bio yet."
       : "This user hasn't added a bio yet.";
+
   return (
     <div className="overflow-hidden">
       <ProfileBack user={user} />
@@ -67,19 +67,14 @@ export default async function Profile({ userId }: { userId: string }) {
         </div>
 
         <div className="mt-4">
-          <div className="flex items-center gap-3 mb-1">
+          <div className="flex items-center gap-x-2 mb-1">
             <h1 className="text-xl sm:text-2xl  font-bold leading-tight truncate">
               {user.name}
             </h1>
             {user.isVerified ? (
-              <CheckCircle2Icon className="h-6 w-6 text-blue-600" />
+              <BadgeCheck className="h-5 w-5 text-primary mt-1" />
             ) : user.verificationEligible ? (
-              <Link
-                href={`/${user._id}/verify`}
-                className={badgeVariants({ variant: 'outline' })}
-              >
-                Get verify
-              </Link>
+              <GetVerifiedButton />
             ) : null}
           </div>
           <p className="text-muted-foreground text-sm md:text-base">

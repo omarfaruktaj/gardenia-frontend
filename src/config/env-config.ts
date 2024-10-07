@@ -4,6 +4,7 @@ const envConfig = {
     process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
   NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET:
     process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET,
+  NEXT_PUBLIC_STRIPE_PUBLIC_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY,
 };
 
 export default Object.freeze(envConfig);
