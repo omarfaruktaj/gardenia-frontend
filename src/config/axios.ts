@@ -37,7 +37,7 @@ api.interceptors.response.use(
       const refreshToken = cookieStore.get('refresh_token')?.value;
 
       if (!refreshToken) {
-        return Promise.reject(new Error('No access token available'));
+        return Promise.reject(new Error('No refresh token available'));
       }
 
       config.sent = true;

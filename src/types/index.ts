@@ -55,5 +55,76 @@ export interface UserResponse {
   cover?: string;
   posts?: number;
   bio: string;
+  favorites: IFavorite[];
   verificationEligible: boolean;
+}
+
+export interface PostResponse {
+  _id: string;
+  title: string;
+  content: string;
+  category: string;
+  images: string[];
+  author: string;
+  votes: number;
+  premium: boolean;
+  isDeleted: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export enum VoteType {
+  Upvote = 'upvote',
+  Downvote = 'downvote',
+}
+
+export interface IVotes {
+  _id: string;
+  post: string;
+  user: string;
+  voteType: VoteType;
+}
+
+export interface IComment {
+  _id: string;
+  post: string;
+  user: string;
+  content: string;
+  isDeleted: boolean;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+export interface CommentResponse {
+  _id: string;
+  post: string;
+  user: UserResponse;
+  content: string;
+  isDeleted: boolean;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
+export interface IFavorite {
+  user: string;
+  post: string;
+}
+
+export interface ISinglePost {
+  _id: string;
+  title: string;
+  content: string;
+  category: TCategory;
+  comments: CommentResponse[];
+  images: string[];
+  author: UserResponse;
+  votes: number;
+  premium: boolean;
+  isDeleted: boolean;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+  allVotes: IVotes[];
+  id: string;
 }
