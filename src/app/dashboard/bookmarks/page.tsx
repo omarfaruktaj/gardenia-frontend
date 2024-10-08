@@ -1,3 +1,3 @@
-export default function Page() {
-  return <div>dashboard</div>;
+export default function Bookmark() {
+  return <div>bookmark</div>;
 }

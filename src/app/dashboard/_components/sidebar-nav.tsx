@@ -1,6 +1,6 @@
 'use client';
 
-import { Book, BookMarked, Tag, User } from 'lucide-react';
+import { Book, BookMarked, Settings, Tag, User } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -16,7 +16,7 @@ export default function SidebarNav() {
     },
     {
       path: '/dashboard/bookmarks',
-      label: 'Book Mark',
+      label: 'Bookmarks',
       icon: BookMarked,
     },
     {
@@ -28,6 +28,11 @@ export default function SidebarNav() {
       path: '/dashboard/followings',
       label: 'Following',
       icon: Tag,
+    },
+    {
+      path: '/dashboard/settings',
+      label: 'Settings',
+      icon: Settings,
     },
   ];
 

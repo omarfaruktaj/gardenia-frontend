@@ -41,37 +41,6 @@ export function UserActivityChart({
         <CardDescription>Displays total user activity</CardDescription>
       </CardHeader>
       <CardContent>
-        {/* <ChartContainer config={chartConfig}>
-          <AreaChart
-            accessibilityLayer
-            data={chartData}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="line" />}
-            />
-            <Area
-              dataKey="totalUsers"
-              type="natural"
-              fill="var(--color-totalUsers)"
-              fillOpacity={0.4}
-              stroke="var(--color-totalUsers)"
-            />
-          </AreaChart>
-        </ChartContainer> */}
-
         <ChartContainer config={chartConfig}>
           <LineChart
             accessibilityLayer

@@ -53,7 +53,21 @@ export const resetPasswordSchema = z
     path: ['confirmPassword'],
   });
 
+export const changePasswordSchema = z.object({
+  currentPassword: z
+    .string()
+    .min(6, { message: 'Current password must be at least 6 characters long.' })
+    .max(100, {
+      message: 'Current password must be less than 100 characters.',
+    }),
+  newPassword: z
+    .string()
+    .min(6, { message: 'New password must be at least 6 characters long.' })
+    .max(100, { message: 'New password must be less than 100 characters.' }),
+});
+
 export type TForgotPasswordSchema = z.infer<typeof forgotPasswordSchema>;
 export type TLoginSchema = z.infer<typeof loginSchema>;
 export type TSignUpSchema = z.infer<typeof signUpSchema>;
 export type TResetPasswordSchema = z.infer<typeof resetPasswordSchema>;
+export type TChangePasswordSchema = z.infer<typeof changePasswordSchema>;

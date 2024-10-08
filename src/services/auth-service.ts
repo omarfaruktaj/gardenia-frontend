@@ -5,6 +5,7 @@ import { cookies } from 'next/headers';
 
 import api from '@/config/axios';
 import {
+  TChangePasswordSchema,
   TForgotPasswordSchema,
   TLoginSchema,
   TSignUpSchema,
@@ -105,6 +106,32 @@ export const getNewAccessToken = async () => {
       throw new Error(error.response?.data.message || 'Failed to get the user');
     } else {
       throw new Error('An unexpected error occurred');
+    }
+  }
+};
+
+export const changePassword = async (passwords: TChangePasswordSchema) => {
+  try {
+    const { data } = await api.patch('/auth/changePassword', passwords);
+
+    return {
+      data: {
+        message: data.message,
+      },
+    };
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return {
+        error: {
+          message: error.response?.data.message || 'Failed to favorite',
+        },
+      };
+    } else {
+      return {
+        error: {
+          message: 'An unexpected error occurred',
+        },
+      };
     }
   }
 };

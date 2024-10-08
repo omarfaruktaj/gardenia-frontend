@@ -10,6 +10,10 @@ export const columns: ColumnDef<TUser>[] = [
     header: 'Name',
   },
   {
+    accessorKey: 'username',
+    header: 'Username',
+  },
+  {
     accessorKey: 'email',
     header: 'Email',
   },
