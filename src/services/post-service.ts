@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache';
 
 import api from '@/config/axios';
 import { TPostFormSchema } from '@/schemas/post-schema';
+import { Pagination } from '@/types';
 
 export const createPost = async (userData: TPostFormSchema) => {
   try {
@@ -35,8 +36,8 @@ export const createPost = async (userData: TPostFormSchema) => {
 
 export const updatePost = async (id: string, userData: TPostFormSchema) => {
   try {
-    const { data } = await api.put(`/posts${id}`, userData);
-    revalidatePath('/posts');
+    const { data } = await api.put(`/posts/${id}`, userData);
+    revalidatePath(`/posts/${id}`);
     return {
       data: {
         message: data.message,
@@ -138,6 +139,57 @@ export const createComment = async (postId: string, content: string) => {
           message: 'An unexpected error occurred',
         },
       };
+    }
+  }
+};
+
+export const deletePost = async (postId: string) => {
+  try {
+    const { data } = await api.delete(`/posts/${postId}`);
+    revalidatePath(`/posts/${postId}`);
+    return {
+      data: {
+        message: data.message,
+      },
+    };
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return {
+        error: {
+          message: error.response?.data.message || 'Failed to delete comment',
+        },
+      };
+    } else {
+      return {
+        error: {
+          message: 'An unexpected error occurred',
+        },
+      };
+    }
+  }
+};
+
+export const fetchUserPosts = async ({
+  userId,
+  pageParam = 1,
+  limit = 10,
+}: Pagination & { userId: string }) => {
+  try {
+    const response = await api.get(
+      `/users/${userId}/posts?page=${pageParam}&limit=${limit}`
+    );
+
+    return {
+      posts: response?.data?.data,
+      pagination: response?.data?.pagination,
+    };
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(
+        error.response?.data.message || 'Failed to get followers'
+      );
+    } else {
+      throw new Error('An unexpected error occurred');
     }
   }
 };

@@ -22,26 +22,29 @@ export default function UserCard({ user, currentUser }: UserCardProps) {
       <CardHeader className="p-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center mb-4 sm:mb-0">
-            <Link href={`/${user._id}`}>
+            <Link href={`/${user?._id}`}>
               <Avatar>
-                <AvatarImage src={user.avatar} alt={`${user.name}'s avatar`} />
-                <AvatarFallback>{user.name.slice(0, 2)}</AvatarFallback>
+                <AvatarImage
+                  src={user?.avatar}
+                  alt={`${user?.name}'s avatar`}
+                />
+                <AvatarFallback>{user?.name.slice(0, 2)}</AvatarFallback>
               </Avatar>
             </Link>
 
             <div className="ml-4">
-              <Link href={`/${user._id}`}>
+              <Link href={`/${user?._id}`}>
                 <div className="flex items-center gap-2">
-                  <CardTitle className="text-xl">{user.name}</CardTitle>
-                  {user.isVerified && (
+                  <CardTitle className="text-xl">{user?.name}</CardTitle>
+                  {user?.isVerified && (
                     <BadgeCheck className="h-5 w-5 text-primary mt-1" />
                   )}
                 </div>
-                <CardDescription>{user.username}</CardDescription>
+                <CardDescription>{user?.username}</CardDescription>
               </Link>
             </div>
           </div>
-          {!(user._id === currentUser._id) && (
+          {!(user?._id === currentUser?._id) && (
             <FollowButton user={user} currentUser={currentUser} />
           )}
         </div>

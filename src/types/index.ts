@@ -1,12 +1,21 @@
 export interface TUser {
   _id: string;
   name: string;
-  avatar: string;
   username: string;
   email: string;
-  bio?: string;
   isVerified: boolean;
+  followers: string[];
+  following: string[];
   role: 'user' | 'admin';
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+  avatar?: string;
+  cover?: string;
+  posts?: number;
+  bio: string;
+  favorites: IFavorite[];
+  verificationEligible: boolean;
 }
 
 export interface TCategory {
@@ -57,6 +66,25 @@ export interface UserResponse {
   bio: string;
   favorites: IFavorite[];
   verificationEligible: boolean;
+}
+
+export interface Pagination {
+  page?: number;
+  totalPage?: number;
+  limit?: number;
+  next?: number;
+  prev?: number;
+  total?: number;
+  pageParam: number;
+}
+export interface QueryString {
+  searchTerm?: string;
+  page?: string;
+  sort?: string;
+  limit?: string;
+  fields?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
 }
 
 export interface PostResponse {
@@ -126,7 +154,6 @@ export interface ISinglePost {
   updatedAt: string;
   __v: number;
   allVotes: IVotes[];
-  id: string;
 }
 
 export interface UserActivityData {

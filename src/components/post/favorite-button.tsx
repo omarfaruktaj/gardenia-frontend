@@ -1,7 +1,7 @@
 'use client';
 
-import { Heart } from 'lucide-react';
-import { FaHeart } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
+import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
 import { toast } from 'sonner';
 
 import { cn } from '@/lib/utils';
@@ -17,7 +17,12 @@ export default function FavoriteButton({
   post: ISinglePost;
   currentUser: UserResponse;
 }) {
+  const router = useRouter();
+
   const handleFavoriteToggle = async () => {
+    if (!currentUser) {
+      return router.push('/login');
+    }
     const result = await toggleFavorite(post._id);
 
     if (result.error) {
@@ -45,9 +50,9 @@ export default function FavoriteButton({
       }
     >
       {isUserFavorited ? (
-        <FaHeart className="h-5 w-5" />
+        <IoBookmark className="h-5 w-5" />
       ) : (
-        <Heart className="h-5 w-5" />
+        <IoBookmarkOutline className="h-5 w-5" />
       )}
     </Button>
   );

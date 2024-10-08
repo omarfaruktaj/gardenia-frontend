@@ -22,8 +22,6 @@ export default function VoteButton({
     if (result.error) {
       toast.error(result.error.message);
     }
-
-    console.log(`Voted ${voteType} on post ID: ${post.id}`);
   };
 
   const isUserUpVoted = post?.allVotes?.find(

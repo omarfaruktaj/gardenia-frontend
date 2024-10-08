@@ -101,7 +101,7 @@ export default function FollowButton({ user, currentUser }: UserCardProps) {
         isOpen={openModel}
         onClose={() => setOpenModel(false)}
         onConfirm={handleUnFollow}
-        title={`Unfollow ${user.username}`}
+        title={`Unfollow ${user?.username}`}
         actionButtonText="Unfollow"
         description="Their posts will no longer show up in your For You timeline. You can still view their profile, unless their posts are protected. "
       />

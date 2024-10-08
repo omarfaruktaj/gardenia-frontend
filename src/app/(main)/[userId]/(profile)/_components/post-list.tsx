@@ -3,19 +3,13 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { Loader2 } from 'lucide-react';
 
-import UserCard from '@/components/follow-card';
 import InfiniteScrollContainer from '@/components/infinitive-scroll-container';
+import PostCard from '@/components/post/post-card';
 import { UserCardSkeleton } from '@/components/skeleton/user-card-skeleton';
-import { fetchFollowers } from '@/services/user-service';
-import { UserResponse } from '@/types';
+import { fetchUserPosts } from '@/services/post-service';
+import { ISinglePost } from '@/types';
 
-export default function FollowerList({
-  userId,
-  currentUser,
-}: {
-  userId: string;
-  currentUser: UserResponse;
-}) {
+export default function PostList({ userId }: { userId: string }) {
   const {
     data,
     fetchNextPage,
@@ -26,12 +20,12 @@ export default function FollowerList({
   } = useInfiniteQuery({
     queryKey: ['followers', userId],
     queryFn: ({ pageParam = 1 }) =>
-      fetchFollowers({ userId: userId, pageParam }),
+      fetchUserPosts({ userId: userId, pageParam }),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => lastPage?.pagination?.next ?? null,
   });
 
-  const followers = data?.pages.flatMap((page) => page.followers) || [];
+  const posts = data?.pages.flatMap((page) => page.posts) || [];
 
   if (status === 'pending') {
     return (
@@ -43,10 +37,7 @@ export default function FollowerList({
     );
   }
 
-  if (
-    (status === 'success' && !followers) ||
-    (!followers.length && !hasNextPage)
-  ) {
+  if (status === 'success' && !posts.length && !hasNextPage) {
     return <p className="mt-4">There is no follower.</p>;
   }
 
@@ -54,19 +45,18 @@ export default function FollowerList({
     return <p className="mt-4">An error occurred while fetching followers.</p>;
   }
 
+  console.log(posts);
+
   return (
     <InfiniteScrollContainer
       onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
     >
-      <section className="grid grid-cols-1 gap-4 mt-4">
-        {followers?.map((follower: UserResponse) => (
-          <UserCard
-            key={follower?._id}
-            user={follower}
-            currentUser={currentUser}
-          />
-        ))}
-      </section>
+      <div className="grid grid-cols-1 gap-4">
+        {posts.length > 0 &&
+          posts.map((post: ISinglePost) => (
+            <PostCard key={post?._id} post={post} />
+          ))}
+      </div>
       {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
     </InfiniteScrollContainer>
   );
