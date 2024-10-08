@@ -128,3 +128,25 @@ export interface ISinglePost {
   allVotes: IVotes[];
   id: string;
 }
+
+export interface UserActivityData {
+  month: string;
+  year: string;
+  totalUsers: number;
+}
+
+export interface PaymentData {
+  month: string;
+  year: string;
+  totalAmount: number;
+}
+export interface PostData {
+  month: string;
+  year: string;
+  count: number;
+}
+export interface VoteData {
+  month: string;
+  year: string;
+  totalVotes: number;
+}

@@ -5,8 +5,6 @@ import { Heading } from '@/components/ui/heading';
 import CategoryForm from '../components/category-form';
 
 export default function CreateCategory() {
-  //  const title = initialData ? 'Edit category' : 'Create category';
-  //  const description = initialData ? 'Edit category' : 'Add a new category';
   return (
     <div className="p-4 sm:p-6 lg:p-8">
       <BackButton />

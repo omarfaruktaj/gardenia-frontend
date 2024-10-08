@@ -17,4 +17,8 @@ export const columns: ColumnDef<TUser>[] = [
     accessorKey: 'isVerified',
     header: 'Verified',
   },
+  // {
+  //   id: 'actions',
+  //   cell: ({ row }) => <CellAction data={row.original} />,
+  // },
 ];
