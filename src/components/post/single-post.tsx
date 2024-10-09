@@ -99,7 +99,7 @@ export default async function SinglePost({ post }: { post: ISinglePost }) {
           </div>
           <div className="flex items-center space-x-2">
             <CopyURLButton />
-            <FavoriteButton currentUser={currentUser!} post={post} />
+            <FavoriteButton post={post} />
             <GeneratePDFButton postId={post._id} />
           </div>
         </div>

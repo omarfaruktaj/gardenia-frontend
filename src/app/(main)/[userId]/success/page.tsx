@@ -30,7 +30,7 @@ const SuccessPage = ({ params }: { params: { userId: string } }) => {
           await VerifyUser(params.userId);
           toast.success('Successfully verified');
         } catch (error) {
-          console.error('Failed to confirm payment:', error);
+          // console.error('Failed to confirm payment:', error);
         }
       };
 

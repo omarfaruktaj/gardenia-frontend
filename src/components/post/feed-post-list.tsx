@@ -2,14 +2,21 @@
 
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { Loader2 } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
 
 import InfiniteScrollContainer from '@/components/infinitive-scroll-container';
 import PostCard from '@/components/post/post-card';
 import { UserCardSkeleton } from '@/components/skeleton/user-card-skeleton';
-import { fetchUserPosts } from '@/services/post-service';
+import { fetchFeed } from '@/services/post-service';
 import { ISinglePost } from '@/types';
 
-export default function PostList({ userId }: { userId: string }) {
+export default function FeedPostList() {
+  const params = useSearchParams();
+
+  const searchTerm = params.get('searchTerm') || undefined;
+  const category = params.get('category') || undefined;
+
+  console.log(searchTerm);
   const {
     data,
     fetchNextPage,
@@ -18,9 +25,9 @@ export default function PostList({ userId }: { userId: string }) {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ['profile-posts', userId],
+    queryKey: ['FEED_POSTS', searchTerm, category],
     queryFn: ({ pageParam = 1 }) =>
-      fetchUserPosts({ userId: userId, pageParam }),
+      fetchFeed({ pageParam, searchTerm, category }),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => lastPage?.pagination?.next ?? null,
   });
@@ -29,7 +36,7 @@ export default function PostList({ userId }: { userId: string }) {
 
   if (status === 'pending') {
     return (
-      <section className="grid grid-cols-1   gap-6 mt-6">
+      <section className="grid grid-cols-1 gap-6 mt-6">
         {Array.from({ length: 9 }).map((_, index) => (
           <UserCardSkeleton key={index} />
         ))}
@@ -38,11 +45,11 @@ export default function PostList({ userId }: { userId: string }) {
   }
 
   if (status === 'success' && !posts.length && !hasNextPage) {
-    return <p className="mt-4">There is no Post.</p>;
+    return <p className="mt-4">There are no posts.</p>;
   }
 
   if (status === 'error') {
-    return <p className="mt-4">An error occurred while fetching followers.</p>;
+    return <p className="mt-4">An error occurred while fetching posts.</p>;
   }
 
   return (

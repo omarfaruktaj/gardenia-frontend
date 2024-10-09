@@ -19,7 +19,6 @@ import {
 } from '@/components/ui/form';
 import LoadingButton from '@/components/ui/loading-button';
 import { PasswordInput } from '@/components/ui/password-input';
-import { useUser } from '@/context/user-provider';
 import {
   TResetPasswordSchema,
   resetPasswordSchema,
@@ -32,7 +31,7 @@ export default function ResetPasswordForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
-  const { setUser } = useUser();
+  const queryClient = useQueryClient();
 
   const form = useForm<TResetPasswordSchema>({
     resolver: zodResolver(resetPasswordSchema),
@@ -58,7 +57,7 @@ export default function ResetPasswordForm() {
       }
 
       if (data) {
-        setUser(data.user);
+        queryClient.invalidateQueries({ queryKey: ['ME'] });
         form.reset();
         router.push('/');
       }

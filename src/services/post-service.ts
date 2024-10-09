@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache';
 
 import api from '@/config/axios';
 import { TPostFormSchema } from '@/schemas/post-schema';
-import { Pagination } from '@/types';
+import { Pagination, QueryString } from '@/types';
 
 export const createPost = async (userData: TPostFormSchema) => {
   try {
@@ -94,7 +94,7 @@ export const votePost = async ({ postId, voteType }: Vote) => {
 export const toggleFavorite = async (postId: string) => {
   try {
     const { data } = await api.post(`posts/${postId}/favorite`);
-    revalidatePath(`/posts/${postId}`);
+    revalidatePath('/users/me');
     return {
       data: {
         message: data.message,
@@ -188,6 +188,57 @@ export const fetchUserPosts = async ({
       throw new Error(
         error.response?.data.message || 'Failed to get followers'
       );
+    } else {
+      throw new Error('An unexpected error occurred');
+    }
+  }
+};
+
+export const fetchPosts = async ({ pageParam = 1, limit = 10 }: Pagination) => {
+  try {
+    const response = await api.get(`/posts?page=${pageParam}&limit=${limit}`);
+
+    return {
+      posts: response?.data?.data,
+      pagination: response?.data?.pagination,
+    };
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(
+        error.response?.data.message || 'Failed to get followers'
+      );
+    } else {
+      throw new Error('An unexpected error occurred');
+    }
+  }
+};
+
+export const fetchFeed = async ({
+  pageParam = 1,
+  limit = 10,
+  searchTerm,
+  category,
+}: Pagination & QueryString) => {
+  const sort = searchTerm ? '-votes' : undefined;
+  const categoryFilter = category === '' ? category : undefined;
+  try {
+    const response = await api.get('/posts/feed?', {
+      params: {
+        limit,
+        searchTerm,
+        sort,
+        page: pageParam,
+        category: categoryFilter,
+      },
+    });
+
+    return {
+      posts: response?.data?.data,
+      pagination: response?.data?.pagination,
+    };
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data.message || 'Failed to get posts');
     } else {
       throw new Error('An unexpected error occurred');
     }

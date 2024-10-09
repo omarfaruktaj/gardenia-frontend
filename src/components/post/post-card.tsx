@@ -80,7 +80,7 @@ export default function PostCard({ post }: { post: ISinglePost }) {
             </div>
           </Link>
           <div className="flex items-center">
-            <FavoriteButton currentUser={currentUser!} post={post} />
+            <FavoriteButton post={post} />
             <PostOptionButton post={post} currentUser={currentUser!} />
           </div>
         </div>

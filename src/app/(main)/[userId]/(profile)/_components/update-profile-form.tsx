@@ -3,6 +3,7 @@
 import { useState, useTransition } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
@@ -32,13 +33,14 @@ interface UpdateProfileFormProps {
 export default function UpdateProfileForm({
   closeModel,
 }: UpdateProfileFormProps) {
-  const { user, setUser } = useUser();
+  const { user } = useUser();
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>(undefined);
   const form = useForm<TUserUpdateSchema>({
     resolver: zodResolver(userUpdateSchema),
     defaultValues: user!,
   });
+  const queryClient = useQueryClient();
 
   async function onSubmit(values: TUserUpdateSchema) {
     setError(undefined);
@@ -55,7 +57,7 @@ export default function UpdateProfileForm({
 
         const updatedUser = await getCurrentUser();
         if (updatedUser) {
-          setUser(updatedUser);
+          queryClient.invalidateQueries({ queryKey: ['ME'] });
         }
       }
     });

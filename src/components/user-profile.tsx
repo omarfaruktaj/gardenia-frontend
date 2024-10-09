@@ -1,5 +1,6 @@
 'use client';
 
+import { useQueryClient } from '@tanstack/react-query';
 import { LogOut, User2 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -19,18 +20,20 @@ import { getCurrentUser } from '@/services/user-service';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 
 export default function UserProfile() {
-  const { user, setUser } = useUser();
+  const { user } = useUser();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const pathname = usePathname();
 
   const handleLogout = async () => {
     logout();
-    await getCurrentUser();
-    setUser(null);
+
     if (!publicRoutes.includes(pathname)) {
       router.push('/');
     }
+    await getCurrentUser();
+    queryClient.invalidateQueries({ queryKey: ['ME'] });
   };
 
   return (
@@ -49,7 +52,7 @@ export default function UserProfile() {
         </DropdownMenuItem>
         {user?.role === 'user' && (
           <DropdownMenuItem>
-            <Link href={'/dashboard'}>Dashboard</Link>
+            <Link href={'/my-posts'}>Dashboard</Link>
           </DropdownMenuItem>
         )}
         {user?.role === 'admin' && (

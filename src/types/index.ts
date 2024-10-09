@@ -81,7 +81,7 @@ export interface QueryString {
   searchTerm?: string;
   page?: string;
   sort?: string;
-  limit?: string;
+  limit?: number;
   fields?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
@@ -177,3 +177,13 @@ export interface VoteData {
   year: string;
   totalVotes: number;
 }
+
+export type Favorite = {
+  _id: string;
+  user: string;
+  post: ISinglePost;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type CommentsArray = Comment[];

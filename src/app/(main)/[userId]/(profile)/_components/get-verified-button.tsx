@@ -18,7 +18,7 @@ export default function GetVerifiedButton() {
     const stripe: Stripe | null = await stripePromise;
 
     if (!stripe) {
-      console.error('Stripe.js failed to load.');
+      // console.error('Stripe.js failed to load.');
       toast.error('Unable to load payment processor. Please try again later.');
       return;
     }
@@ -30,11 +30,11 @@ export default function GetVerifiedButton() {
       const { error } = await stripe.redirectToCheckout({ sessionId: id });
 
       if (error) {
-        console.error('Error redirecting to checkout:', error);
+        // console.error('Error redirecting to checkout:', error);
         toast.error('Failed to redirect to checkout. Please try again.');
       }
     } catch (error) {
-      console.error('Error initiating payment:', error);
+      // console.error('Error initiating payment:', error);
       toast.error('Payment initiation failed. Please try again.');
     }
   };

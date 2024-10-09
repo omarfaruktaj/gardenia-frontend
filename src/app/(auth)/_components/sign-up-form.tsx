@@ -3,6 +3,7 @@
 import { useState, useTransition } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -20,7 +21,6 @@ import {
 import { Input } from '@/components/ui/input';
 import LoadingButton from '@/components/ui/loading-button';
 import { PasswordInput } from '@/components/ui/password-input';
-import { useUser } from '@/context/user-provider';
 import { TSignUpSchema, signUpSchema } from '@/schemas/auth-schema';
 import { singUp } from '@/services/auth-service';
 
@@ -28,7 +28,7 @@ export default function SignUpForm() {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>(undefined);
   const router = useRouter();
-  const { setUser } = useUser();
+  const queryClient = useQueryClient();
 
   const form = useForm<TSignUpSchema>({
     resolver: zodResolver(signUpSchema),
@@ -51,7 +51,7 @@ export default function SignUpForm() {
       }
 
       if (data) {
-        setUser(data.user);
+        queryClient.invalidateQueries({ queryKey: ['ME'] });
         router.push('/');
       }
     });

@@ -38,7 +38,7 @@ const GeneratePDFButton: React.FC<GeneratePDFButtonProps> = ({ postId }) => {
     if (getTargetElement) {
       await generatePDF(getTargetElement, options);
     } else {
-      console.error('Target element not found');
+      // console.error('Target element not found');
     }
   };
 

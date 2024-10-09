@@ -14,7 +14,7 @@ export default function CopyURLButton() {
         toast.info('URL copied to clipboard!');
       })
       .catch((err) => {
-        console.error('Failed to copy: ', err);
+        // console.error('Failed to copy: ', err);
       });
   };
   return (

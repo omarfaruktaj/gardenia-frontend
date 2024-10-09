@@ -1,23 +1,21 @@
 'use client';
 
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
 import { toast } from 'sonner';
 
+import { useUser } from '@/context/user-provider';
 import { cn } from '@/lib/utils';
 import { toggleFavorite } from '@/services/post-service';
-import { ISinglePost, UserResponse } from '@/types';
+import { ISinglePost } from '@/types';
 
 import { Button } from '../ui/button';
 
-export default function FavoriteButton({
-  post,
-  currentUser,
-}: {
-  post: ISinglePost;
-  currentUser: UserResponse;
-}) {
+export default function FavoriteButton({ post }: { post: ISinglePost }) {
+  const { user: currentUser } = useUser();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const handleFavoriteToggle = async () => {
     if (!currentUser) {
@@ -28,11 +26,23 @@ export default function FavoriteButton({
     if (result.error) {
       toast.error(result.error.message);
     }
+
+    if (result.data) {
+      console.log(result.data);
+      queryClient.invalidateQueries({
+        queryKey: ['ME'],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['FAVORITE_POSTS'],
+      });
+    }
   };
 
-  const userFavoritedPosts = currentUser?.favorites.map(
+  const userFavoritedPosts = currentUser?.favorites?.map(
     (favorite) => favorite.post
   );
+
+  console.log(userFavoritedPosts);
 
   const isUserFavorited = userFavoritedPosts?.includes(post._id);
 

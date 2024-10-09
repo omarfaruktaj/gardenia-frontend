@@ -46,6 +46,7 @@ export default function PostForm({ initialData, closeModel }: PostFormProps) {
   const [isPending, startTransition] = useTransition();
   const [uploadingImage, setUploadingImage] = useState(false);
   const { user } = useUser();
+
   const quillRef = useRef<ReactQuill>(null);
 
   const { data: categories, isLoading } = useQuery({
@@ -72,14 +73,13 @@ export default function PostForm({ initialData, closeModel }: PostFormProps) {
       input.setAttribute('type', 'file');
       input.setAttribute('accept', 'image/*');
       input.click();
-
       input.onchange = async () => {
         const file = input.files ? input.files[0] : null;
         if (file) {
           setUploadingImage(true);
           const imageUrl = await uploadImageToCloudinary(file);
           setUploadingImage(false);
-          if (imageUrl) {
+          if (imageUrl && quillRef.current) {
             const quill = quillRef.current!.getEditor();
             const range = quill.getSelection(true);
             quill.insertEmbed(range.index, 'image', imageUrl, 'user');
@@ -105,16 +105,20 @@ export default function PostForm({ initialData, closeModel }: PostFormProps) {
     'font',
     'align',
     'code',
+    'image',
   ];
 
   const toolbarOptions = [
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
-    ['bold', 'italic', 'underline', 'strike'],
+    ['bold', 'italic', 'underline', 'code-block'],
+    ['link', 'image'],
     [{ list: 'ordered' }, { list: 'bullet' }],
-    [{ align: [] }],
+    [{ indent: '-1' }, { indent: '+1' }],
+    [{ direction: 'rtl' }],
     [{ color: [] }, { background: [] }],
-    ['link', 'image', 'clean'],
     [{ font: [] }],
+    [{ align: [] }],
+    ['clean'],
   ];
 
   const modules = {
@@ -182,11 +186,17 @@ export default function PostForm({ initialData, closeModel }: PostFormProps) {
                 <ReactQuill
                   {...field}
                   onChange={field.onChange}
-                  placeholder="Write your content here..."
                   modules={modules}
                   ref={quillRef}
                   formats={formats}
                 />
+                {/* <QuillEditor
+                  {...field}
+                  onChange={field.onChange}
+                  modules={modules}
+                  ref={quillRef}
+                  formats={formats}
+                /> */}
               </FormControl>
               {uploadingImage && (
                 <p className="flex items-center gap-2 text-sm">

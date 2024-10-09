@@ -45,7 +45,7 @@ export default function CoverInput({
         const imageUrl = response.data.secure_url;
         onChange(imageUrl);
       } catch (error) {
-        console.error('Image upload failed:', error);
+        // console.error('Image upload failed:', error);
       } finally {
         setIsUploading(false);
       }

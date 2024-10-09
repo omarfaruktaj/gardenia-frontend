@@ -51,7 +51,7 @@ export default function UploadMultiImage({
         }
         onChange(uploadedImages);
       } catch (error) {
-        console.error('Image upload failed:', error);
+        // console.error('Image upload failed:', error);
       } finally {
         setIsUploading(false);
       }

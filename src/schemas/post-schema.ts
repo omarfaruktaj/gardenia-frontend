@@ -8,7 +8,7 @@ export const PostFormSchema = z.object({
 
   content: z
     .string()
-    .min(1, { message: 'Content is required.' })
+    .min(20, { message: 'Content is required.' })
     .max(5000, { message: 'Content must be less than 5000 characters.' }),
 
   category: z.string().min(1, 'Category is required'),

@@ -6,10 +6,10 @@ import { Loader2 } from 'lucide-react';
 import InfiniteScrollContainer from '@/components/infinitive-scroll-container';
 import PostCard from '@/components/post/post-card';
 import { UserCardSkeleton } from '@/components/skeleton/user-card-skeleton';
-import { fetchUserPosts } from '@/services/post-service';
+import { fetchPosts } from '@/services/post-service';
 import { ISinglePost } from '@/types';
 
-export default function PostList({ userId }: { userId: string }) {
+export default function PostList() {
   const {
     data,
     fetchNextPage,
@@ -18,9 +18,8 @@ export default function PostList({ userId }: { userId: string }) {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ['profile-posts', userId],
-    queryFn: ({ pageParam = 1 }) =>
-      fetchUserPosts({ userId: userId, pageParam }),
+    queryKey: ['ADMIN_POSTS'],
+    queryFn: ({ pageParam = 1 }) => fetchPosts({ pageParam }),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => lastPage?.pagination?.next ?? null,
   });
@@ -38,7 +37,7 @@ export default function PostList({ userId }: { userId: string }) {
   }
 
   if (status === 'success' && !posts.length && !hasNextPage) {
-    return <p className="mt-4">There is no Post.</p>;
+    return <p className="mt-4">There is no follower.</p>;
   }
 
   if (status === 'error') {

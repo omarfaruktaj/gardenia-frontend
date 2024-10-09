@@ -6,10 +6,10 @@ import { Loader2 } from 'lucide-react';
 import InfiniteScrollContainer from '@/components/infinitive-scroll-container';
 import PostCard from '@/components/post/post-card';
 import { UserCardSkeleton } from '@/components/skeleton/user-card-skeleton';
-import { fetchUserPosts } from '@/services/post-service';
+import { fetchFavoritePosts } from '@/services/favorite-service';
 import { ISinglePost } from '@/types';
 
-export default function PostList({ userId }: { userId: string }) {
+export default function FavoritePostList({ userId }: { userId: string }) {
   const {
     data,
     fetchNextPage,
@@ -18,14 +18,14 @@ export default function PostList({ userId }: { userId: string }) {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ['profile-posts', userId],
-    queryFn: ({ pageParam = 1 }) =>
-      fetchUserPosts({ userId: userId, pageParam }),
+    queryKey: ['FAVORITE_POSTS', userId],
+    queryFn: ({ pageParam = 1 }) => fetchFavoritePosts({ pageParam }),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => lastPage?.pagination?.next ?? null,
   });
 
-  const posts = data?.pages.flatMap((page) => page.posts) || [];
+  const favorites = data?.pages.flatMap((page) => page.posts) || [];
+  const posts = favorites.map((item) => item.post);
 
   if (status === 'pending') {
     return (
@@ -38,7 +38,7 @@ export default function PostList({ userId }: { userId: string }) {
   }
 
   if (status === 'success' && !posts.length && !hasNextPage) {
-    return <p className="mt-4">There is no Post.</p>;
+    return <p className="mt-4">There is no follower.</p>;
   }
 
   if (status === 'error') {

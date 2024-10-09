@@ -1,19 +1,33 @@
-import PostButton from '@/components/post/create-post-button';
-import PostCard from '@/components/post/post-card';
-import api from '@/config/axios';
-import { ISinglePost } from '@/types';
+'use client';
 
-export default async function Home() {
-  const posts = await api.get('/posts/feed');
-  console.log(posts.data);
+import { default as Filter } from '@/components/post-filter';
+import FeedPostList from '@/components/post/feed-post-list';
+import Quotes from '@/components/quotes';
 
+export default function Home() {
   return (
-    <div>
-      <PostButton />
-      <div className="grid grid-cols-1 gap-4">
-        {posts.data.data.map((post: ISinglePost) => (
-          <PostCard key={post._id} post={post} />
-        ))}
+    <div className="min-h-screen relative">
+      <div className="mx-auto max-w-6xl flex flex-col lg:flex-row ">
+        <div className="flex-grow min-h-screen lg:w-3/6 p-4 lg:p-6 border-x ">
+          <div>
+            <div className="lg:hidden mb-6">
+              <Filter />
+            </div>
+            <h2 className="text-2xl font-bold mb-4">
+              Latest Gardening Tips & Guides
+            </h2>
+
+            <FeedPostList />
+          </div>
+        </div>
+
+        {/* sticky */}
+        <div className="hidden sticky top-20  h-screen lg:flex lg:flex-col lg:w-2/6 p-4 shadow-lg rounded-lg">
+          <Filter />
+          <div className="mt-6">
+            <Quotes />
+          </div>
+        </div>
       </div>
     </div>
   );

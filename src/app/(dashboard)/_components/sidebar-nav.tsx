@@ -10,27 +10,27 @@ export default function SidebarNav() {
   const pathName = usePathname();
   const routes = [
     {
-      path: '/dashboard/my-posts',
+      path: '/my-posts',
       label: 'My Posts',
       icon: Book,
     },
     {
-      path: '/dashboard/bookmarks',
+      path: '/bookmarks',
       label: 'Bookmarks',
       icon: BookMarked,
     },
     {
-      path: '/dashboard/followers',
+      path: '/followers',
       label: 'Followers',
       icon: User,
     },
     {
-      path: '/dashboard/followings',
+      path: '/followings',
       label: 'Following',
       icon: Tag,
     },
     {
-      path: '/dashboard/settings',
+      path: '/settings',
       label: 'Settings',
       icon: Settings,
     },
