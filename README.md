@@ -19,6 +19,7 @@ This is the frontend code for the Gardening Tips & Advice Platform, a web applic
 - **Admin Dashboard**: Manage users, posts, and payments through a dedicated admin panel.
 - **Social Interactions**: Follow users, and explore favorite posts.
 - **Animations**: Micro-animations for smooth transitions and improved UX.
+- **Unique Feature**: Challenges page.
 
 ## Tech Stack
 
