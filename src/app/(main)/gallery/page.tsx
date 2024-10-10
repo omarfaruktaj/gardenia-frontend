@@ -3,7 +3,7 @@ import ImageGallery from '@/components/image-gallery';
 export default function Gallery() {
   return (
     <div>
-      <main className="container mx-auto">
+      <main className="container mx-auto min-h-screen">
         <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-center my-6">
           Gardening Image Gallery
         </h1>

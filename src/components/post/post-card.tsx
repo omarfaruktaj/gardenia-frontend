@@ -94,7 +94,11 @@ export default function PostCard({ post }: { post: ISinglePost }) {
           </Link>
           <div className="flex items-center">
             <FavoriteButton post={post} />
-            <PostOptionButton post={post} currentUser={currentUser!} />
+
+            {(post?.author?._id === currentUser?._id ||
+              currentUser?.role === 'admin') && (
+              <PostOptionButton post={post} currentUser={currentUser!} />
+            )}
           </div>
         </div>
       </div>
@@ -105,8 +109,8 @@ export default function PostCard({ post }: { post: ISinglePost }) {
             src={images[0]}
             alt="Post Image"
             layout="responsive"
-            width={500} // Set a default width
-            height={300} // Set a default height
+            width={500}
+            height={300}
             objectFit="cover"
             className="rounded-lg"
             role="img"

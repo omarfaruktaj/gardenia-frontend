@@ -4,6 +4,8 @@ import { ColumnDef } from '@tanstack/react-table';
 
 import { TUser } from '@/types';
 
+import { CellAction } from './cell-action';
+
 export const columns: ColumnDef<TUser>[] = [
   {
     accessorKey: 'name',
@@ -21,8 +23,12 @@ export const columns: ColumnDef<TUser>[] = [
     accessorKey: 'isVerified',
     header: 'Verified',
   },
-  // {
-  //   id: 'actions',
-  //   cell: ({ row }) => <CellAction data={row.original} />,
-  // },
+  {
+    accessorKey: 'role',
+    header: 'Role',
+  },
+  {
+    id: 'actions',
+    cell: ({ row }) => <CellAction data={row.original} />,
+  },
 ];

@@ -24,7 +24,7 @@ export default function PostList() {
     getNextPageParam: (lastPage) => lastPage?.pagination?.next ?? null,
   });
 
-  const posts = data?.pages.flatMap((page) => page.posts) || [];
+  const posts = data?.pages?.flatMap((page) => page.posts) || [];
 
   if (status === 'pending') {
     return (

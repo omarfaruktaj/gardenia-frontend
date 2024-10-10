@@ -29,7 +29,9 @@ export default function PostOptionButton({
   currentUser: UserResponse;
 }) {
   const [openModel, setOpenModel] = useState(false);
+
   const [openAlertModel, setOpenAlertModel] = useState(false);
+
   const queryClient = useQueryClient();
 
   const handleDelete = async () => {
@@ -58,8 +60,6 @@ export default function PostOptionButton({
   const closeModel = () => {
     setOpenModel(false);
   };
-
-  if (!(post?.author?._id === currentUser?._id)) return null;
 
   const initialData = {
     title: post.title,
@@ -95,19 +95,25 @@ export default function PostOptionButton({
           <Ellipsis className="h-6 w-6" />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem
-            onClick={() => setOpenModel(true)}
-            aria-label="Edit Comment"
-          >
-            <Edit className="mr-2" /> Edit
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={() => setOpenAlertModel(true)}
-            aria-label="Delete Comment"
-            className="!text-red-500"
-          >
-            <Trash className="mr-2" /> Delete
-          </DropdownMenuItem>
+          {post?.author?._id === currentUser?._id && (
+            <DropdownMenuItem
+              onClick={() => setOpenModel(true)}
+              aria-label="Edit Comment"
+            >
+              <Edit className="mr-2" /> Edit
+            </DropdownMenuItem>
+          )}
+
+          {(post?.author?._id === currentUser?._id ||
+            currentUser.role === 'admin') && (
+            <DropdownMenuItem
+              onClick={() => setOpenAlertModel(true)}
+              aria-label="Delete Comment"
+              className="!text-red-500"
+            >
+              <Trash className="mr-2" /> Delete
+            </DropdownMenuItem>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

@@ -1,3 +1,6 @@
+import { Suspense } from 'react';
+
+import { ResetPasswordFormSkeleton } from '@/components/skeleton/reset-password-form-skeleton';
 import {
   Card,
   CardContent,
@@ -18,7 +21,9 @@ export default function ResetPassword() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ResetPasswordForm />
+        <Suspense fallback={<ResetPasswordFormSkeleton />}>
+          <ResetPasswordForm />
+        </Suspense>
       </CardContent>
     </Card>
   );

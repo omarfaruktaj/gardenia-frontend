@@ -14,7 +14,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { deleteCategory } from '@/services/category-service';
+import { changeUserRole } from '@/services/user-service';
 import { TUser } from '@/types';
 
 export function CellAction({ data }: { data: TUser }) {
@@ -23,14 +23,24 @@ export function CellAction({ data }: { data: TUser }) {
 
   const onDelete = () => {
     startTransition(async () => {
-      const result = await deleteCategory(data._id);
+      // const result = await deleteCategory(data._id); // Assuming deleteCategory is the correct function
+      // if (result.error) {
+      //   toast.error(result.error);
+      // }
+      // if (result.data) {
+      //   toast.success('User deleted successfully');
+      // }
+    });
+  };
+
+  const handleRoleChange = async (newRole: string) => {
+    startTransition(async () => {
+      const result = await changeUserRole(data?._id, newRole);
 
       if (result.error) {
         toast.error(result.error);
-      }
-
-      if (result.data) {
-        toast.success('user deleted successfully');
+      } else {
+        toast.success(`User role changed to ${newRole}`);
       }
     });
   };
@@ -52,12 +62,22 @@ export function CellAction({ data }: { data: TUser }) {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          {/* <DropdownMenuItem
+          {/* Uncomment if needed
+          <DropdownMenuItem
             onClick={() => router.push(`/admin/categories/${data._id}`)}
           >
             <Edit className="mr-2 h-4 w-4" />
             Update
-          </DropdownMenuItem> */}
+          </DropdownMenuItem>
+          */}
+
+          <DropdownMenuItem
+            disabled={data.role === 'admin'}
+            className="cursor-pointer"
+            onClick={() => handleRoleChange('admin')}
+          >
+            <span className="ml-2">Make Admin</span>
+          </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => setOpen(true)}
             className="!text-red-500"
@@ -65,6 +85,14 @@ export function CellAction({ data }: { data: TUser }) {
             <Trash className="mr-2 h-4 w-4" />
             Delete
           </DropdownMenuItem>
+
+          {/* <DropdownMenuItem
+            disabled={data.role === 'user'}
+            className="cursor-pointer"
+            onClick={() => handleRoleChange('user')}
+          >
+            <span className="ml-2">User</span>
+          </DropdownMenuItem> */}
         </DropdownMenuContent>
       </DropdownMenu>
     </>

@@ -3,7 +3,6 @@
 import { useState, useTransition } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -100,10 +99,6 @@ export default function ChangePasswordForm() {
         <LoadingButton loading={isPending} type="submit" className="w-full">
           {isPending ? 'Changing Password...' : 'Change Password'}
         </LoadingButton>
-
-        <Link href="/" className="ml-auto inline-block pt-2 text-sm underline">
-          Back to Dashboard
-        </Link>
       </form>
     </Form>
   );

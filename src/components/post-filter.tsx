@@ -24,7 +24,6 @@ import { Label } from './ui/label';
 export default function PostFilter() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { replace } = useRouter();
   const { data: categories = [], isLoading } = useQuery({
     queryKey: ['CATEGORIES'],
     queryFn: () => getCategories(),
@@ -67,6 +66,7 @@ export default function PostFilter() {
     if (searchParams.toString() !== params.toString()) {
       router.push(newUrl);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchTerm]);
 
   const handleCategoryChange = useCallback(

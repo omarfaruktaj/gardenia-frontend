@@ -1,13 +1,13 @@
-import React, { forwardRef } from 'react';
+// import React, { forwardRef } from 'react';
 
-import ReactQuill, { ReactQuillProps } from 'react-quill';
+// import ReactQuill, { ReactQuillProps } from 'react-quill';
 
-type QuillEditorProps = ReactQuillProps & React.RefAttributes<ReactQuill>;
+// type QuillEditorProps = ReactQuillProps & React.RefAttributes<ReactQuill>;
 
-const QuillEditor = forwardRef<ReactQuill, QuillEditorProps>((props, ref) => (
-  <ReactQuill ref={ref} {...props} />
-));
+// const QuillEditor = forwardRef<ReactQuill, QuillEditorProps>((props, ref) => (
+//   <ReactQuill ref={ref} {...props} />
+// ));
 
-QuillEditor.displayName = 'QuillEditor';
+// QuillEditor.displayName = 'QuillEditor';
 
-export default QuillEditor;
+// export default QuillEditor;

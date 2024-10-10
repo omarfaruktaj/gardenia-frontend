@@ -162,3 +162,17 @@ export const updateUser = async (userData: TUserUpdateSchema) => {
     }
   }
 };
+
+export const changeUserRole = async (id: string, role: string) => {
+  try {
+    const { data } = await api.patch(`/users/${id}`, { role });
+    revalidatePath('/users');
+    return { data: data.data };
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return { error: error.response?.data.message || 'Creating failed' };
+    } else {
+      return { error: 'An unexpected error occurred' };
+    }
+  }
+};

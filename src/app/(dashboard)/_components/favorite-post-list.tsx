@@ -38,7 +38,7 @@ export default function FavoritePostList({ userId }: { userId: string }) {
   }
 
   if (status === 'success' && !posts.length && !hasNextPage) {
-    return <p className="mt-4">There is no follower.</p>;
+    return <p className="mt-4">There is no favorited post.</p>;
   }
 
   if (status === 'error') {

@@ -20,6 +20,7 @@ export const uploadImageToCloudinary = async (
       formData
     );
     return response.data.secure_url;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     // console.error('Cloudinary upload error:', error);
     return null;

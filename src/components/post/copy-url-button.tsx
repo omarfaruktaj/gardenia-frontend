@@ -13,8 +13,9 @@ export default function CopyURLButton() {
       .then(() => {
         toast.info('URL copied to clipboard!');
       })
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       .catch((err) => {
-        // console.error('Failed to copy: ', err);
+        toast.error('Failed to copy');
       });
   };
   return (

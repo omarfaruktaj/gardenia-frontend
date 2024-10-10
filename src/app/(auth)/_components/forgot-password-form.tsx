@@ -77,7 +77,7 @@ export default function ForgotPasswordForm() {
         <SuccessCard message={success} />
 
         <LoadingButton loading={isPending} type="submit" className="w-full">
-          {isPending ? 'Reset link sending...' : 'Send link email'}
+          {isPending ? 'Reset link sending...' : 'Send link in email'}
         </LoadingButton>
         <div className="mt-4 text-center text-sm text-muted-foreground">
           Remembered your password?

@@ -1,6 +1,9 @@
-import { cn } from '@/lib/utils';
-import { Eye, EyeOff } from 'lucide-react';
 import React, { useState } from 'react';
+
+import { Eye, EyeOff } from 'lucide-react';
+
+import { cn } from '@/lib/utils';
+
 import { Button } from './button';
 import { Input, InputProps } from './input';
 

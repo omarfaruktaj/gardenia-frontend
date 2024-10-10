@@ -11,12 +11,13 @@ export default function MainNav() {
   const routes = [
     { label: 'Home', href: '/' },
     { label: 'Gallery', href: '/gallery' },
+    { label: 'Challenges', href: '/challenges' },
     { label: 'About Us', href: '/about' },
     { label: 'Contact Us', href: '/contact' },
   ];
 
   return (
-    <div className="flex flex-col md:flex-row items-start space-y-2 md:space-y-0 md:space-x-4">
+    <div className="flex flex-col md:flex-row items-start space-y-2 md:space-y-0 md:space-x-2 lg:space-x-4">
       {routes.map((route) => (
         <Link
           key={route.href}

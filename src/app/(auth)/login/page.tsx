@@ -1,28 +1,33 @@
+import BackButton from '@/components/ui/back-button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+
 import LoginForm from '../_components/login-form';
 
 export default function Login() {
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-8 overflow-hidden rounded-lg bg-background p-4 shadow-lg md:flex-row">
-      <div className="flex w-full max-w-md flex-col justify-center">
-        <h1 className="mb-4 text-center text-3xl font-bold text-green-700 md:text-left md:text-4xl">
-          Welcome Back!
-        </h1>
-        <p className="text-justify text-lg">
-          Log in to continue sharing and discovering the best gardening tips,
-          advice, and content. Join our vibrant gardening community!
-        </p>
+    <div>
+      <BackButton />
+      <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-8 overflow-hidden rounded-lg bg-background p-4 shadow-lg md:flex-row">
+        <div className="flex w-full max-w-md flex-col justify-center">
+          <h1 className="mb-4 text-center text-3xl font-bold text-green-700 md:text-left md:text-4xl">
+            Welcome Back!
+          </h1>
+          <p className="text-justify text-lg">
+            Log in to continue sharing and discovering the best gardening tips,
+            advice, and content. Join our vibrant gardening community!
+          </p>
+        </div>
+        <Card className="w-full max-w-md">
+          <CardHeader>
+            <CardTitle className="text-xl text-green-700 md:text-2xl">
+              Login
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <LoginForm />
+          </CardContent>
+        </Card>
       </div>
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle className="text-xl text-green-700 md:text-2xl">
-            Login
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <LoginForm />
-        </CardContent>
-      </Card>
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import Footer from '@/components/layout/footer';
 import Navbar from '@/components/layout/navbar';
 
 export default function MainLayout({
@@ -9,6 +10,7 @@ export default function MainLayout({
     <div>
       <Navbar />
       <div className="container mx-auto bg-background">{children}</div>
+      <Footer />
     </div>
   );
 }

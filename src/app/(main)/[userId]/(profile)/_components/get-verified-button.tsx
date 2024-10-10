@@ -33,6 +33,7 @@ export default function GetVerifiedButton() {
         // console.error('Error redirecting to checkout:', error);
         toast.error('Failed to redirect to checkout. Please try again.');
       }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       // console.error('Error initiating payment:', error);
       toast.error('Payment initiation failed. Please try again.');

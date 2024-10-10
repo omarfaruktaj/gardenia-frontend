@@ -22,8 +22,13 @@ const BackButton: React.FC<BackButtonProps> = ({ onClick }) => {
 
   return (
     <div className="mb-8 ">
-      <div className="flex items-center pl-0 pr-3 w-full space-x-2  ">
-        <Button onClick={handleClick} variant="ghost" size={'icon'}>
+      <div className="flex items-center pl-0  w-full space-x-2  ">
+        <Button
+          onClick={handleClick}
+          variant="ghost"
+          className="rounded-full"
+          size={'icon'}
+        >
           <ChevronLeft className="h-5 w-5" />
         </Button>
         <span>Back</span>

@@ -2,7 +2,7 @@
 
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
+import { MdFavoriteBorder, MdOutlineFavorite } from 'react-icons/md';
 import { toast } from 'sonner';
 
 import { useUser } from '@/context/user-provider';
@@ -42,8 +42,6 @@ export default function FavoriteButton({ post }: { post: ISinglePost }) {
     (favorite) => favorite.post
   );
 
-  console.log(userFavoritedPosts);
-
   const isUserFavorited = userFavoritedPosts?.includes(post._id);
 
   return (
@@ -60,9 +58,9 @@ export default function FavoriteButton({ post }: { post: ISinglePost }) {
       }
     >
       {isUserFavorited ? (
-        <IoBookmark className="h-5 w-5" />
+        <MdOutlineFavorite className="h-5 w-5" />
       ) : (
-        <IoBookmarkOutline className="h-5 w-5" />
+        <MdFavoriteBorder className="h-5 w-5" />
       )}
     </Button>
   );

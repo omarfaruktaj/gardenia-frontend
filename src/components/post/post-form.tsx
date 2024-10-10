@@ -1,11 +1,12 @@
 'use client';
 
-import { useCallback, useRef, useState, useTransition } from 'react';
+import { useEffect, useRef, useTransition } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import dynamic from 'next/dynamic';
 import { useForm } from 'react-hook-form';
-import ReactQuill from 'react-quill';
+// import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { toast } from 'sonner';
 
@@ -25,7 +26,6 @@ import { PostFormSchema, TPostFormSchema } from '@/schemas/post-schema';
 import { getCategories } from '@/services/category-service';
 import { createPost, updatePost } from '@/services/post-service';
 import { TPost } from '@/types';
-import { uploadImageToCloudinary } from '@/utils/upload-image-to-cloudinary';
 
 import { Checkbox } from '../ui/checkbox';
 import {
@@ -37,6 +37,8 @@ import {
 } from '../ui/select';
 import UploadMultiImage from '../upload-multi-image';
 
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+
 interface PostFormProps {
   initialData?: TPost;
   closeModel: () => void;
@@ -44,16 +46,24 @@ interface PostFormProps {
 
 export default function PostForm({ initialData, closeModel }: PostFormProps) {
   const [isPending, startTransition] = useTransition();
-  const [uploadingImage, setUploadingImage] = useState(false);
+  // const [uploadingImage, setUploadingImage] = useState(false);
   const { user } = useUser();
   const queryClient = useQueryClient();
 
-  const quillRef = useRef<ReactQuill>(null);
+  // const quillRef = useRef<ReactQuill>(null);
+  const isMounted = useRef(false);
 
   const { data: categories, isLoading } = useQuery({
     queryKey: ['CATEGORIES'],
     queryFn: () => getCategories(),
   });
+
+  useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
 
   const form = useForm<TPostFormSchema>({
     resolver: zodResolver(PostFormSchema),
@@ -68,27 +78,28 @@ export default function PostForm({ initialData, closeModel }: PostFormProps) {
         },
   });
 
-  const handleImageUpload = useCallback(() => {
-    if (typeof window !== 'undefined') {
-      const input = document.createElement('input');
-      input.setAttribute('type', 'file');
-      input.setAttribute('accept', 'image/*');
-      input.click();
-      input.onchange = async () => {
-        const file = input.files ? input.files[0] : null;
-        if (file) {
-          setUploadingImage(true);
-          const imageUrl = await uploadImageToCloudinary(file);
-          setUploadingImage(false);
-          if (imageUrl && quillRef.current) {
-            const quill = quillRef.current!.getEditor();
-            const range = quill.getSelection(true);
-            quill.insertEmbed(range.index, 'image', imageUrl, 'user');
-          }
-        }
-      };
-    }
-  }, []);
+  // const handleImageUpload = useCallback(() => {
+  //   if (typeof window !== 'undefined' && isMounted.current) {
+  //     const input = document.createElement('input');
+  //     input.setAttribute('type', 'file');
+  //     input.setAttribute('accept', 'image/*');
+  //     input.click();
+  //     input.onchange = async () => {
+  //       const file = input.files ? input.files[0] : null;
+  //       if (file) {
+  //         setUploadingImage(true);
+  //         const imageUrl = await uploadImageToCloudinary(file);
+  //         setUploadingImage(false);
+  //         if (imageUrl && quillRef.current) {
+  //           const quill = quillRef.current!.getEditor();
+  //           const range = quill.getSelection(true);
+  //           quill.insertEmbed(range.index, 'image', imageUrl, 'user');
+  //         }
+  //       }
+  //     };
+  //   }
+  // }, []);
+  if (!isMounted) return null;
 
   const formats = [
     'header',
@@ -106,13 +117,14 @@ export default function PostForm({ initialData, closeModel }: PostFormProps) {
     'font',
     'align',
     'code',
-    'image',
+    // 'image',
   ];
 
   const toolbarOptions = [
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
     ['bold', 'italic', 'underline', 'code-block'],
-    ['link', 'image'],
+    // ['link', 'image'],
+    ['link'],
     [{ list: 'ordered' }, { list: 'bullet' }],
     [{ indent: '-1' }, { indent: '+1' }],
     [{ direction: 'rtl' }],
@@ -125,9 +137,9 @@ export default function PostForm({ initialData, closeModel }: PostFormProps) {
   const modules = {
     toolbar: {
       container: toolbarOptions,
-      handlers: {
-        image: handleImageUpload,
-      },
+      // handlers: {
+      //   image: handleImageUpload,
+      // },
     },
   };
 
@@ -200,7 +212,7 @@ export default function PostForm({ initialData, closeModel }: PostFormProps) {
                   {...field}
                   onChange={field.onChange}
                   modules={modules}
-                  ref={quillRef}
+                  // ref={quillRef}
                   formats={formats}
                 />
                 {/* <QuillEditor
@@ -211,11 +223,11 @@ export default function PostForm({ initialData, closeModel }: PostFormProps) {
                   formats={formats}
                 /> */}
               </FormControl>
-              {uploadingImage && (
+              {/* {uploadingImage && (
                 <p className="flex items-center gap-2 text-sm">
                   <span>Image uploading...</span>
                 </p>
-              )}
+              )} */}
               <FormMessage />
             </FormItem>
           )}

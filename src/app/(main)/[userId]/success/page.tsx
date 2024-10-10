@@ -29,7 +29,9 @@ const SuccessPage = ({ params }: { params: { userId: string } }) => {
           await confirmPayment(session_id);
           await VerifyUser(params.userId);
           toast.success('Successfully verified');
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
+          toast.error('Failed to confirm payment');
           // console.error('Failed to confirm payment:', error);
         }
       };

@@ -50,6 +50,7 @@ export default function UploadMultiImage({
           uploadedImages.push(imageUrl);
         }
         onChange(uploadedImages);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
         // console.error('Image upload failed:', error);
       } finally {

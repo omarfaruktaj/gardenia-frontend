@@ -36,6 +36,8 @@ export default function UserProfile() {
     queryClient.invalidateQueries({ queryKey: ['ME'] });
   };
 
+  console.log(user);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -56,9 +58,14 @@ export default function UserProfile() {
           </DropdownMenuItem>
         )}
         {user?.role === 'admin' && (
-          <DropdownMenuItem>
-            <Link href={'/admin/dashboard'}>Dashboard</Link>
-          </DropdownMenuItem>
+          <div>
+            <DropdownMenuItem>
+              <Link href={'/admin/dashboard'}>Dashboard</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href={'/change-password'}>Change password</Link>
+            </DropdownMenuItem>
+          </div>
         )}
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleLogout}>

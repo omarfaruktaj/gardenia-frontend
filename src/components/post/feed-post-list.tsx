@@ -63,6 +63,9 @@ export default function FeedPostList() {
             <PostCard key={post?._id} post={post} />
           ))}
       </div>
+      {!hasNextPage && posts.length > 0 && (
+        <p className="mt-4 text-center">All posts have been loaded.</p>
+      )}
       {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
     </InfiniteScrollContainer>
   );

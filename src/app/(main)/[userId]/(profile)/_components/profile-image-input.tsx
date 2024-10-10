@@ -44,6 +44,7 @@ export default function ProfileImageInput({
 
         const imageUrl = response.data.secure_url;
         onChange(imageUrl);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
         // console.error('Image upload failed:', error);
       } finally {

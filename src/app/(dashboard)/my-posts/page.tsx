@@ -1,3 +1,5 @@
+import { redirect } from 'next/navigation';
+
 import PostList from '@/app/(main)/[userId]/(profile)/_components/post-list';
 import PostButton from '@/components/post/create-post-button';
 import { Heading } from '@/components/ui/heading';
@@ -5,6 +7,10 @@ import { getCurrentUser } from '@/services/user-service';
 
 export default async function MyPosts() {
   const user = await getCurrentUser();
+
+  if (!user) {
+    redirect('/login');
+  }
 
   return (
     <div className="p-6 ">
