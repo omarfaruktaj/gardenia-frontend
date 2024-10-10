@@ -47,7 +47,15 @@ export default function FeedPostList() {
   }
 
   if (status === 'success' && !posts.length && !hasNextPage) {
-    return <p className="mt-4">There are no posts.</p>;
+    return (
+      <div className="flex flex-col items-center justify-center mt-6 text-center">
+        <p className="text-lg font-semibold">No Posts Yet!</p>
+        <p className="text-muted-foreground">
+          It looks like there aren&apos;t any posts available. Start creating
+          and sharing your thoughts!
+        </p>
+      </div>
+    );
   }
 
   if (status === 'error') {

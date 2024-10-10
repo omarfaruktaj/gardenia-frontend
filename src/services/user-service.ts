@@ -21,11 +21,24 @@ export const VerifyUser = async (userId: string) => {
   try {
     const response = await api.get(`/users/${userId}/verify`);
     revalidatePath('/users/me');
-    return response?.data?.data || null;
+    return {
+      success: response?.data?.message,
+    };
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    // console.error('Error fetching current user:', error);
-    return null;
+    if (axios.isAxiosError(error)) {
+      return {
+        error: {
+          message: error.response?.data.message || 'Failed to verify user',
+        },
+      };
+    } else {
+      return {
+        error: {
+          message: 'An unexpected error occurred',
+        },
+      };
+    }
   }
 };
 

@@ -40,7 +40,7 @@ export default function FollowerList({ user }: { user: TUser }) {
 
   if (status === 'success' && !followers.length && !hasNextPage) {
     return (
-      <div className="flex flex-col min-h-screen items-center justify-center mt-6 text-center">
+      <div className="flex flex-col items-center justify-center mt-6 text-center">
         <FaUsers className="h-16 w-16 text-primary mb-4" />
         <p className="text-lg font-semibold">You have no followers.</p>
         <p className="text-muted-foreground">

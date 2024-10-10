@@ -40,7 +40,7 @@ export default function FavoritePostList({ userId }: { userId: string }) {
 
   if (status === 'success' && !posts.length && !hasNextPage) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center mt-6 text-center">
+      <div className="flex  flex-col items-center justify-center mt-6 text-center">
         <FaHeartBroken className="h-16 w-16 text-primary mb-4" />
         <p className="text-lg font-semibold">No Favorite Posts Yet</p>
         <p className="text-muted-foreground">

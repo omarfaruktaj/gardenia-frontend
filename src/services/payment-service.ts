@@ -1,7 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use server';
 
+import axios from 'axios';
+import { revalidatePath } from 'next/cache';
+
 import api from '@/config/axios';
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
@@ -22,9 +33,24 @@ export const confirmPayment = async (transactionID: string) => {
       transactionID,
       amount: 20,
     });
-    return response?.data?.data;
+    revalidatePath('/payments');
+    return {
+      success: response?.data?.message,
+    };
   } catch (error) {
-    // console.error('Error fetching current user:', error);
-    return null;
+    if (axios.isAxiosError(error)) {
+      return {
+        error: {
+          message:
+            error.response?.data.message || 'Failed to delete confirm payment',
+        },
+      };
+    } else {
+      return {
+        error: {
+          message: 'An unexpected error occurred',
+        },
+      };
+    }
   }
 };

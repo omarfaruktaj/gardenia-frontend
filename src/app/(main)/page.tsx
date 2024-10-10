@@ -4,6 +4,7 @@ import PostFilter from '@/components/post-filter';
 import FeedPostList from '@/components/post/feed-post-list';
 import Quotes from '@/components/quotes';
 import PostFilterSkeleton from '@/components/skeleton/post-filter-skeleton';
+import { Separator } from '@/components/ui/separator';
 
 export default function Home() {
   return (
@@ -22,7 +23,7 @@ export default function Home() {
               Explore the latest gardening tips and advice shared by the
               community.
             </p>
-
+            <Separator className="mb-2" />
             <Suspense fallback={<p>Loading</p>}>
               <FeedPostList />
             </Suspense>
