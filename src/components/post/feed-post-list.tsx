@@ -6,9 +6,10 @@ import { useSearchParams } from 'next/navigation';
 
 import InfiniteScrollContainer from '@/components/infinitive-scroll-container';
 import PostCard from '@/components/post/post-card';
-import { UserCardSkeleton } from '@/components/skeleton/user-card-skeleton';
 import { fetchFeed } from '@/services/post-service';
 import { ISinglePost } from '@/types';
+
+import PostCardSkeleton from '../skeleton/post-card-skeleton';
 
 export default function FeedPostList() {
   const params = useSearchParams();
@@ -39,7 +40,7 @@ export default function FeedPostList() {
     return (
       <section className="grid grid-cols-1 gap-6 mt-6">
         {Array.from({ length: 9 }).map((_, index) => (
-          <UserCardSkeleton key={index} />
+          <PostCardSkeleton key={index} />
         ))}
       </section>
     );

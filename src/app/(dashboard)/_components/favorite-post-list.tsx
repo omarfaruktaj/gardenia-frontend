@@ -2,10 +2,11 @@
 
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { Loader2 } from 'lucide-react';
+import { FaHeartBroken } from 'react-icons/fa';
 
 import InfiniteScrollContainer from '@/components/infinitive-scroll-container';
 import PostCard from '@/components/post/post-card';
-import { UserCardSkeleton } from '@/components/skeleton/user-card-skeleton';
+import PostCardSkeleton from '@/components/skeleton/post-card-skeleton';
 import { fetchFavoritePosts } from '@/services/favorite-service';
 import { ISinglePost } from '@/types';
 
@@ -31,14 +32,23 @@ export default function FavoritePostList({ userId }: { userId: string }) {
     return (
       <section className="grid grid-cols-1   gap-6 mt-6">
         {Array.from({ length: 9 }).map((_, index) => (
-          <UserCardSkeleton key={index} />
+          <PostCardSkeleton key={index} />
         ))}
       </section>
     );
   }
 
   if (status === 'success' && !posts.length && !hasNextPage) {
-    return <p className="mt-4">There is no favorited post.</p>;
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center mt-6 text-center">
+        <FaHeartBroken className="h-16 w-16 text-primary mb-4" />
+        <p className="text-lg font-semibold">No Favorite Posts Yet</p>
+        <p className="text-muted-foreground">
+          It looks like you haven&apos;t favorited any posts. Start exploring
+          and adding your favorites!
+        </p>
+      </div>
+    );
   }
 
   if (status === 'error') {

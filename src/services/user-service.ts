@@ -140,12 +140,14 @@ export const fetchSingleUserWithVerificationEligible = async (
   try {
     const response = await api.get(`/users/${userId}/status`);
     return response?.data?.data;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      throw new Error(error.response?.data.message || 'Failed to get the user');
-    } else {
-      throw new Error('An unexpected error occurred');
-    }
+    return null;
+    // if (axios.isAxiosError(error)) {
+    //   throw new Error(error.response?.data.message || 'Failed to get the user');
+    // } else {
+    //   throw new Error('An unexpected error occurred');
+    // }
   }
 };
 

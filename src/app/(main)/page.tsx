@@ -1,8 +1,9 @@
 import { Suspense } from 'react';
 
-import { default as Filter } from '@/components/post-filter';
+import PostFilter from '@/components/post-filter';
 import FeedPostList from '@/components/post/feed-post-list';
 import Quotes from '@/components/quotes';
+import PostFilterSkeleton from '@/components/skeleton/post-filter-skeleton';
 
 export default function Home() {
   return (
@@ -11,8 +12,8 @@ export default function Home() {
         <div className="flex-grow min-h-screen lg:w-3/6 p-4 lg:p-6 border-x border-b rounded-xl ">
           <div>
             <div className="lg:hidden mb-6">
-              <Suspense fallback={<p>Loading</p>}>
-                <Filter />
+              <Suspense fallback={<PostFilterSkeleton />}>
+                <PostFilter />
               </Suspense>
             </div>
 
@@ -29,8 +30,8 @@ export default function Home() {
         </div>
 
         <div className="hidden sticky top-10  h-screen lg:flex lg:flex-col lg:w-2/6 p-4 shadow-lg rounded-lg">
-          <Suspense fallback={<p>Loading</p>}>
-            <Filter />
+          <Suspense fallback={<PostFilterSkeleton />}>
+            <PostFilter />
           </Suspense>
           <div className="mt-6">
             <Quotes />

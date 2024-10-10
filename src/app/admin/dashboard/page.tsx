@@ -7,10 +7,35 @@ import { UserActivityChart } from './_components/user-activity-chart';
 import { VoteChart } from './_components/vote-chart';
 
 export default async function Page() {
-  const userActivity = await api.get('users/user-activity');
-  const payments = await api.get('payments/monthly-payments');
-  const posts = await api.get('posts/monthly-posts');
-  const votes = await api.get('posts/monthly-votes');
+  // const userActivity = await api.get('users/user-activity');
+  // const payments = await api.get('payments/monthly-payments');
+  // const posts = await api.get('posts/monthly-posts');
+  // const votes = await api.get('posts/monthly-votes');
+
+  const userActivity = await api.get('users/user-activity', {
+    headers: {
+      'Cache-Control': 'no-cache',
+      Pragma: 'no-cache',
+    },
+  });
+  const payments = await api.get('payments/monthly-payments', {
+    headers: {
+      'Cache-Control': 'no-cache',
+      Pragma: 'no-cache',
+    },
+  });
+  const posts = await api.get('posts/monthly-posts', {
+    headers: {
+      'Cache-Control': 'no-cache',
+      Pragma: 'no-cache',
+    },
+  });
+  const votes = await api.get('posts/monthly-votes', {
+    headers: {
+      'Cache-Control': 'no-cache',
+      Pragma: 'no-cache',
+    },
+  });
 
   const userActivityData = userActivity.data.data as UserActivityData[];
   const paymentsData = payments.data.data;

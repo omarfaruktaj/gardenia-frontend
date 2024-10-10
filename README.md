@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Gardenia - Frontend
+
+This is the frontend code for the Gardening Tips & Advice Platform, a web application that enables gardening enthusiasts to share and discover gardening knowledge. It features user authentication, content creation with a rich text editor, community interaction, and premium content access via payment integration.
+
+## Table of Contents
+
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Setup Instructions](#setup-instructions)
+
+## Features
+
+- **User Authentication**: Register, login, logout, and JWT-based session management.
+- **Responsive Design**: Mobile-first design, ensuring compatibility across devices.
+- **Rich Text Editor**: Create and share gardening tips and guides with multimedia support.
+- **Upvoting & Commenting**: Engage with posts by upvoting, commenting, and following other users.
+- **Premium Content Access**: Payment integration for unlocking exclusive gardening content.
+- **Advanced Search & Filtering**: Search and filter content based on categories, popularity, and more.
+- **Admin Dashboard**: Manage users, posts, and payments through a dedicated admin panel.
+- **Social Interactions**: Follow users, and explore favorite posts.
+- **Animations**: Micro-animations for smooth transitions and improved UX.
+
+## Tech Stack
+
+### Frontend:
+
+- **Framework**: [Next.js](https://nextjs.org/)
+- **Language**: TypeScript
+- **UI Framework**: Tailwind CSS
+- **State Management**: Context API or Redux (Optional)
+- **Text Editor**: Quill / Draft.js / Slate (to be determined based on project needs)
+- **Payment Gateway**: Stripe integration
+- **Icons**: React Icons, Lucide-react
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Make sure you have the following installed:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Node.js** (v14.x or higher) & npm (v6.x or higher)
+- **Yarn** (optional, if preferred over npm)
+- A running **backend server** (refer to the backend repository)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Instructions
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To set up and run this project locally, follow these steps:
 
-## Learn More
+1. **Clone the repository:**
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   git clone https://github.com/omarfaruktaj/gardenia-frontend.git
+   cd gardenia-frontend
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Install dependencies:**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   yarn install
+   ```
 
-## Deploy on Vercel
+3. **Set up environment variables:**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   Create a `.env` file in the root directory and add the necessary environment variables:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```plaintext
+   BASE_API=http://localhost:5000/api/v1
+    NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME= you cloudinary cloud name
+    NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=you cloudinary upload perset
+    NEXT_PUBLIC_STRIPE_PUBLIC_KEY=Your Stripe public key
+
+   ```
+
+4. **Start the development server:**
+
+   ```bash
+   yarn run dev
+   ```
+
+   The application should now be running at `http://localhost:3000`.
+
+## Key Functionality
+
+### User Authentication
+
+- JWT-based authentication for secure login, registration, and session handling.
+- Supports registration with email and password, including profile management.
+
+### Rich Text Editor
+
+- Users can create rich multimedia posts (text, images, videos) using the integrated editor.
+- Supports formatting options like bold, italics, headings, lists, etc.
+
+### Premium Content & Payment Integration
+
+- Users can access premium gardening content by making payments through Stripe or Aamarpay.
+- Payment status is linked to user verification, which unlocks exclusive features and content.
+
+### Upvote & Comment System
+
+- Engage with community posts by upvoting or downvoting content.
+- Users can comment on posts and reply to other users (optional).
+
+### Search & Filter
+
+- Search for content by keywords, categories, and popularity.
+- Filter posts by categories such as Vegetables, Flowers, Landscaping, and more.

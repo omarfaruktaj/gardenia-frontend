@@ -104,13 +104,11 @@ export default function PostCard({ post }: { post: ISinglePost }) {
       </div>
 
       {images.length > 0 && (
-        <div className="flex-none w-full relative mt-4 md:mt-0">
+        <div className="flex-none w-1/3  relative">
           <Image
             src={images[0]}
             alt="Post Image"
-            layout="responsive"
-            width={500}
-            height={300}
+            layout="fill"
             objectFit="cover"
             className="rounded-lg"
             role="img"

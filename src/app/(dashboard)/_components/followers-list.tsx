@@ -2,6 +2,7 @@
 
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { Loader2 } from 'lucide-react';
+import { FaUsers } from 'react-icons/fa';
 
 import UserCard from '@/components/follow-card';
 import InfiniteScrollContainer from '@/components/infinitive-scroll-container';
@@ -38,7 +39,16 @@ export default function FollowerList({ user }: { user: TUser }) {
   }
 
   if (status === 'success' && !followers.length && !hasNextPage) {
-    return <p className="mt-4">You have no followers.</p>;
+    return (
+      <div className="flex flex-col min-h-screen items-center justify-center mt-6 text-center">
+        <FaUsers className="h-16 w-16 text-primary mb-4" />
+        <p className="text-lg font-semibold">You have no followers.</p>
+        <p className="text-muted-foreground">
+          It looks like you haven&apos;t gained any followers yet. Keep engaging
+          to attract more!
+        </p>
+      </div>
+    );
   }
 
   if (status === 'error') {

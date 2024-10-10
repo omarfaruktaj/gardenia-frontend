@@ -40,6 +40,7 @@ export const login = async (userData: TLoginSchema) => {
 
     return { data: data.data };
   } catch (error: unknown) {
+    console.log(error);
     if (axios.isAxiosError(error)) {
       return { error: error.response?.data.message || 'Login failed' };
     } else {

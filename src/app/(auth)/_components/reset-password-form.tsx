@@ -25,6 +25,7 @@ import {
   resetPasswordSchema,
 } from '@/schemas/auth-schema';
 import { resetPassword } from '@/services/auth-service';
+import { getCurrentUser } from '@/services/user-service';
 
 export default function ResetPasswordForm() {
   const [isPending, startTransition] = useTransition();
@@ -59,6 +60,7 @@ export default function ResetPasswordForm() {
 
       if (data) {
         queryClient.invalidateQueries({ queryKey: ['ME'] });
+        await getCurrentUser();
         form.reset();
         router.push('/');
       }

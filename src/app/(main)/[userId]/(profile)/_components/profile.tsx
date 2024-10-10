@@ -2,6 +2,7 @@
 import { format } from 'date-fns';
 import { BadgeCheck, Calendar, UserPlus, Users } from 'lucide-react';
 import Image from 'next/image';
+import { redirect } from 'next/navigation';
 
 import FollowButton from '@/components/follow-button';
 import { Separator } from '@/components/ui/separator';
@@ -22,12 +23,20 @@ export default async function Profile({ userId }: { userId: string }) {
     userId
   )) as UserResponse;
 
+  if (!currentUser) {
+    redirect('/login');
+  }
+
+  if (!user) {
+    return <p>No user found</p>;
+  }
+
   const fallbackProfilePic =
     'https://via.placeholder.com/150/27272a/27272a?text=No+Image';
   const fallbackCoverPic =
     'https://via.placeholder.com/600x200/3f3f46/3f3f46?text=No+Cover+Image';
 
-  const joinedDate = format(new Date(user.createdAt), 'MMMM yyyy');
+  const joinedDate = format(new Date(user?.createdAt), 'MMMM yyyy');
   const bioMessage = user.bio
     ? user.bio
     : user._id === currentUser?._id

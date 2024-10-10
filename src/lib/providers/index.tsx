@@ -1,7 +1,6 @@
 'use client';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import UserProvider from '@/context/user-provider';
 
@@ -17,7 +16,6 @@ export default function Providers({ children }: { children: React.ReactNode }) {
         enableSystem
         disableTransitionOnChange
       >
-        <ReactQueryDevtools initialIsOpen={false} />
         <UserProvider>{children}</UserProvider>
       </ThemeProvider>
     </QueryClientProvider>
