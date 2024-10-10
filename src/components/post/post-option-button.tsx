@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import { useQueryClient } from '@tanstack/react-query';
 import { Edit, Ellipsis, Trash } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -29,12 +30,25 @@ export default function PostOptionButton({
 }) {
   const [openModel, setOpenModel] = useState(false);
   const [openAlertModel, setOpenAlertModel] = useState(false);
+  const queryClient = useQueryClient();
 
   const handleDelete = async () => {
     const { data, error } = await deletePost(post._id);
 
     if (data) {
       toast.success(data.message);
+      queryClient.invalidateQueries({
+        queryKey: ['FEED_POSTS'],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['ADMIN_POSTS'],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['PROFILE_POST'],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['MY_POSTS'],
+      });
     }
     if (error) {
       toast.error(error.message);

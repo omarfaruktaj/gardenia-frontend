@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getCurrentUser } from '@/services/user-service';
 
 import Logo from '../logo';
+import PostButton from '../post/create-post-button';
 import { Button } from '../ui/button';
 import UserProfile from '../user-profile';
 import MainNav from './main-nav';
@@ -22,7 +23,10 @@ export default async function Navbar() {
 
         <div className="flex items-center space-x-3">
           {user ? (
-            <UserProfile />
+            <div className="flex items-center gap-4">
+              <PostButton />
+              <UserProfile />
+            </div>
           ) : (
             <Button
               variant="outline"

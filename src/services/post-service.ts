@@ -218,17 +218,16 @@ export const fetchFeed = async ({
   limit = 10,
   searchTerm,
   category,
+  sort,
 }: Pagination & QueryString) => {
-  const sort = searchTerm ? '-votes' : undefined;
-  const categoryFilter = category === '' ? category : undefined;
   try {
     const response = await api.get('/posts/feed?', {
       params: {
         limit,
         searchTerm,
         sort,
+        category,
         page: pageParam,
-        category: categoryFilter,
       },
     });
 

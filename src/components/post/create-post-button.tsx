@@ -23,12 +23,12 @@ export default function PostButton() {
         </div>
       </Model>
       <Button
-        variant={'outline'}
+        variant={'secondary'}
         onClick={() => setOpenModel(true)}
-        className="flex items-center space-x-2  text-secondary-foreground  shadow-lg transition duration-200 transform hover:scale-105"
+        className="flex items-center space-x-2 rounded-full "
       >
         <PenBox className="h-4 w-4" />
-        <div>Write Post</div>
+        <div>Start Writing</div>
       </Button>
     </div>
   );

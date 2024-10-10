@@ -13,16 +13,19 @@ export default function Home() {
             <div className="lg:hidden mb-6">
               <Filter />
             </div>
-            <h2 className="text-2xl font-bold mb-4">
-              Latest Gardening Tips & Guides
-            </h2>
+
+            <h1 className="text-2xl font-bold ">Gardening Tips & Advice</h1>
+            <p className="my-3">
+              Explore the latest gardening tips and advice shared by the
+              community.
+            </p>
 
             <FeedPostList />
           </div>
         </div>
 
         {/* sticky */}
-        <div className="hidden sticky top-20  h-screen lg:flex lg:flex-col lg:w-2/6 p-4 shadow-lg rounded-lg">
+        <div className="hidden sticky top-10  h-screen lg:flex lg:flex-col lg:w-2/6 p-4 shadow-lg rounded-lg">
           <Filter />
           <div className="mt-6">
             <Quotes />

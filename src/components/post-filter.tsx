@@ -34,15 +34,25 @@ export default function PostFilter() {
   const [filters, setFilters] = useState({
     searchTerm: '',
     category: '',
+    sort: '',
   });
 
   const debouncedSearchTerm = useDebounce(filters.searchTerm, 500);
 
   useEffect(() => {
     const params = new URLSearchParams(searchParams.toString());
+
+    const getSearchTerm = params.get('searchTerm');
+    const getCategory = params.get('category');
+    const getSort = params.get('sort');
     setFilters({
-      searchTerm: params.get('searchTerm') || '',
-      category: params.get('category') || '',
+      searchTerm: getSearchTerm || '',
+      category: getCategory || '',
+      sort: getSort
+        ? getSort
+        : getSearchTerm || getCategory
+          ? '-votes'
+          : '-createdAt',
     });
   }, [searchParams]);
 
@@ -63,7 +73,22 @@ export default function PostFilter() {
     (category: string) => {
       setFilters((prev) => ({ ...prev, category }));
       const params = new URLSearchParams(searchParams.toString());
-      params.set('category', category);
+
+      if (!(category === '""')) {
+        params.set('category', category);
+      } else {
+        params.delete('category');
+      }
+      router.push(`/?${params.toString()}`);
+    },
+    [router, searchParams]
+  );
+
+  const handleSortChange = useCallback(
+    (value: string) => {
+      setFilters((prev) => ({ ...prev, sort: value }));
+      const params = new URLSearchParams(searchParams.toString());
+      params.set('sort', value);
       router.push(`/?${params.toString()}`);
     },
     [router, searchParams]
@@ -106,6 +131,26 @@ export default function PostFilter() {
                     {cat.name}
                   </SelectItem>
                 ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
+        <div>
+          <Label className="pb-3 inline-block">Sort By</Label>
+          <Select
+            value={filters.sort}
+            onValueChange={handleSortChange}
+            aria-label="Select sort order"
+            disabled={isLoading}
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select sort order" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Select order</SelectLabel>
+                <SelectItem value={'-createdAt'}>Newest</SelectItem>
+                <SelectItem value={'-votes'}>Most Upvotes</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>

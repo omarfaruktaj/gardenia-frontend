@@ -3,7 +3,7 @@
 import { useCallback, useRef, useState, useTransition } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -46,6 +46,7 @@ export default function PostForm({ initialData, closeModel }: PostFormProps) {
   const [isPending, startTransition] = useTransition();
   const [uploadingImage, setUploadingImage] = useState(false);
   const { user } = useUser();
+  const queryClient = useQueryClient();
 
   const quillRef = useRef<ReactQuill>(null);
 
@@ -146,6 +147,18 @@ export default function PostForm({ initialData, closeModel }: PostFormProps) {
         closeModel();
         toast.error(error.message);
       } else if (data) {
+        queryClient.invalidateQueries({
+          queryKey: ['FEED_POSTS'],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ['ADMIN_POSTS'],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ['PROFILE_POST'],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ['MY_POSTS'],
+        });
         closeModel();
         toast.success(data.message);
       }

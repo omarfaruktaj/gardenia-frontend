@@ -10,7 +10,7 @@ export default function MainNav() {
 
   const routes = [
     { label: 'Home', href: '/' },
-    { label: 'News Feed', href: '/news-feed' },
+    { label: 'Gallery', href: '/gallery' },
     { label: 'About Us', href: '/about' },
     { label: 'Contact Us', href: '/contact' },
   ];

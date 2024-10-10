@@ -18,7 +18,7 @@ export default function PostList({ userId }: { userId: string }) {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ['profile-posts', userId],
+    queryKey: ['PROFILE_POST', userId],
     queryFn: ({ pageParam = 1 }) =>
       fetchUserPosts({ userId: userId, pageParam }),
     initialPageParam: 1,

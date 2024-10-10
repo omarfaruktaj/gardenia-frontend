@@ -9,6 +9,7 @@ import { useUser } from '@/context/user-provider';
 import { ISinglePost } from '@/types';
 
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { Badge } from '../ui/badge';
 import FavoriteButton from './favorite-button';
 import PostOptionButton from './post-option-button';
 
@@ -20,10 +21,10 @@ export default function PostCard({ post }: { post: ISinglePost }) {
   const formattedDate = new Date(createdAt).toLocaleDateString();
 
   return (
-    <Card className="flex flex-col p-4 md:flex-row border rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-      <div className="flex-1 pr-6 ">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center space-x-3">
+    <Card className="flex flex-col p-4 border rounded-lg shadow-lg bg-transparent hover:shadow-xl transition-shadow duration-300 md:flex-row">
+      <div className="flex-1 pr-0 md:pr-6">
+        <div className="flex items-start justify-between mb-4">
+          <div className="flex items-center">
             <Link href={`/${author._id}`}>
               <Avatar>
                 <AvatarImage
@@ -34,10 +35,11 @@ export default function PostCard({ post }: { post: ISinglePost }) {
                 <AvatarFallback>{author.name.slice(0, 2)}</AvatarFallback>
               </Avatar>
             </Link>
-            <div>
+
+            <div className="ml-3">
               <Link href={`/${author._id}`}>
                 <div className="flex items-center gap-1">
-                  <CardTitle className="text-lg font-semibold">
+                  <CardTitle className="text-base font-semibold">
                     {author.name}
                   </CardTitle>
                   {author.isVerified && (
@@ -50,15 +52,26 @@ export default function PostCard({ post }: { post: ISinglePost }) {
               </Link>
             </div>
           </div>
+          {post.premium && (
+            <div className="hidden md:block mt-2">
+              <Badge>Premium</Badge>
+            </div>
+          )}
         </div>
+
+        {post.premium && (
+          <div className="block md:hidden mb-2">
+            <Badge>Premium</Badge>
+          </div>
+        )}
 
         <Link
           href={`/${author._id}/posts/${post._id}`}
           className="cursor-pointer"
         >
-          <CardTitle className="text-2xl font-bold mb-2">{title}</CardTitle>
+          <CardTitle className="text-xl font-bold mb-2">{title}</CardTitle>
           <div
-            className="post-content line-clamp-2 overflow-hidden text-muted-foreground"
+            className="post-content line-clamp-2 break-all overflow-hidden text-muted-foreground"
             dangerouslySetInnerHTML={{ __html: content }}
           />
         </Link>
@@ -87,11 +100,13 @@ export default function PostCard({ post }: { post: ISinglePost }) {
       </div>
 
       {images.length > 0 && (
-        <div className="flex-none w-1/3  relative">
+        <div className="flex-none w-full relative mt-4 md:mt-0">
           <Image
             src={images[0]}
             alt="Post Image"
-            layout="fill"
+            layout="responsive"
+            width={500} // Set a default width
+            height={300} // Set a default height
             objectFit="cover"
             className="rounded-lg"
             role="img"

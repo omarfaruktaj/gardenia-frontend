@@ -15,6 +15,7 @@ export default function FeedPostList() {
 
   const searchTerm = params.get('searchTerm') || undefined;
   const category = params.get('category') || undefined;
+  const sort = params.get('sort') || undefined;
 
   console.log(searchTerm);
   const {
@@ -25,9 +26,9 @@ export default function FeedPostList() {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ['FEED_POSTS', searchTerm, category],
+    queryKey: ['FEED_POSTS', searchTerm, category, sort],
     queryFn: ({ pageParam = 1 }) =>
-      fetchFeed({ pageParam, searchTerm, category }),
+      fetchFeed({ pageParam, searchTerm, category, sort }),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => lastPage?.pagination?.next ?? null,
   });

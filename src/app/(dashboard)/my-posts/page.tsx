@@ -8,7 +8,7 @@ export default async function MyPosts() {
 
   return (
     <div className="p-6 ">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between max-w-4xl">
         <Heading title="My Posts" description="Manage your posts" />
         <PostButton />
       </div>
