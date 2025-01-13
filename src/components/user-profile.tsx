@@ -3,7 +3,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { LogOut, User2 } from 'lucide-react';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import {
   DropdownMenu,
@@ -13,7 +13,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useUser } from '@/context/user-provider';
-import { publicRoutes } from '@/routes';
 import { logout } from '@/services/auth-service';
 import { getCurrentUser } from '@/services/user-service';
 
@@ -24,14 +23,11 @@ export default function UserProfile() {
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  const pathname = usePathname();
+  // const pathname = usePathname();
 
   const handleLogout = async () => {
     logout();
-
-    if (!publicRoutes.includes(pathname)) {
-      router.push('/');
-    }
+    router.push('/login');
     await getCurrentUser();
     queryClient.invalidateQueries({ queryKey: ['ME'] });
   };

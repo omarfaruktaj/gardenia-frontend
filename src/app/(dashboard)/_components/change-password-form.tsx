@@ -52,7 +52,7 @@ export default function ChangePasswordForm() {
         toast.success('Password successfully changed. Please login again');
         await logout();
         await getCurrentUser();
-        router.push('/');
+        router.push('/login');
       }
     });
   }
