@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
-import { Edit, Ellipsis, Trash } from 'lucide-react';
+import { Edit, EllipsisVertical, Trash } from 'lucide-react';
 import { toast } from 'sonner';
 
 import {
@@ -92,7 +92,7 @@ export default function PostOptionButton({
           )}
           aria-label="Options"
         >
-          <Ellipsis className="h-6 w-6" />
+          <EllipsisVertical className="h-6 w-6" />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           {post?.author?._id === currentUser?._id && (

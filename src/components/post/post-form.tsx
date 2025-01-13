@@ -37,7 +37,10 @@ import {
 } from '../ui/select';
 import UploadMultiImage from '../upload-multi-image';
 
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+const ReactQuill = dynamic(() => import('react-quill'), {
+  ssr: false,
+  loading: () => <p>Initializing the editor...</p>,
+});
 
 interface PostFormProps {
   initialData?: TPost;
@@ -181,133 +184,258 @@ export default function PostForm({ initialData, closeModel }: PostFormProps) {
   const loadingAction = initialData ? 'Saving changes...' : 'Posting...';
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="title"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Title</FormLabel>
-              <FormControl>
-                <Input
-                  className="text-xl"
-                  placeholder="Enter post title"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+    // <div><Form {...form}>
+    //   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+    //     <FormField
+    //       control={form.control}
+    //       name="title"
+    //       render={({ field }) => (
+    //         <FormItem>
+    //           <FormLabel>Title</FormLabel>
+    //           <FormControl>
+    //             <Input
+    //               className="text-xl"
+    //               placeholder="Enter post title"
+    //               {...field}
+    //             />
+    //           </FormControl>
+    //           <FormMessage />
+    //         </FormItem>
+    //       )}
+    //     />
 
-        <FormField
-          control={form.control}
-          name="content"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Content</FormLabel>
-              <FormControl>
-                <ReactQuill
-                  {...field}
-                  onChange={field.onChange}
-                  modules={modules}
-                  // ref={quillRef}
-                  formats={formats}
-                />
-                {/* <QuillEditor
-                  {...field}
-                  onChange={field.onChange}
-                  modules={modules}
-                  ref={quillRef}
-                  formats={formats}
-                /> */}
-              </FormControl>
-              {/* {uploadingImage && (
-                <p className="flex items-center gap-2 text-sm">
-                  <span>Image uploading...</span>
-                </p>
-              )} */}
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+    //     <FormField
+    //       control={form.control}
+    //       name="content"
+    //       render={({ field }) => (
+    //         <FormItem>
+    //           <FormLabel>Content</FormLabel>
+    //           <FormControl>
+    //             <ReactQuill
+    //               {...field}
+    //               onChange={field.onChange}
+    //               modules={modules}
+    //               // ref={quillRef}
+    //               formats={formats}
+    //             />
+    //             {/* <QuillEditor
+    //               {...field}
+    //               onChange={field.onChange}
+    //               modules={modules}
+    //               ref={quillRef}
+    //               formats={formats}
+    //             /> */}
+    //           </FormControl>
+    //           {/* {uploadingImage && (
+    //             <p className="flex items-center gap-2 text-sm">
+    //               <span>Image uploading...</span>
+    //             </p>
+    //           )} */}
+    //           <FormMessage />
+    //         </FormItem>
+    //       )}
+    //     />
 
-        <FormField
-          control={form.control}
-          name="category"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Category</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger disabled={isLoading}>
-                    <SelectValue placeholder="Select a Category" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {categories?.map(
-                    (category: CategoryType & { _id: string }) => (
-                      <SelectItem key={category._id} value={category._id}>
-                        {category.name}
-                      </SelectItem>
-                    )
-                  )}
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+    //     <FormField
+    //       control={form.control}
+    //       name="category"
+    //       render={({ field }) => (
+    //         <FormItem>
+    //           <FormLabel>Category</FormLabel>
+    //           <Select onValueChange={field.onChange} defaultValue={field.value}>
+    //             <FormControl>
+    //               <SelectTrigger disabled={isLoading}>
+    //                 <SelectValue placeholder="Select a Category" />
+    //               </SelectTrigger>
+    //             </FormControl>
+    //             <SelectContent>
+    //               {categories?.map(
+    //                 (category: CategoryType & { _id: string }) => (
+    //                   <SelectItem key={category._id} value={category._id}>
+    //                     {category.name}
+    //                   </SelectItem>
+    //                 )
+    //               )}
+    //             </SelectContent>
+    //           </Select>
+    //           <FormMessage />
+    //         </FormItem>
+    //       )}
+    //     />
 
-        <FormField
-          control={form.control}
-          name="images"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Images</FormLabel>
-              <FormControl>
-                <UploadMultiImage
-                  value={field.value}
-                  disabled={isPending}
-                  onChange={(urls) => field.onChange([...field.value, ...urls])}
-                  onRemove={(url) =>
-                    field.onChange(
-                      field.value.filter((current) => current !== url)
-                    )
-                  }
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+    //     <FormField
+    //       control={form.control}
+    //       name="images"
+    //       render={({ field }) => (
+    //         <FormItem>
+    //           <FormLabel>Images</FormLabel>
+    //           <FormControl>
+    //             <UploadMultiImage
+    //               value={field.value}
+    //               disabled={isPending}
+    //               onChange={(urls) => field.onChange([...field.value, ...urls])}
+    //               onRemove={(url) =>
+    //                 field.onChange(
+    //                   field.value.filter((current) => current !== url)
+    //                 )
+    //               }
+    //             />
+    //           </FormControl>
+    //           <FormMessage />
+    //         </FormItem>
+    //       )}
+    //     />
 
-        {user?.isVerified && (
+    //     {user?.isVerified && (
+    //       <FormField
+    //         control={form.control}
+    //         name="premium"
+    //         render={({ field }) => (
+    //           <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md">
+    //             <FormControl>
+    //               <Checkbox
+    //                 checked={field.value}
+    //                 onCheckedChange={field.onChange}
+    //               />
+    //             </FormControl>
+    //             <div className="space-y-1 leading-none">
+    //               <FormLabel>Premium Post</FormLabel>
+    //             </div>
+    //             <FormMessage />
+    //           </FormItem>
+    //         )}
+    //       />
+    //     )}
+
+    //     <LoadingButton loading={isPending} type="submit" className="w-full">
+    //       {isPending ? loadingAction : action}
+    //     </LoadingButton>
+    //   </form>
+    // </Form></div>
+    <div>
+      <h1 className="text-2xl font-semibold mb-6">Create a New Post</h1>{' '}
+      {/* Form title */}
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
             control={form.control}
-            name="premium"
+            name="title"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md">
+              <FormItem>
+                <FormLabel>Title</FormLabel>
                 <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
+                  <Input
+                    className="text-xl"
+                    placeholder="Enter post title"
+                    {...field}
+                    required
                   />
                 </FormControl>
-                <div className="space-y-1 leading-none">
-                  <FormLabel>Premium Post</FormLabel>
-                </div>
                 <FormMessage />
               </FormItem>
             )}
           />
-        )}
 
-        <LoadingButton loading={isPending} type="submit" className="w-full">
-          {isPending ? loadingAction : action}
-        </LoadingButton>
-      </form>
-    </Form>
+          <FormField
+            control={form.control}
+            name="content"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Content</FormLabel>
+                <FormControl>
+                  <ReactQuill
+                    {...field}
+                    onChange={field.onChange}
+                    modules={modules}
+                    formats={formats}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="category"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Category</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger disabled={isLoading}>
+                      <SelectValue placeholder="Select a Category" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {categories?.map(
+                      (category: CategoryType & { _id: string }) => (
+                        <SelectItem key={category._id} value={category._id}>
+                          {category.name}
+                        </SelectItem>
+                      )
+                    )}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="images"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Images</FormLabel>
+                <FormControl>
+                  <UploadMultiImage
+                    value={field.value}
+                    disabled={isPending}
+                    onChange={(urls) =>
+                      field.onChange([...field.value, ...urls])
+                    }
+                    onRemove={(url) =>
+                      field.onChange(
+                        field.value.filter((current) => current !== url)
+                      )
+                    }
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {user?.isVerified && (
+            <FormField
+              control={form.control}
+              name="premium"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>Premium Post</FormLabel>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
+
+          <LoadingButton loading={isPending} type="submit" className="w-full">
+            {isPending ? loadingAction : action}
+          </LoadingButton>
+        </form>
+      </Form>
+    </div>
   );
 }

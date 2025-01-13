@@ -9,14 +9,14 @@ import {
 } from '@/components/ui/sheet';
 
 import Logo from '../logo';
+import MainSidebarNav from '../main-sidebar-nav';
 import { Button } from '../ui/button';
-import MainNav from './main-nav';
 
 export default function MobileNav() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button size={'icon'} variant="ghost">
+        <Button size={'icon'} variant="default">
           <AlignLeft />
         </Button>
       </SheetTrigger>
@@ -30,7 +30,8 @@ export default function MobileNav() {
         </SheetHeader>
 
         <div className="mp-10">
-          <MainNav />
+          {/* <MainNav /> */}
+          <MainSidebarNav />
         </div>
       </SheetContent>
     </Sheet>

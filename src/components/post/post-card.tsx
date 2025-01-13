@@ -21,7 +21,7 @@ export default function PostCard({ post }: { post: ISinglePost }) {
   const formattedDate = new Date(createdAt).toLocaleDateString();
 
   return (
-    <Card className="flex flex-col p-4 border rounded-lg shadow-lg bg-transparent hover:shadow-xl transition-shadow duration-300 md:flex-row">
+    <Card className="flex flex-col p-4 border rounded-lg md:flex-row">
       <div className="flex-1 pr-0 md:pr-6">
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center">
@@ -64,6 +64,18 @@ export default function PostCard({ post }: { post: ISinglePost }) {
             <Badge>Premium</Badge>
           </div>
         )}
+        {images.length > 0 && (
+          <div className=" w-full pb-4 md:hidden">
+            <Image
+              src={images[0]}
+              alt="Post Image"
+              width={500}
+              height={300}
+              className="rounded-lg object-cover h-48"
+              role="img"
+            />
+          </div>
+        )}
 
         <Link
           href={`/${author._id}/posts/${post._id}`}
@@ -104,7 +116,7 @@ export default function PostCard({ post }: { post: ISinglePost }) {
       </div>
 
       {images.length > 0 && (
-        <div className="flex-none w-1/3  relative">
+        <div className="flex-none w-full md:w-1/3 relative mt-4 md:mt-0">
           <Image
             src={images[0]}
             alt="Post Image"

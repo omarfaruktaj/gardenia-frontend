@@ -22,7 +22,7 @@ export default function Team() {
           delivering the best results.
         </p>
 
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2  gap-8">
           {teamMembers.map((member, index) => (
             <div key={index} className="text-center">
               <Image

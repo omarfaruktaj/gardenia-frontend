@@ -23,9 +23,9 @@ export default function PostButton() {
         </div>
       </Model>
       <Button
-        variant={'secondary'}
+        variant={'default'}
         onClick={() => setOpenModel(true)}
-        className="flex items-center space-x-2 rounded-full "
+        className="flex items-center space-x-2 rounded-full w-full"
       >
         <PenBox className="h-4 w-4" />
         <div>Start Writing</div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { BarChart, Book, DollarSign, Tag, Users } from 'lucide-react';
+import { BarChart, Book, DollarSign, Settings, Tag, Users } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -33,6 +33,11 @@ export default function SidebarNav() {
       path: '/admin/payments',
       label: 'Payments',
       icon: DollarSign,
+    },
+    {
+      path: '/admin/settings',
+      label: 'Settings',
+      icon: Settings,
     },
   ];
 

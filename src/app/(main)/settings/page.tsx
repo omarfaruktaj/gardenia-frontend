@@ -1,6 +1,5 @@
+import ChangePasswordForm from '@/app/(dashboard)/_components/change-password-form';
 import { Heading } from '@/components/ui/heading';
-
-import ChangePasswordForm from '../_components/change-password-form';
 
 export default function Settings() {
   return (

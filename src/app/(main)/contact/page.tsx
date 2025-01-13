@@ -40,9 +40,9 @@ export default function Contact() {
   }
 
   return (
-    <div className="min-h-screen py-8">
+    <div className="min-h-screen py-8 px-4">
       <h1 className="text-4xl font-bold text-center mb-8">Contact Us</h1>
-      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
+      <div className="max-w-5xl mx-auto grid grid-cols-1  gap-10">
         <div className="shadow-lg rounded-lg p-8 mb-8 md:mb-0">
           <h2 className="text-2xl font-semibold mb-4">Get in Touch</h2>
           <Form {...form}>

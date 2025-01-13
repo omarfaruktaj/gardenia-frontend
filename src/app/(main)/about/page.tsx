@@ -5,7 +5,7 @@ import Vision from './_components/vision';
 
 export default function About() {
   return (
-    <div>
+    <div className="p-4">
       <Banner />
       <Mission />
       <Vision />

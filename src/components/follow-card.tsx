@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 import { UserResponse } from '@/types';
 
 interface UserCardProps {
@@ -18,7 +19,12 @@ interface UserCardProps {
 
 export default function UserCard({ user, currentUser }: UserCardProps) {
   return (
-    <Card className="border-0 rounded-md bg-transparent">
+    <Card
+      className={cn(
+        'border-0 rounded-md bg-transparent',
+        user._id === currentUser._id && 'hidden'
+      )}
+    >
       <CardHeader className="p-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center mb-4 sm:mb-0">

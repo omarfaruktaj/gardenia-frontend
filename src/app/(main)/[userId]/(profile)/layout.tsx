@@ -7,7 +7,10 @@ export default function ProfileLayout({
 }) {
   return (
     <>
-      <div className="lg:mx-auto max-w-4xl border-x min-h-screen">
+      {/* <div className="lg:mx-auto max-w-4xl border-x min-h-screen">
+        {children} {profile}
+      </div> */}
+      <div className="min-h-screen">
         {children} {profile}
       </div>
     </>

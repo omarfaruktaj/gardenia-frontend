@@ -26,5 +26,10 @@
     "trivago",
     "Unfollow",
     "vaul"
-  ]
+  ],
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#47250A",
+    "titleBar.activeBackground": "#63340E",
+    "titleBar.activeForeground": "#FEFAF7"
+  }
 }
