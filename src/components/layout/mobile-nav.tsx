@@ -1,4 +1,6 @@
 import { AlignLeft } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 import {
   Sheet,
@@ -8,7 +10,6 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 
-import Logo from '../logo';
 import MainSidebarNav from '../main-sidebar-nav';
 import { Button } from '../ui/button';
 
@@ -16,7 +17,7 @@ export default function MobileNav() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button size={'icon'} variant="default">
+        <Button size={'icon'} variant="ghost">
           <AlignLeft />
         </Button>
       </SheetTrigger>
@@ -24,7 +25,23 @@ export default function MobileNav() {
         <SheetHeader className="mb-4">
           <SheetTitle>
             <div className="flex items-start mb-3">
-              <Logo />
+              <Link
+                href={'/'}
+                className="text-xl font-bold p-1  cursor-pointer"
+              >
+                <div className="flex items-center justify-center gap-2">
+                  <div>
+                    <Image
+                      src={'/static/logo.png'}
+                      height={100}
+                      width={100}
+                      alt="logo"
+                      className="h-10 w-10"
+                    />
+                  </div>
+                  <div>Gardenia</div>
+                </div>
+              </Link>
             </div>
           </SheetTitle>
         </SheetHeader>

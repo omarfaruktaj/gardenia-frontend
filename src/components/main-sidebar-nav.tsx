@@ -3,12 +3,12 @@
 import {
   BookmarkIcon,
   CameraIcon,
-  ClipboardListIcon,
   HomeIcon,
   InfoIcon,
   MailIcon,
   Settings,
   UserIcon,
+  Users,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -22,7 +22,7 @@ export default function MainSidebarNav() {
   const menuItems = [
     { icon: HomeIcon, label: 'Home', href: '/' },
     { icon: BookmarkIcon, label: 'Bookmarks', href: '/bookmarks' },
-    { icon: ClipboardListIcon, label: 'Lists', href: '/lists' },
+    { icon: Users, label: 'Communities', href: '/communities' },
     { icon: UserIcon, label: 'Profile', href: `/${user?._id}` },
     { icon: CameraIcon, label: 'Gallery', href: '/gallery' },
     { icon: InfoIcon, label: 'About Us', href: '/about' },

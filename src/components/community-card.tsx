@@ -1,7 +1,6 @@
 import { BadgeCheck } from 'lucide-react';
 import Link from 'next/link';
 
-import FollowButton from '@/components/follow-button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   Card,
@@ -17,11 +16,11 @@ interface UserCardProps {
   currentUser: UserResponse;
 }
 
-export default function UserCard({ user, currentUser }: UserCardProps) {
+export default function CommunityCard({ user, currentUser }: UserCardProps) {
   return (
     <Card
       className={cn(
-        'border-0 rounded-md bg-transparent',
+        'border-0 rounded-sm bg-transparent',
         user._id === currentUser._id && 'hidden'
       )}
     >
@@ -47,12 +46,15 @@ export default function UserCard({ user, currentUser }: UserCardProps) {
                   )}
                 </div>
                 <CardDescription>{user?.username}</CardDescription>
+                <p className="text-sm text-muted-foreground mt-2">
+                  {user?.bio}
+                </p>
               </Link>
             </div>
           </div>
-          {!(user?._id === currentUser?._id) && (
+          {/* {!(user?._id === currentUser?._id) && (
             <FollowButton user={user} currentUser={currentUser} />
-          )}
+          )} */}
         </div>
       </CardHeader>
     </Card>

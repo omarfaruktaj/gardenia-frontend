@@ -18,19 +18,19 @@ export default function MainLayout({
       <div className="container mx-auto bg-background ">
         <div className="relative mt-1">
           <div className="mx-auto flex flex-col lg:flex-row">
-            <div className="hidden lg:flex lg:flex-col lg:w-2/6 p-4  sticky top-20 h-screen">
+            <div className="hidden lg:flex lg:flex-col lg:w-3/12 p-4  sticky top-20 h-screen">
               <div className="space-y-6">
                 <MainSidebar />
               </div>
             </div>
 
             {/* Main Content */}
-            <div className="flex-grow min-h-screen lg:w-3/6 border-x border-b">
+            <div className="flex-grow min-h-screen lg:w-5/6 border-x border-b">
               {children}
             </div>
 
             {/* Right Sidebar */}
-            <div className="hidden lg:flex lg:flex-col lg:w-2/6 p-4 shadow-lg rounded-lg sticky top-10 h-screen ">
+            <div className="hidden lg:flex lg:flex-col lg:w-2/6 p-4  sticky top-10 h-screen ">
               <div className="space-y-6">
                 <Suspense fallback={<PostFilterSkeleton />}>
                   <SearchBar />

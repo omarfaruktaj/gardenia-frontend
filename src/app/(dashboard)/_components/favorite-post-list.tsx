@@ -44,8 +44,8 @@ export default function FavoritePostList({ userId }: { userId: string }) {
         <FaHeartBroken className="h-16 w-16 text-primary mb-4" />
         <p className="text-lg font-semibold">No Favorite Posts Yet</p>
         <p className="text-muted-foreground">
-          It looks like you haven&apos;t favorited any posts. Start exploring
-          and adding your favorites!
+          It looks like you haven&apos;t Bookmark any posts. Start exploring and
+          adding your favorites!
         </p>
       </div>
     );

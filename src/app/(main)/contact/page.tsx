@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 
 const formSchema = z.object({
@@ -41,9 +42,11 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen py-8 px-4">
-      <h1 className="text-4xl font-bold text-center mb-8">Contact Us</h1>
+      <h2 className="text-xl font-semibold mb-4">Contact Us</h2>
+      <Separator />
+
       <div className="max-w-5xl mx-auto grid grid-cols-1  gap-10">
-        <div className="shadow-lg rounded-lg p-8 mb-8 md:mb-0">
+        <div className=" pt-2 mb-8 md:mb-0">
           <h2 className="text-2xl font-semibold mb-4">Get in Touch</h2>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -110,7 +113,7 @@ export default function Contact() {
           </Form>
         </div>
 
-        <div className="flex items-center justify-center px-4">
+        <div className="flex items-center justify-center ">
           <div>
             <h2 className="text-2xl font-semibold mb-4">Contact Information</h2>
             <p className="text-muted-foreground mb-6">
