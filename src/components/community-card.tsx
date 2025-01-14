@@ -20,7 +20,7 @@ export default function CommunityCard({ user, currentUser }: UserCardProps) {
   return (
     <Card
       className={cn(
-        'border-0 rounded-sm bg-transparent',
+        'border rounded-md bg-transparent shadow-none',
         user._id === currentUser._id && 'hidden'
       )}
     >
@@ -28,12 +28,15 @@ export default function CommunityCard({ user, currentUser }: UserCardProps) {
         <div className="flex items-center justify-between">
           <div className="flex items-center mb-4 sm:mb-0">
             <Link href={`/${user?._id}`}>
-              <Avatar>
+              <Avatar className="rounded-md">
                 <AvatarImage
+                  className="rounded-md"
                   src={user?.avatar}
                   alt={`${user?.name}'s avatar`}
                 />
-                <AvatarFallback>{user?.name.slice(0, 2)}</AvatarFallback>
+                <AvatarFallback className="rounded-md">
+                  {user?.name.slice(0, 2)}
+                </AvatarFallback>
               </Avatar>
             </Link>
 
@@ -46,7 +49,7 @@ export default function CommunityCard({ user, currentUser }: UserCardProps) {
                   )}
                 </div>
                 <CardDescription>{user?.username}</CardDescription>
-                <p className="text-sm text-muted-foreground mt-2">
+                <p className="text-sm text-muted-foreground mt-1">
                   {user?.bio}
                 </p>
               </Link>
