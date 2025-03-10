@@ -46,14 +46,16 @@ export default async function Profile({ userId }: { userId: string }) {
   return (
     <div className="overflow-hidden">
       <ProfileBack user={user} />
-      <div className="relative w-full h-56">
+      <div className="relative w-full h-48 sm:h-64 md:h-72 overflow-hidden">
         <Image
           src={user.cover || fallbackCoverPic}
           alt="Cover image"
-          width={500}
-          height={200}
-          className="w-full h-full object-cover"
+          width={1200}
+          height={400}
+          className="w-full h-full object-cover transition-transform hover:scale-105 duration-700"
+          priority
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/80  to-transparent" />
       </div>
 
       <div className="px-3 md:px-6 py-2 ">
