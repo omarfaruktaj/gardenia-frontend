@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { ArrowBigDown, ArrowBigUp } from 'lucide-react';
 import { toast } from 'sonner';
@@ -25,6 +25,28 @@ export default function VoteButton({
     );
     return userVote?.voteType ?? null;
   });
+  const [isPending, setIsPending] = useState(false);
+
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      if (isPending) {
+        event.preventDefault();
+        event.returnValue = ''; // Some browsers require this to show a confirmation dialog
+        return 'Are you sure you want to leave? Your changes may not be saved.';
+      }
+    };
+
+    if (isPending) {
+      window.addEventListener('beforeunload', handleBeforeUnload);
+    } else {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    }
+
+    // Cleanup on unmount
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [isPending]);
 
   const handleVote = async (voteType: 'upvote' | 'downvote') => {
     // Optimistic update
@@ -49,10 +71,10 @@ export default function VoteButton({
     }
 
     setVotesCount(newVotes);
-
+    setIsPending(true);
     // Send to server
     const result = await votePost({ postId: post._id, voteType });
-
+    setIsPending(false);
     if (result.error) {
       toast.error(result.error.message);
       // Revert if error

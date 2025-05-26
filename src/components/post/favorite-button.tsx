@@ -20,7 +20,7 @@ export default function FavoriteButton({ post }: { post: ISinglePost }) {
   const queryClient = useQueryClient();
 
   const [isFavorited, setIsFavorited] = useState<boolean>(false);
-
+  const [isPending, setIsPending] = useState(false);
   // Sync state with user data on mount
   useEffect(() => {
     if (currentUser?.favorites) {
@@ -31,16 +31,38 @@ export default function FavoriteButton({ post }: { post: ISinglePost }) {
     }
   }, [currentUser, post._id]);
 
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      if (isPending) {
+        event.preventDefault();
+        event.returnValue = ''; // Some browsers require this to show a confirmation dialog
+        return 'Are you sure you want to leave? Your changes may not be saved.';
+      }
+    };
+
+    if (isPending) {
+      window.addEventListener('beforeunload', handleBeforeUnload);
+    } else {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    }
+
+    // Cleanup on unmount
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [isPending]);
+
   const handleFavoriteToggle = async () => {
     if (!currentUser) {
       return router.push('/login');
     }
 
+    setIsPending(true);
     // Optimistic update
     setIsFavorited((prev) => !prev);
 
     const result = await toggleFavorite(post._id);
-
+    setIsPending(false);
     if (result.error) {
       // Revert on error
       toast.error(result.error.message);
