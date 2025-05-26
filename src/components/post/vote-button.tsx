@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+
 import { ArrowBigDown, ArrowBigUp } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -16,43 +18,73 @@ export default function VoteButton({
   post: ISinglePost;
   currentUser: UserResponse;
 }) {
+  const [votesCount, setVotesCount] = useState<number>(post.votes);
+  const [userVote, setUserVote] = useState<VoteType | null>(() => {
+    const userVote = post?.allVotes?.find(
+      (vote) => vote?.user === currentUser?._id
+    );
+    return userVote?.voteType ?? null;
+  });
+
   const handleVote = async (voteType: 'upvote' | 'downvote') => {
-    const result = await votePost({ postId: post?._id, voteType });
+    // Optimistic update
+    let newVotes = votesCount;
+
+    if (voteType === 'upvote') {
+      if (userVote === VoteType.Upvote) {
+        setUserVote(null);
+        newVotes -= 1;
+      } else {
+        setUserVote(VoteType.Upvote);
+        newVotes += userVote === VoteType.Downvote ? 2 : 1;
+      }
+    } else {
+      if (userVote === VoteType.Downvote) {
+        setUserVote(null);
+        newVotes += 1;
+      } else {
+        setUserVote(VoteType.Downvote);
+        newVotes -= userVote === VoteType.Upvote ? 2 : 1;
+      }
+    }
+
+    setVotesCount(newVotes);
+
+    // Send to server
+    const result = await votePost({ postId: post._id, voteType });
 
     if (result.error) {
       toast.error(result.error.message);
+      // Revert if error
+      setVotesCount(post.votes);
+      const originalVote = post.allVotes.find(
+        (vote) => vote.user === currentUser._id
+      );
+      setUserVote(originalVote?.voteType ?? null);
     }
   };
 
-  const isUserUpVoted = post?.allVotes?.find(
-    (vote) =>
-      vote?.user === currentUser?._id && vote?.voteType === VoteType?.Upvote
-  );
-  const isUserDownVoted = post.allVotes.find(
-    (vote) =>
-      vote.user === currentUser?._id && vote?.voteType === VoteType?.Downvote
-  );
-
   return (
     <div>
-      <div className="inline-flex items-center border  rounded-full">
+      <div className="inline-flex items-center border rounded-full">
         <Button
-          variant={'outline'}
+          variant="outline"
           className={cn(
             'p-2 border-0 rounded-l-full flex items-center gap-1',
-            isUserUpVoted && 'text-primary bg-primary/20 hover:text-primary'
+            userVote === VoteType.Upvote &&
+              'text-primary bg-primary/20 hover:text-primary'
           )}
           onClick={() => handleVote('upvote')}
         >
           <ArrowBigUp />
-          <span className="pl-1">{post.votes}</span>
+          <span className="pl-1">{votesCount}</span>
         </Button>
 
         <Button
-          variant={'outline'}
+          variant="outline"
           className={cn(
             'p-2 border-0 rounded-r-full',
-            isUserDownVoted &&
+            userVote === VoteType.Downvote &&
               'text-destructive bg-destructive/20 hover:text-destructive'
           )}
           onClick={() => handleVote('downvote')}
