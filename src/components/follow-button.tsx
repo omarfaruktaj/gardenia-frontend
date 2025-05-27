@@ -19,12 +19,11 @@ interface UserCardProps {
 export default function FollowButton({ user, currentUser }: UserCardProps) {
   const [isMouseEntered, setMouseEnter] = useState(false);
   const [openModel, setOpenModel] = useState(false);
+  const [isCurrentUserFollowing, setIsCurrentUserFollowing] = useState(
+    currentUser ? user?.followers?.includes(currentUser._id) : false
+  );
 
   const queryClient = useQueryClient();
-
-  const isCurrentUserFollowing = currentUser
-    ? user?.followers?.includes(currentUser._id)
-    : false;
 
   const isUserFollowing = currentUser
     ? user?.following?.includes(currentUser._id)
@@ -41,56 +40,48 @@ export default function FollowButton({ user, currentUser }: UserCardProps) {
       ? 'Follow Back'
       : 'Follow';
 
+  const invalidateFollowQueries = () => {
+    queryClient.invalidateQueries({
+      queryKey: ['followers', currentUser?._id],
+    });
+    queryClient.invalidateQueries({
+      queryKey: ['followings', currentUser?._id],
+    });
+    queryClient.invalidateQueries({ queryKey: ['followings', user?._id] });
+    queryClient.invalidateQueries({ queryKey: ['followers', user?._id] });
+  };
+
   const handleFollowToggle = async () => {
     let result;
 
     if (isCurrentUserFollowing) {
       setOpenModel(true);
     } else {
+      setIsCurrentUserFollowing(true);
       result = await followUser(user._id);
     }
 
     if (result?.error) {
       toast.error(result.message);
+      setIsCurrentUserFollowing(false);
+      return;
     }
     if (result?.message) {
-      queryClient.invalidateQueries({
-        queryKey: ['followers', currentUser?._id],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ['followings', currentUser?._id],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ['followings', user?._id],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ['followers', user?._id],
-      });
+      invalidateFollowQueries();
 
       toast.success(result.message);
     }
   };
 
   const handleUnFollow = async () => {
+    setIsCurrentUserFollowing(false);
     const result = await UnfollowUser(user._id);
 
     if (result.error) {
       toast.error(result.message);
     }
     if (result.message) {
-      queryClient.invalidateQueries({
-        queryKey: ['followers', currentUser?._id],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ['followings', currentUser?._id],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ['followings', user?._id],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ['followers', user?._id],
-      });
-
+      invalidateFollowQueries();
       toast.success(result.message);
     }
   };
