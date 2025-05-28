@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+import getLoginUser from './lib/get-login-user';
 import { adminRoutes, authRoutes } from './routes';
-import { getCurrentUser } from './services/user-service';
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const user = await getCurrentUser();
+  const user = await getLoginUser();
 
   // const isPublicRoute = publicRoutes.includes(pathname);
   const isAdminRoute = adminRoutes.some((route) => pathname.startsWith(route));
@@ -20,6 +20,13 @@ export async function middleware(request: NextRequest) {
     // }
 
     return NextResponse.redirect(new URL('/login', request.nextUrl));
+  }
+
+  if (user.exp < Date.now() / 1000) {
+    const res = NextResponse.redirect(new URL('/login', request.nextUrl));
+
+    res.cookies.delete('access_token');
+    return res;
   }
 
   if (isAuthRoute) {
