@@ -6,14 +6,14 @@ import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { UnfollowUser, followUser } from '@/services/user-service';
-import { UserResponse } from '@/types';
+import { LoggedInUser, UserResponse } from '@/types';
 
 import AlertModal from './ui/alert-model';
 import { Button } from './ui/button';
 
 interface UserCardProps {
   user: UserResponse;
-  currentUser: UserResponse | null;
+  currentUser: LoggedInUser | null;
 }
 
 export default function FollowButton({ user, currentUser }: UserCardProps) {

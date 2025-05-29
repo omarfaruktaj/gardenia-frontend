@@ -1,9 +1,7 @@
 import { redirect } from 'next/navigation';
 
-import {
-  fetchSingleUserWithVerificationEligible,
-  getCurrentUser,
-} from '@/services/user-service';
+import getLoginUser from '@/lib/get-login-user';
+import { fetchSingleUserWithVerificationEligible } from '@/services/user-service';
 import { UserResponse } from '@/types';
 
 import ProfileNotFound from './(profile)/_components/profile-not-found';
@@ -15,7 +13,7 @@ export default async function UserLayout({
   children: React.ReactNode;
   params: { userId: string };
 }) {
-  const currentUser = await getCurrentUser();
+  const currentUser = await getLoginUser();
   const user = (await fetchSingleUserWithVerificationEligible(
     userId
   )) as UserResponse;

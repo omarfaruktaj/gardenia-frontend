@@ -8,9 +8,9 @@ import UserCard from '@/components/follow-card';
 import InfiniteScrollContainer from '@/components/infinitive-scroll-container';
 import { UserCardSkeleton } from '@/components/skeleton/user-card-skeleton';
 import { fetchFollowing } from '@/services/user-service';
-import { TUser, UserResponse } from '@/types';
+import { LoggedInUser, UserResponse } from '@/types';
 
-export default function FollowingList({ user }: { user: TUser }) {
+export default function FollowingList({ user }: { user: LoggedInUser }) {
   const {
     data,
     fetchNextPage,

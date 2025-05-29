@@ -7,7 +7,7 @@ import { toast } from 'sonner';
 
 import { cn } from '@/lib/utils';
 import { votePost } from '@/services/post-service';
-import { ISinglePost, UserResponse, VoteType } from '@/types';
+import { ISinglePost, LoggedInUser, VoteType } from '@/types';
 
 import { Button } from '../ui/button';
 
@@ -16,7 +16,7 @@ export default function VoteButton({
   currentUser,
 }: {
   post: ISinglePost;
-  currentUser: UserResponse;
+  currentUser: LoggedInUser;
 }) {
   const [votesCount, setVotesCount] = useState<number>(post.votes);
   const [userVote, setUserVote] = useState<VoteType | null>(() => {

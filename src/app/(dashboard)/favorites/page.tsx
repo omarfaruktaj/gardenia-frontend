@@ -1,12 +1,12 @@
 import { redirect } from 'next/navigation';
 
 import { Heading } from '@/components/ui/heading';
-import { getCurrentUser } from '@/services/user-service';
+import getLoginUser from '@/lib/get-login-user';
 
 import FavoritePostList from '../_components/favorite-post-list';
 
 export default async function Favorites() {
-  const user = await getCurrentUser();
+  const user = await getLoginUser();
 
   if (!user) {
     redirect('/login');

@@ -1,11 +1,11 @@
 import CommunityCard from '@/components/community-card';
 import { Separator } from '@/components/ui/separator';
 import api from '@/config/axios';
-import { getCurrentUser } from '@/services/user-service';
+import getLoginUser from '@/lib/get-login-user';
 import { UserResponse } from '@/types';
 
 export default async function Communities() {
-  const user = await getCurrentUser();
+  const user = await getLoginUser();
 
   const response = await api.get('/users');
   const data = response.data;

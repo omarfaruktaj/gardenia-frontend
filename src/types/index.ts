@@ -156,6 +156,18 @@ export interface ISinglePost {
   allVotes: IVotes[];
 }
 
+export interface LoggedInUser {
+  _id: string;
+  username: string;
+  email: string;
+  avatar: string;
+  name: string;
+  isVerified: boolean;
+  role: string;
+  exp: number;
+  iat: number;
+}
+
 export interface UserActivityData {
   month: string;
   year: string;

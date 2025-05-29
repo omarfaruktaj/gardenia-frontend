@@ -6,10 +6,8 @@ import { redirect } from 'next/navigation';
 
 import FollowButton from '@/components/follow-button';
 import { Separator } from '@/components/ui/separator';
-import {
-  fetchSingleUserWithVerificationEligible,
-  getCurrentUser,
-} from '@/services/user-service';
+import getLoginUser from '@/lib/get-login-user';
+import { fetchSingleUserWithVerificationEligible } from '@/services/user-service';
 import { UserResponse } from '@/types';
 
 import GetVerifiedButton from './get-verified-button';
@@ -18,7 +16,7 @@ import ProfileNav from './profile-nav';
 import ProfileUpdateButton from './profile-update-button';
 
 export default async function Profile({ userId }: { userId: string }) {
-  const currentUser = await getCurrentUser();
+  const currentUser = await getLoginUser();
   const user = (await fetchSingleUserWithVerificationEligible(
     userId
   )) as UserResponse;

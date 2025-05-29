@@ -14,7 +14,6 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useUser } from '@/context/user-provider';
 import { logout } from '@/services/auth-service';
-import { getCurrentUser } from '@/services/user-service';
 
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 
@@ -28,7 +27,7 @@ export default function UserProfile() {
   const handleLogout = async () => {
     logout();
     router.push('/login');
-    await getCurrentUser();
+    // await getCurrentUser();
     queryClient.invalidateQueries({ queryKey: ['ME'] });
   };
 

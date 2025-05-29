@@ -10,11 +10,11 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { UserResponse } from '@/types';
+import { LoggedInUser, UserResponse } from '@/types';
 
 interface UserCardProps {
   user: UserResponse;
-  currentUser: UserResponse;
+  currentUser: LoggedInUser;
 }
 
 export default function UserCard({ user, currentUser }: UserCardProps) {

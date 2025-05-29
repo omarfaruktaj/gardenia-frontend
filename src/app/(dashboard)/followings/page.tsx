@@ -1,10 +1,10 @@
 import { Heading } from '@/components/ui/heading';
-import { getCurrentUser } from '@/services/user-service';
+import getLoginUser from '@/lib/get-login-user';
 
 import FollowingList from '../_components/following-list';
 
 export default async function Followings() {
-  const user = await getCurrentUser();
+  const user = await getLoginUser();
 
   return (
     <div>

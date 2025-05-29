@@ -3,10 +3,10 @@ import { redirect } from 'next/navigation';
 import PostList from '@/app/(main)/[userId]/(profile)/_components/post-list';
 import PostButton from '@/components/post/create-post-button';
 import { Heading } from '@/components/ui/heading';
-import { getCurrentUser } from '@/services/user-service';
+import getLoginUser from '@/lib/get-login-user';
 
 export default async function MyPosts() {
-  const user = await getCurrentUser();
+  const user = await getLoginUser();
 
   if (!user) {
     redirect('/login');

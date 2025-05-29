@@ -1,8 +1,9 @@
 import { BadgeCheck } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
-import { getCurrentUser } from '@/services/user-service';
+import getLoginUser from '@/lib/get-login-user';
 import { ISinglePost } from '@/types';
 
 import Comments from '../comments/comments';
@@ -18,7 +19,11 @@ import PostBackButton from './post-back-button';
 import VoteButton from './vote-button';
 
 export default async function SinglePost({ post }: { post: ISinglePost }) {
-  const currentUser = await getCurrentUser();
+  const currentUser = await getLoginUser();
+
+  if (!currentUser) {
+    return redirect('/login');
+  }
 
   return (
     <div>

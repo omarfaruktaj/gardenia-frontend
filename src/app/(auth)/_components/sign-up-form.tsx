@@ -23,7 +23,6 @@ import LoadingButton from '@/components/ui/loading-button';
 import { PasswordInput } from '@/components/ui/password-input';
 import { TSignUpSchema, signUpSchema } from '@/schemas/auth-schema';
 import { singUp } from '@/services/auth-service';
-import { getCurrentUser } from '@/services/user-service';
 
 export default function SignUpForm() {
   const [isPending, startTransition] = useTransition();
@@ -53,7 +52,7 @@ export default function SignUpForm() {
 
       if (data) {
         queryClient.invalidateQueries({ queryKey: ['ME'] });
-        await getCurrentUser();
+        // await getCurrentUser();
         router.push('/');
       }
     });

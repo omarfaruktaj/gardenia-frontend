@@ -38,7 +38,7 @@
 // }
 import Link from 'next/link';
 
-import { getCurrentUser } from '@/services/user-service';
+import getLoginUser from '@/lib/get-login-user';
 
 import Logo from '../logo';
 import PostButton from '../post/create-post-button';
@@ -47,7 +47,7 @@ import UserProfile from '../user-profile';
 import MobileNav from './mobile-nav';
 
 export default async function Navbar() {
-  const user = await getCurrentUser();
+  const user = await getLoginUser();
 
   return (
     <nav className="bg-green-600 sticky top-0 z-10">

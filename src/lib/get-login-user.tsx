@@ -9,5 +9,17 @@ export default async function getLoginUser() {
     return null;
   }
 
-  return decodeJwt(token.value);
+  const userInfo = decodeJwt(token.value);
+
+  return {
+    _id: userInfo.userId,
+    username: userInfo.username,
+    email: userInfo.email,
+    avatar: userInfo.avatar,
+    name: userInfo.name,
+    isVerified: userInfo.isVerified,
+    role: userInfo.role,
+    exp: userInfo.exp,
+    iat: userInfo.iat,
+  };
 }

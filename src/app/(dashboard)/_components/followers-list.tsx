@@ -8,9 +8,9 @@ import UserCard from '@/components/follow-card';
 import InfiniteScrollContainer from '@/components/infinitive-scroll-container';
 import { UserCardSkeleton } from '@/components/skeleton/user-card-skeleton';
 import { fetchFollowers } from '@/services/user-service';
-import { TUser, UserResponse } from '@/types';
+import { LoggedInUser, TUser } from '@/types';
 
-export default function FollowerList({ user }: { user: TUser }) {
+export default function FollowerList({ user }: { user: LoggedInUser }) {
   const {
     data,
     fetchNextPage,
@@ -60,7 +60,7 @@ export default function FollowerList({ user }: { user: TUser }) {
       onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
     >
       <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-        {followers.map((follower: UserResponse) => (
+        {followers.map((follower: TUser) => (
           <UserCard key={follower?._id} user={follower} currentUser={user!} />
         ))}
       </section>

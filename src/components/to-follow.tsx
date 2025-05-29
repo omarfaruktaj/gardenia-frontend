@@ -1,11 +1,11 @@
 import api from '@/config/axios';
-import { getCurrentUser } from '@/services/user-service';
+import getLoginUser from '@/lib/get-login-user';
 import { UserResponse } from '@/types';
 
 import UserCard from './follow-card';
 
 export default async function ToFollow() {
-  const user = await getCurrentUser();
+  const user = await getLoginUser();
 
   const response = await api.get('/users');
   const data = response.data;

@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 
-import { getCurrentUser } from '@/services/user-service';
+import getLoginUser from '@/lib/get-login-user';
 
 import FollowerList from '../../_components/followers-list';
 
@@ -9,7 +9,7 @@ export default async function Followers({
 }: {
   params: { userId: string };
 }) {
-  const currentUser = await getCurrentUser();
+  const currentUser = await getLoginUser();
   if (!currentUser) {
     redirect('/login');
   }

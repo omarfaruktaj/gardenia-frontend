@@ -8,14 +8,14 @@ import UserCard from '@/components/follow-card';
 import InfiniteScrollContainer from '@/components/infinitive-scroll-container';
 import { UserCardSkeleton } from '@/components/skeleton/user-card-skeleton';
 import { fetchFollowers } from '@/services/user-service';
-import { UserResponse } from '@/types';
+import { LoggedInUser, UserResponse } from '@/types';
 
 export default function FollowerList({
   userId,
   currentUser,
 }: {
   userId: string;
-  currentUser: UserResponse;
+  currentUser: LoggedInUser;
 }) {
   const {
     data,

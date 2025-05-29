@@ -23,7 +23,6 @@ import {
   changePasswordSchema,
 } from '@/schemas/auth-schema';
 import { changePassword, logout } from '@/services/auth-service';
-import { getCurrentUser } from '@/services/user-service';
 
 export default function ChangePasswordForm() {
   const [isPending, startTransition] = useTransition();
@@ -51,7 +50,7 @@ export default function ChangePasswordForm() {
       if (data) {
         toast.success('Password successfully changed. Please login again');
         await logout();
-        await getCurrentUser();
+        // await getCurrentUser();
         router.push('/login');
       }
     });
