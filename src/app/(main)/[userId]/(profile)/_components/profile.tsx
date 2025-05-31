@@ -24,7 +24,6 @@ export default async function Profile({ userId }: { userId: string }) {
   if (!currentUser) {
     redirect('/login');
   }
-
   if (!user) {
     return <p>No user found</p>;
   }
@@ -40,6 +39,8 @@ export default async function Profile({ userId }: { userId: string }) {
     : user._id === currentUser?._id
       ? "You haven't added a bio yet."
       : "This user hasn't added a bio yet.";
+  console.log('User Avatar:', user.avatar);
+  console.log('User Cover:', user.cover);
 
   return (
     <div className="overflow-hidden">
@@ -65,6 +66,7 @@ export default async function Profile({ userId }: { userId: string }) {
               width={100}
               height={100}
               className="w-24  h-24 md:w-32 md:h-32 rounded-full border-4 border-muted shadow-md"
+              priority
             />
           </div>
 

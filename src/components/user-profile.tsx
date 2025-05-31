@@ -18,7 +18,7 @@ import { logout } from '@/services/auth-service';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 
 export default function UserProfile() {
-  const { user } = useUser();
+  const { user, isLoading } = useUser();
   const router = useRouter();
   const queryClient = useQueryClient();
 
@@ -30,6 +30,18 @@ export default function UserProfile() {
     // await getCurrentUser();
     queryClient.invalidateQueries({ queryKey: ['ME'] });
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center">
+        <Avatar>
+          <AvatarFallback>
+            <User2 />
+          </AvatarFallback>
+        </Avatar>
+      </div>
+    );
+  }
 
   return (
     <DropdownMenu>
