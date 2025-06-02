@@ -22,6 +22,8 @@ export default function UserProfile() {
   const router = useRouter();
   const queryClient = useQueryClient();
 
+  console.log('UserProfile', user, isLoading);
+
   // const pathname = usePathname();
 
   const handleLogout = async () => {
@@ -31,7 +33,7 @@ export default function UserProfile() {
     queryClient.invalidateQueries({ queryKey: ['ME'] });
   };
 
-  if (isLoading) {
+  if (!user || isLoading) {
     return (
       <div className="flex items-center justify-center">
         <Avatar>
