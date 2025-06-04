@@ -23,6 +23,13 @@ export interface TCategory {
   name: string;
   description?: string | undefined;
 }
+export interface TCategoryResponse {
+  _id: string;
+  name: string;
+  description?: string | undefined;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export interface IPayment {
   user: TUser;
