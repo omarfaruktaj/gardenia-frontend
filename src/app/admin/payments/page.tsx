@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Suspense } from 'react';
 
 import {
@@ -62,6 +63,7 @@ async function getPaymentStats() {
       averageTransaction:
         payments.length > 0 ? totalRevenue / payments.length : 0,
     };
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return {
       totalRevenue: 0,
