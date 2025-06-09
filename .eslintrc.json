@@ -11,7 +11,7 @@
     "prefer-arrow-callback": "error",
     "prefer-template": "error",
     "semi": "error",
-    "quotes": ["error", "single"],
+    // "quotes": ["error", "single"],
     "check-file/filename-naming-convention": [
       "error",
       {

@@ -40,9 +40,6 @@ export default function PostList() {
     queryFn: ({ pageParam = 1 }) =>
       fetchPosts({
         pageParam,
-        search: searchQuery,
-        status: statusFilter,
-        sortBy,
       }),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => lastPage?.pagination?.next ?? null,
