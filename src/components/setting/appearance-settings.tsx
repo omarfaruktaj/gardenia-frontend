@@ -1,26 +1,30 @@
 'use client';
 
 import type React from 'react';
+import { useState } from 'react';
+
+import { Monitor, Moon, Sun } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Separator } from '@/components/ui/separator';
 import { Slider } from '@/components/ui/slider';
-import { Monitor, Moon, Sun } from 'lucide-react';
-import { useState } from 'react';
 
 export default function AppearanceSettings() {
   const [isLoading, setIsLoading] = useState(false);
   const [fontSize, setFontSize] = useState([16]);
+  const { setTheme, theme } = useTheme();
 
   function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
+      toast.success('Preferences saved successfully!');
     }, 1000);
   }
 
@@ -28,9 +32,14 @@ export default function AppearanceSettings() {
     <form onSubmit={onSubmit} className="space-y-6">
       <div className="space-y-4">
         <h3 className="text-lg font-medium">Theme</h3>
-        <RadioGroup defaultValue="system" className="grid grid-cols-3 gap-4">
+        <RadioGroup defaultValue={theme} className="grid grid-cols-3 gap-4">
           <div>
-            <RadioGroupItem value="light" id="light" className="sr-only peer" />
+            <RadioGroupItem
+              onClick={() => setTheme('light')}
+              value="light"
+              id="light"
+              className="sr-only peer"
+            />
             <Label
               htmlFor="light"
               className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
@@ -41,7 +50,12 @@ export default function AppearanceSettings() {
           </div>
 
           <div>
-            <RadioGroupItem value="dark" id="dark" className="sr-only peer" />
+            <RadioGroupItem
+              onClick={() => setTheme('dark')}
+              value="dark"
+              id="dark"
+              className="sr-only peer"
+            />
             <Label
               htmlFor="dark"
               className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
@@ -52,7 +66,12 @@ export default function AppearanceSettings() {
           </div>
 
           <div>
-            <RadioGroupItem value="system" id="system" className="sr-only peer" />
+            <RadioGroupItem
+              onClick={() => setTheme('system')}
+              value="system"
+              id="system"
+              className="sr-only peer"
+            />
             <Label
               htmlFor="system"
               className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
@@ -70,13 +89,21 @@ export default function AppearanceSettings() {
         <div className="flex items-center justify-between">
           <div>
             <h3 className="text-lg font-medium">Font Size</h3>
-            <p className="text-sm text-muted-foreground">Adjust the font size of the application.</p>
+            <p className="text-sm text-muted-foreground">
+              Adjust the font size of the application.
+            </p>
           </div>
           <span className="w-12 rounded-md border border-transparent px-2 py-0.5 text-right text-sm text-muted-foreground">
             {fontSize}px
           </span>
         </div>
-        <Slider defaultValue={[16]} max={24} min={12} step={1} onValueChange={setFontSize} />
+        <Slider
+          defaultValue={[16]}
+          max={24}
+          min={12}
+          step={1}
+          onValueChange={setFontSize}
+        />
       </div>
 
       <Separator />
@@ -105,4 +132,3 @@ export default function AppearanceSettings() {
     </form>
   );
 }
-
