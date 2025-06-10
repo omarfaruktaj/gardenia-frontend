@@ -1,7 +1,7 @@
 'use client';
 
 import type React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Monitor, Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
@@ -17,7 +17,12 @@ export default function AppearanceSettings() {
   const [isLoading, setIsLoading] = useState(false);
   const [fontSize, setFontSize] = useState([16]);
   const { setTheme, theme } = useTheme();
-
+  useEffect(() => {
+    document.documentElement.style.setProperty(
+      '--global-font-size',
+      `${fontSize[0]}px`
+    );
+  }, [fontSize]);
   function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setIsLoading(true);
@@ -94,7 +99,7 @@ export default function AppearanceSettings() {
             </p>
           </div>
           <span className="w-12 rounded-md border border-transparent px-2 py-0.5 text-right text-sm text-muted-foreground">
-            {fontSize}px
+            {fontSize[0]}px
           </span>
         </div>
         <Slider
@@ -102,7 +107,7 @@ export default function AppearanceSettings() {
           max={24}
           min={12}
           step={1}
-          onValueChange={setFontSize}
+          onValueChange={(value) => setFontSize(value)}
         />
       </div>
 
