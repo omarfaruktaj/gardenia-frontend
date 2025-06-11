@@ -15,8 +15,10 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
+import { useUser } from '@/context/user-provider';
 
 export default function AccountSettings() {
+  const { user } = useUser();
   // const [isLoading, setIsLoading] = useState(false);
 
   // function onSubmit(e: React.FormEvent) {
@@ -28,7 +30,6 @@ export default function AccountSettings() {
   //     setIsLoading(false);
   //   }, 1000);
   // }
-
   return (
     <div className="space-y-6">
       <div>
@@ -40,12 +41,17 @@ export default function AccountSettings() {
         <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="space-y-2">
             <Label htmlFor="account-id">Account ID</Label>
-            <Input id="account-id" value="ACC-12345" readOnly disabled />
+            <Input id="account-id" value={user?._id} readOnly disabled />
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="account-created">Account Created</Label>
-            <Input id="account-created" value="Jan 1, 2023" readOnly disabled />
+            <Input
+              id="account-created"
+              value={user?.createdAt}
+              readOnly
+              disabled
+            />
           </div>
         </div>
       </div>

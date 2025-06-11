@@ -1,59 +1,84 @@
 'use client';
 
+import { useState, useTransition } from 'react';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useQueryClient } from '@tanstack/react-query';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import * as z from 'zod';
+import { useUser } from '@/context/user-provider';
+import {
+  type TUserUpdateSchema,
+  userUpdateSchema,
+} from '@/schemas/user-schema';
+import { getCurrentUser, updateUser } from '@/services/user-service';
 
-const profileFormSchema = z.object({
-  name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
-  email: z.string().email({ message: 'Please enter a valid email address.' }),
-  bio: z.string().max(160, { message: 'Bio must not exceed 160 characters.' }).optional(),
-  username: z.string().min(2, { message: 'Username must be at least 2 characters.' }),
-});
+import { ErrorCard } from '../ui/error-card';
 
-type ProfileFormValues = z.infer<typeof profileFormSchema>
+// const profileFormSchema = z.object({
+//   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
+//   email: z.string().email({ message: 'Please enter a valid email address.' }),
+//   bio: z.string().max(160, { message: 'Bio must not exceed 160 characters.' }).optional(),
+//   username: z.string().min(2, { message: 'Username must be at least 2 characters.' }),
+// });
 
 export default function ProfileForm() {
-  const [isLoading, setIsLoading] = useState(false);
-
-  const form = useForm<ProfileFormValues>({
-    resolver: zodResolver(profileFormSchema),
-    defaultValues: {
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-      bio: 'Software developer with a passion for building great user experiences.',
-      username: 'johndoe',
-    },
+  const { user } = useUser();
+  const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string | undefined>(undefined);
+  const form = useForm<TUserUpdateSchema>({
+    resolver: zodResolver(userUpdateSchema),
+    defaultValues: user!,
   });
+  const queryClient = useQueryClient();
 
-  function onSubmit(data: ProfileFormValues) {
-    setIsLoading(true);
+  async function onSubmit(values: TUserUpdateSchema) {
+    setError(undefined);
+    startTransition(async () => {
+      const { data, error } = await updateUser(values);
 
-    // Simulate API call
-    setTimeout(() => {
-      console.log(data);
-      setIsLoading(false);
-    }, 1000);
+      if (error) {
+        setError(error);
+      }
+
+      if (data) {
+        toast.success('Profile info updated successfully.');
+
+        const updatedUser = await getCurrentUser();
+        if (updatedUser) {
+          queryClient.invalidateQueries({ queryKey: ['ME'] });
+        }
+      }
+    });
   }
-
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-6">
         <Avatar className="h-20 w-20">
-          <AvatarImage src="/placeholder.svg?height=80&width=80" alt="Profile" />
+          <AvatarImage src={user?.avatar} alt="Profile" />
           <AvatarFallback>JD</AvatarFallback>
         </Avatar>
         <div>
           <Button variant="outline" size="sm">
             Change Avatar
           </Button>
-          <p className="text-sm text-muted-foreground mt-2">JPG, GIF or PNG. 1MB max.</p>
+          <p className="text-sm text-muted-foreground mt-2">
+            JPG, GIF or PNG. 1MB max.
+          </p>
         </div>
       </div>
 
@@ -83,14 +108,16 @@ export default function ProfileForm() {
                   <FormControl>
                     <Input placeholder="Username" {...field} />
                   </FormControl>
-                  <FormDescription>This is your public display name.</FormDescription>
+                  <FormDescription>
+                    This is your public display name.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
 
-          <FormField
+          {/* <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
@@ -102,7 +129,7 @@ export default function ProfileForm() {
                 <FormMessage />
               </FormItem>
             )}
-          />
+          /> */}
 
           <FormField
             control={form.control}
@@ -111,20 +138,26 @@ export default function ProfileForm() {
               <FormItem>
                 <FormLabel>Bio</FormLabel>
                 <FormControl>
-                  <Textarea placeholder="Tell us a little bit about yourself" className="resize-none" {...field} />
+                  <Textarea
+                    placeholder="Tell us a little bit about yourself"
+                    className="resize-none"
+                    {...field}
+                  />
                 </FormControl>
-                <FormDescription>Brief description for your profile. Maximum 160 characters.</FormDescription>
+                <FormDescription>
+                  Brief description for your profile. Maximum 160 characters.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
 
-          <Button type="submit" disabled={isLoading}>
-            {isLoading ? 'Saving...' : 'Save changes'}
+          <Button type="submit" disabled={isPending}>
+            {isPending ? 'Saving...' : 'Save changes'}
           </Button>
         </form>
       </Form>
+      {error && <ErrorCard message={error} />}
     </div>
   );
 }
-
