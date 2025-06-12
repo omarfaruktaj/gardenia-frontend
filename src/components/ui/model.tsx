@@ -15,7 +15,7 @@ export default function Model({ isOpen, onClose, children }: ModelProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-3xl">
+      <DialogContent className="max-w-5xl h-[90vh] overflow-hidden">
         <DialogTitle></DialogTitle>
         <ScrollArea className="max-h-screen ">
           <div className="mb-10">{children}</div>
