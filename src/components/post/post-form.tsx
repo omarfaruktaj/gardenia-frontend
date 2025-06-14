@@ -33,7 +33,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import { Progress } from '@/components/ui/progress';
 import {
   Select,
@@ -50,6 +49,7 @@ import { getCategories } from '@/services/category-service';
 import { createPost, updatePost } from '@/services/post-service';
 import type { TPost } from '@/types';
 
+import { AutosizeTextarea } from '../ui/auto-resize-text-area';
 import { ImageUpload } from './post-image-upload';
 import { PostPreview } from './post-preview';
 
@@ -300,8 +300,9 @@ export default function PostForm({ initialData, closeModel }: PostFormProps) {
                         </FormLabel>
                         <FormControl>
                           <div className="space-y-2">
-                            <Input
+                            <AutosizeTextarea
                               {...field}
+                              minHeight={32}
                               placeholder="Enter an engaging title for your post..."
                               className="text-lg font-medium"
                               maxLength={TITLE_MAX_LENGTH}
