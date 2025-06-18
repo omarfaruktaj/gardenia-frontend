@@ -134,7 +134,7 @@ export default function ForgotPasswordForm() {
             onClick={handleResendEmail}
             disabled={isPending}
             variant="outline"
-            className="w-full border-green-200 hover:bg-green-50"
+            className="w-full "
           >
             {isPending ? (
               <div className="flex items-center space-x-2">
@@ -149,7 +149,7 @@ export default function ForgotPasswordForm() {
             )}
           </Button>
 
-          <Button asChild variant="ghost" className="w-full">
+          <Button asChild variant="link" className="w-full">
             <Link href="/login" className="flex items-center space-x-2">
               <span>Back to Login</span>
               <ArrowRight className="h-4 w-4" />
@@ -194,7 +194,7 @@ export default function ForgotPasswordForm() {
                       {...field}
                       type="email"
                       placeholder="Enter your email address"
-                      className="pl-10 border-green-200 focus:border-green-400 focus:ring-green-400"
+                      className="pl-10 border-green-200 focus:border-green-400 focus:ring-green-400 text-green-800"
                       disabled={isPending}
                     />
                   </div>
@@ -206,9 +206,12 @@ export default function ForgotPasswordForm() {
 
           {/* Error Alert */}
           {error && (
-            <Alert variant="destructive" className="border-red-200 bg-red-50">
+            <Alert
+              variant="destructive"
+              className="border-red-200 bg-red-50 flex items-center "
+            >
               <AlertCircle className="h-4 w-4" />
-              <AlertDescription>{error}</AlertDescription>
+              <AlertDescription className="mt-1">{error}</AlertDescription>
             </Alert>
           )}
 
