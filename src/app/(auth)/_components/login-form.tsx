@@ -102,7 +102,7 @@ export default function LoginForm() {
                       {...field}
                       type="email"
                       placeholder="Enter your email address"
-                      className="pl-10 border-green-200 focus:border-green-400 focus:ring-green-400"
+                      className="pl-10 border-green-200 focus:border-green-400 focus:ring-green-400 text-green-800"
                       disabled={isPending}
                     />
                   </div>
@@ -136,7 +136,7 @@ export default function LoginForm() {
                       {...field}
                       type={showPassword ? 'text' : 'password'}
                       placeholder="Enter your password"
-                      className="pl-10 pr-10 border-green-200 focus:border-green-400 focus:ring-green-400"
+                      className="pl-10 pr-10 border-green-200 focus:border-green-400 focus:ring-green-400 text-green-800"
                       disabled={isPending}
                     />
                     <Button
