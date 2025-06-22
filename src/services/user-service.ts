@@ -121,6 +121,7 @@ export const followUser = async (followedId: string) => {
   try {
     const { data } = await api.post(`/users/${followedId}/follow`);
     revalidatePath(`/${followedId}`);
+    revalidatePath('/users');
 
     return { message: data.message };
   } catch (error: unknown) {
@@ -136,6 +137,7 @@ export const UnfollowUser = async (unFollowedId: string) => {
   try {
     const { data } = await api.delete(`/users/${unFollowedId}/unfollow`);
     revalidatePath(`/${unFollowedId}`);
+    revalidatePath('/users');
 
     return { message: data.message };
   } catch (error: unknown) {
