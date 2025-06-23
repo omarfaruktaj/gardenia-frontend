@@ -32,7 +32,6 @@ interface CommentItemProps {
 
 export default function CommentItem({ comment }: CommentItemProps) {
   const [openModel, setOpenModel] = useState(false);
-
   const { user } = useUser();
 
   const onDelete = async () => {
@@ -45,6 +44,7 @@ export default function CommentItem({ comment }: CommentItemProps) {
       toast.error(error.message);
     }
   };
+
   return (
     <div>
       <EditComment
@@ -53,10 +53,10 @@ export default function CommentItem({ comment }: CommentItemProps) {
         onClose={() => setOpenModel(false)}
         isOpen={openModel}
       />
-      <Card className="border-0 shadow-md">
-        <CardHeader className="p-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-start space-x-2">
+      <Card className="bg-muted/50 border-0 shadow-sm rounded-lg">
+        <CardHeader className="p-4">
+          <div className="flex items-start justify-between">
+            <div className="flex items-start space-x-4">
               <Link href={`/${comment.user._id}`}>
                 <Avatar>
                   <AvatarImage
@@ -69,47 +69,47 @@ export default function CommentItem({ comment }: CommentItemProps) {
                 </Avatar>
               </Link>
               <div>
-                <Link href={`/${comment.user._id}`}>
-                  <div className="flex items-center gap-2">
-                    <CardTitle>{comment.user.name}</CardTitle>
-                    {comment.user.isVerified && (
-                      <BadgeCheck className="h-5 w-5 text-primary mt-1" />
-                    )}
-                  </div>
-                  <CardDescription className="text-muted-foreground text-sm">
-                    {new Intl.DateTimeFormat('en-US').format(
-                      new Date(comment.createdAt)
-                    )}
-                  </CardDescription>
+                <Link
+                  href={`/${comment.user._id}`}
+                  className="flex items-center gap-2"
+                >
+                  <CardTitle className="text-base font-semibold">
+                    {comment.user.name}
+                  </CardTitle>
+                  {comment.user.isVerified && (
+                    <BadgeCheck className="h-4 w-4 text-primary" />
+                  )}
                 </Link>
+                <CardDescription className="text-xs">
+                  {new Intl.DateTimeFormat('en-US', {
+                    dateStyle: 'medium',
+                    timeStyle: 'short',
+                  }).format(new Date(comment.createdAt))}
+                </CardDescription>
               </div>
             </div>
-            {user?._id === comment.user._id ? (
+            {user?._id === comment.user._id && (
               <DropdownMenu>
                 <DropdownMenuTrigger aria-label="Options">
-                  <EllipsisVertical />
+                  <EllipsisVertical className="h-5 w-5" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuItem
-                    onClick={() => setOpenModel(true)}
-                    aria-label="Edit Comment"
-                  >
-                    <Edit className="mr-2" /> Edit
+                  <DropdownMenuItem onClick={() => setOpenModel(true)}>
+                    <Edit className="mr-2 h-4 w-4" /> Edit
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={onDelete}
-                    aria-label="Delete Comment"
                     className="!text-red-500"
                   >
-                    <Trash className="mr-2" /> Delete
+                    <Trash className="mr-2 h-4 w-4" /> Delete
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-            ) : null}
+            )}
           </div>
         </CardHeader>
-        <CardContent>
-          <p>{comment.content}</p>
+        <CardContent className="px-4 pb-4">
+          <p className="text-sm">{comment.content}</p>
         </CardContent>
       </Card>
     </div>

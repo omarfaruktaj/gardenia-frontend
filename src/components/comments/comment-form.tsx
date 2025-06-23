@@ -51,7 +51,6 @@ export default function CommentForm({
       const { data, error } = response;
 
       if (error) {
-        form.reset();
         toast.error(error.message);
       } else if (data) {
         if (onClose) {
@@ -63,28 +62,30 @@ export default function CommentForm({
     });
   };
 
-  const actionLabel = initialData ? 'Save changes' : 'Post comment';
-  const loadingLabel = initialData ? 'Saving changes...' : 'Comment posting...';
+  const actionLabel = initialData ? 'Save Changes' : 'Post Comment';
+  const loadingLabel = initialData ? 'Saving...' : 'Posting...';
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="content"
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Textarea placeholder="Enter your comment here" {...field} />
+                <Textarea
+                  placeholder="Share your thoughts..."
+                  className="min-h-[120px]"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-
-        <div className="flex items-center justify-end">
-          {' '}
-          <LoadingButton loading={isPending} type="submit" size={'lg'}>
+        <div className="flex justify-end">
+          <LoadingButton loading={isPending} type="submit">
             {isPending ? loadingLabel : actionLabel}
           </LoadingButton>
         </div>
