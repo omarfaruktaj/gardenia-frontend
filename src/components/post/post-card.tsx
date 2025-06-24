@@ -5,6 +5,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { Card, CardTitle } from '@/components/ui/card';
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from '@/components/ui/hover-card';
 import { useUser } from '@/context/user-provider';
 import { ISinglePost } from '@/types';
 
@@ -24,34 +29,80 @@ export default function PostCard({ post }: { post: ISinglePost }) {
     <Card className="flex flex-col p-4 border rounded-lg md:flex-row">
       <div className="flex-1 pr-0 md:pr-6">
         <div className="flex items-start justify-between mb-4">
-          <div className="flex items-center">
-            <Link href={`/${author._id}`}>
-              <Avatar>
-                <AvatarImage
-                  src={author.avatar}
-                  alt={`${author.name}'s avatar`}
-                  className="object-cover"
-                />
-                <AvatarFallback>{author.name.slice(0, 2)}</AvatarFallback>
-              </Avatar>
-            </Link>
+          <HoverCard>
+            <HoverCardTrigger>
+              {' '}
+              <div className="flex items-center">
+                <Link href={`/${author._id}`}>
+                  <Avatar>
+                    <AvatarImage
+                      src={author.avatar}
+                      alt={`${author.name}'s avatar`}
+                      className="object-cover"
+                    />
+                    <AvatarFallback>{author.name.slice(0, 2)}</AvatarFallback>
+                  </Avatar>
+                </Link>
 
-            <div className="ml-3">
-              <Link href={`/${author._id}`}>
-                <div className="flex items-center gap-1">
-                  <CardTitle className="text-base font-semibold">
+                <div className="ml-3">
+                  <Link href={`/${author._id}`}>
+                    <div className="flex items-center gap-1">
+                      <CardTitle className="text-base font-semibold">
+                        {author.name}
+                      </CardTitle>
+                      {author.isVerified && (
+                        <BadgeCheck className="h-5 w-5 text-primary" />
+                      )}
+                    </div>
+                    <div className="text-muted-foreground text-sm">
+                      {formattedDate}
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            </HoverCardTrigger>
+            <HoverCardContent className="w-80 p-4">
+              <div className="flex items-start gap-4">
+                <Image
+                  src={author.avatar || '/default-avatar.png'}
+                  alt={`${author.name}'s avatar`}
+                  width={48}
+                  height={48}
+                  className="rounded-full h-16 w-16 object-cover"
+                />
+                <div>
+                  <h4 className="text-sm font-semibold leading-none">
                     {author.name}
-                  </CardTitle>
-                  {author.isVerified && (
-                    <BadgeCheck className="h-5 w-5 text-primary" />
-                  )}
+                    {author.isVerified && (
+                      <span className="ml-1 text-blue-500">✔️</span>
+                    )}
+                  </h4>
+                  <p className="text-xs text-muted-foreground">
+                    @{author.username}
+                  </p>
+                  <p className="mt-1 text-sm">{author.bio}</p>
                 </div>
-                <div className="text-muted-foreground text-sm">
-                  {formattedDate}
+              </div>
+              <div className="mt-4 flex justify-between text-xs text-muted-foreground">
+                <div>
+                  <strong>{author.followers.length}</strong> Followers
                 </div>
-              </Link>
-            </div>
-          </div>
+                <div>
+                  <strong>{author.following.length}</strong> Following
+                </div>
+                {typeof author.posts === 'number' && (
+                  <div>
+                    <strong>{author.posts}</strong> Posts
+                  </div>
+                )}
+              </div>
+              {author.verificationEligible && !author.isVerified && (
+                <div className="mt-2 text-xs text-green-600 font-medium">
+                  Eligible for verification
+                </div>
+              )}
+            </HoverCardContent>
+          </HoverCard>
           {post.premium && (
             <div className="hidden md:block mt-2">
               <Badge>Premium</Badge>
