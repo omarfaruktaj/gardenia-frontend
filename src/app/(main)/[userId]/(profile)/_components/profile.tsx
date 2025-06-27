@@ -54,7 +54,7 @@ export default async function Profile({ userId }: { userId: string }) {
           className="w-full h-full object-cover transition-transform hover:scale-105 duration-700"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background/80  to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80  to-transparent" />
       </div>
 
       <div className="px-3 md:px-6 py-2 ">
@@ -77,42 +77,41 @@ export default async function Profile({ userId }: { userId: string }) {
           )}
         </div>
 
-        <div className="mt-4">
-          <div className="flex items-center gap-x-2 mb-1">
-            <h1 className="text-xl sm:text-2xl  font-bold leading-tight truncate">
+        <div className="mt-6">
+          <div className="flex items-center gap-x-2 mb-2">
+            <h1 className="text-2xl sm:text-3xl font-semibold truncate">
               {user.name}
             </h1>
             {user.isVerified ? (
-              <BadgeCheck className="h-5 w-5 text-primary mt-1" />
+              <BadgeCheck className="h-5 w-5 text-primary" />
             ) : user.verificationEligible ? (
               <GetVerifiedButton />
             ) : null}
           </div>
-          <p className="text-muted-foreground text-sm md:text-base">
+
+          <p className="text-muted-foreground text-sm sm:text-base mb-1">
             @{user.username}
           </p>
 
-          <p className="mt-2 mb-4 text-sm md:text-base text-balance">
-            {bioMessage}
-          </p>
+          {bioMessage && (
+            <p className="mt-2 text-sm sm:text-base text-muted-foreground leading-relaxed">
+              {bioMessage}
+            </p>
+          )}
 
-          <div className="flex items-center text-xs md:text-sm text-muted-foreground mb-6 space-x-3">
-            <Calendar className="h-5 w-5 text-muted-foreground" />
-            <p>Joined {joinedDate}</p>
+          <div className="flex items-center gap-x-2 text-sm text-muted-foreground mt-4 mb-6">
+            <Calendar className="h-4 w-4" />
+            <span>Joined {joinedDate}</span>
           </div>
 
-          <div className="flex space-x-6 text-center mb-4">
-            <div className="flex items-center space-x-2">
-              <Users className="h-5 w-5 text-muted-foreground" />
-              <p className="text-sm md:text-base">
-                {user.followers.length} followers
-              </p>
+          <div className="flex space-x-6 text-sm sm:text-base text-muted-foreground">
+            <div className="flex items-center gap-x-2">
+              <Users className="h-5 w-5" />
+              <span>{user.followers.length} followers</span>
             </div>
-            <div className="flex items-center space-x-2">
-              <UserPlus className="h-5 w-5 text-muted-foreground" />
-              <p className="text-sm md:text-base">
-                {user.following.length} following
-              </p>
+            <div className="flex items-center gap-x-2">
+              <UserPlus className="h-5 w-5" />
+              <span>{user.following.length} following</span>
             </div>
           </div>
         </div>
