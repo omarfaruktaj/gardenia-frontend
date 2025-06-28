@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
+import { TooltipArrow } from '@radix-ui/react-tooltip';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { MdFavoriteBorder, MdOutlineFavorite } from 'react-icons/md';
@@ -13,6 +14,12 @@ import { toggleFavorite } from '@/services/post-service';
 import { ISinglePost } from '@/types';
 
 import { Button } from '../ui/button';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '../ui/tooltip';
 
 export default function FavoriteButton({ post }: { post: ISinglePost }) {
   const { user: currentUser } = useUser();
@@ -76,21 +83,36 @@ export default function FavoriteButton({ post }: { post: ISinglePost }) {
   };
 
   return (
-    <Button
-      onClick={handleFavoriteToggle}
-      variant="ghost"
-      size="icon"
-      className={cn(
-        'inline-flex items-center justify-center p-2 rounded-full transition-colors',
-        isFavorited ? 'text-primary hover:text-primary' : ''
-      )}
-      aria-label={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
-    >
-      {isFavorited ? (
-        <MdOutlineFavorite className="h-5 w-5" />
-      ) : (
-        <MdFavoriteBorder className="h-5 w-5" />
-      )}
-    </Button>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            onClick={handleFavoriteToggle}
+            variant="ghost"
+            size="icon"
+            className={cn(
+              'inline-flex items-center justify-center p-2 rounded-full transition-colors',
+              isFavorited ? 'text-primary hover:text-primary' : ''
+            )}
+            aria-label={
+              isFavorited ? 'Remove from favorites' : 'Add to favorites'
+            }
+          >
+            {isFavorited ? (
+              <MdOutlineFavorite className="h-5 w-5" />
+            ) : (
+              <MdFavoriteBorder className="h-5 w-5" />
+            )}
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent
+          side="top"
+          className="bg-black text-white px-2 py-1 text-sm rounded shadow-md"
+        >
+          {isFavorited ? 'Remove from favorites' : 'Add to favorites'}
+          <TooltipArrow className="fill-black" />
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 }

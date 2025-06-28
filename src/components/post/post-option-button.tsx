@@ -2,6 +2,12 @@
 
 import { useState } from 'react';
 
+import {
+  Tooltip,
+  TooltipArrow,
+  TooltipContent,
+  TooltipTrigger,
+} from '@radix-ui/react-tooltip';
 import { useQueryClient } from '@tanstack/react-query';
 import { Edit, EllipsisVertical, Trash } from 'lucide-react';
 import { toast } from 'sonner';
@@ -19,6 +25,7 @@ import { ISinglePost, UserResponse } from '@/types';
 import AlertModal from '../ui/alert-model';
 import { buttonVariants } from '../ui/button';
 import Model from '../ui/model';
+import { TooltipProvider } from '../ui/tooltip';
 import PostForm from './post-form';
 
 export default function PostOptionButton({
@@ -78,44 +85,60 @@ export default function PostOptionButton({
           <PostForm initialData={initialData} closeModel={closeModel} />
         </div>
       </Model>
+
       <AlertModal
         isOpen={openAlertModel}
         onClose={() => setOpenAlertModel(false)}
         onConfirm={handleDelete}
       />
 
-      <DropdownMenu>
-        <DropdownMenuTrigger
-          className={cn(
-            buttonVariants({ variant: 'ghost', size: 'icon' }),
-            'rounded-full'
-          )}
-          aria-label="Options"
-        >
-          <EllipsisVertical className="h-6 w-6" />
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          {post?.author?._id === currentUser?._id && (
-            <DropdownMenuItem
-              onClick={() => setOpenModel(true)}
-              aria-label="Edit Comment"
+      <TooltipProvider>
+        <Tooltip>
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              className={cn(
+                buttonVariants({ variant: 'ghost', size: 'icon' }),
+                'rounded-full'
+              )}
+              aria-label="Options"
             >
-              <Edit className="mr-2" /> Edit
-            </DropdownMenuItem>
-          )}
+              <TooltipTrigger asChild>
+                <EllipsisVertical className="h-6 w-6 text-muted-foreground" />
+              </TooltipTrigger>
+            </DropdownMenuTrigger>
 
-          {(post?.author?._id === currentUser?._id ||
-            currentUser.role === 'admin') && (
-            <DropdownMenuItem
-              onClick={() => setOpenAlertModel(true)}
-              aria-label="Delete Comment"
-              className="!text-red-500"
-            >
-              <Trash className="mr-2" /> Delete
-            </DropdownMenuItem>
-          )}
-        </DropdownMenuContent>
-      </DropdownMenu>
+            <DropdownMenuContent>
+              {post?.author?._id === currentUser?._id && (
+                <DropdownMenuItem
+                  onClick={() => setOpenModel(true)}
+                  aria-label="Edit Comment"
+                >
+                  <Edit className="mr-2" /> Edit
+                </DropdownMenuItem>
+              )}
+
+              {(post?.author?._id === currentUser?._id ||
+                currentUser.role === 'admin') && (
+                <DropdownMenuItem
+                  onClick={() => setOpenAlertModel(true)}
+                  aria-label="Delete Comment"
+                  className="!text-red-500"
+                >
+                  <Trash className="mr-2" /> Delete
+                </DropdownMenuItem>
+              )}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <TooltipContent
+            side="top"
+            className="bg-black text-white px-2 py-1 text-sm rounded shadow-md z-50"
+          >
+            More options
+            <TooltipArrow className="fill-black" />
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     </div>
   );
 }
