@@ -54,17 +54,18 @@ export default function Discover() {
   return (
     <div className="w-full">
       <div className="space-y-4 border p-4 rounded-2xl">
-        <h2 className="text-lg font-semibold mb-4">Discover</h2>
-        <div>
+        <h2 className="text-lg font-semibold mb-4 ">Discover</h2>
+        <div className="flex flex-col gap-2">
           {categories.map((cat: TCategory) => (
-            <Button
-              variant={discover === cat._id ? 'default' : 'outline'}
-              key={cat._id}
-              onClick={() => handleCategoryChange(cat._id)}
-              value={cat._id}
-            >
-              {cat.name}
-            </Button>
+            <div key={cat._id}>
+              <Button
+                variant={discover === cat._id ? 'link' : 'ghost'}
+                onClick={() => handleCategoryChange(cat._id)}
+                value={cat._id}
+              >
+                # {cat.name}
+              </Button>
+            </div>
           ))}
         </div>
       </div>

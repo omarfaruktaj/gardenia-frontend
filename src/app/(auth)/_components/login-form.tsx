@@ -62,7 +62,9 @@ export default function LoginForm() {
 
       if (data) {
         queryClient.invalidateQueries({ queryKey: ['ME'] });
-        await getCurrentUser();
+        const user = await getCurrentUser();
+        console.log('user', user);
+        if (user.role === 'admin') return router.push('/admin/dashboard');
         router.push('/');
       }
     });
@@ -205,7 +207,8 @@ export default function LoginForm() {
         <div className="grid grid-cols-2 gap-3">
           <Button
             variant="outline"
-            className="flex items-center space-x-2 border-blue-200 hover:bg-blue-50 hover:text-blue-700 "
+            className="flex items-center space-x-2 border-blue-200 
+            bg-blue-50 text-blue-700 hover:bg-blue-50 hover:text-blue-700 "
             type="button"
             disabled={isPending}
             onClick={() => handleDemoLogin('demo')}
@@ -215,7 +218,7 @@ export default function LoginForm() {
           </Button>
           <Button
             variant="outline"
-            className="flex items-center space-x-2 border-purple-200 hover:bg-purple-50 hover:text-purple-700"
+            className="flex items-center space-x-2 border-purple-200 bg-purple-50 hover:bg-purple-50 text-purple-700 hover:text-purple-700"
             type="button"
             disabled={isPending}
             onClick={() => handleDemoLogin('admin')}

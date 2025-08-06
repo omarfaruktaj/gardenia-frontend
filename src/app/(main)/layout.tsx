@@ -6,12 +6,17 @@ import MainSidebar from '@/components/main-sidebar';
 import SearchBar from '@/components/searchbar';
 import PostFilterSkeleton from '@/components/skeleton/post-filter-skeleton';
 import ToFollow from '@/components/to-follow';
+import getLoginUser from '@/lib/get-login-user';
 
-export default function MainLayout({
+export default async function MainLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const user = await getLoginUser();
+
+  if (!user) return '/login';
+
   return (
     <div>
       <Navbar />

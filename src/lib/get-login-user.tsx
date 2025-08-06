@@ -4,8 +4,9 @@ import { decodeJwt } from './decode-jwt';
 
 export default async function getLoginUser() {
   const token = cookies().get('access_token');
+  // console.log('token', token);
 
-  if (!token) {
+  if (!token || token.value === '') {
     return null;
   }
 

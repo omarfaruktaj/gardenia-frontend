@@ -1,6 +1,6 @@
 'use client';
 
-import { useQueryClient } from '@tanstack/react-query';
+// import { useQueryClient } from '@tanstack/react-query';
 import { LogOut, User2 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -20,17 +20,17 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 export default function UserProfile() {
   const { user, isLoading } = useUser();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
 
   console.log('UserProfile', user, isLoading);
 
   // const pathname = usePathname();
 
   const handleLogout = async () => {
-    logout();
-    router.push('/login');
+    await logout();
+    return router.push('/login');
     // await getCurrentUser();
-    queryClient.invalidateQueries({ queryKey: ['ME'] });
+    // queryClient.invalidateQueries({ queryKey: ['ME'] });
   };
 
   if (!user || isLoading) {
