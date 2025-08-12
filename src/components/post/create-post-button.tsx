@@ -2,10 +2,11 @@
 
 import { useState } from 'react';
 
-import { PenBox } from 'lucide-react';
+import { PenBox, Plus } from 'lucide-react';
 
 import { Button } from '../ui/button';
 import Model from '../ui/model';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 import PostForm from './post-form';
 
 export default function PostButton() {
@@ -22,14 +23,30 @@ export default function PostButton() {
           <PostForm closeModel={closeModel} />
         </div>
       </Model>
-      <Button
-        variant={'default'}
-        onClick={() => setOpenModel(true)}
-        className="flex items-center space-x-2 rounded-full w-full"
-      >
-        <PenBox className="h-4 w-4" />
-        <div>Start Writing</div>
-      </Button>
+
+      <div className="hidden xl:block">
+        <Button
+          variant={'default'}
+          onClick={() => setOpenModel(true)}
+          className="flex items-center space-x-2 rounded-full w-full "
+        >
+          <PenBox className="h-4 w-4" />
+          <div>Start Writing</div>
+        </Button>
+      </div>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            className="xl:hidden w-10 h-10 p-0 rounded-full bg-primary hover:bg-primary/90 flex items-center justify-center"
+            onClick={() => setOpenModel(true)}
+          >
+            <Plus className="h-5 w-5" />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent side="right" align="center">
+          <p>Create Post</p>
+        </TooltipContent>
+      </Tooltip>
     </div>
   );
 }
