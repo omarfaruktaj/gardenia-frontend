@@ -1,6 +1,6 @@
 import { Menu } from 'lucide-react';
 
-import Logo from '@/components/logo';
+import DashboardLogo from '@/components/dashboard-logo';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -23,7 +23,7 @@ export default function MobileSidebar() {
       <SheetContent side="left" className="flex flex-col">
         <SheetTitle />
         <div className="flex items-center gap-2 text-lg font-semibold">
-          <Logo />
+          <DashboardLogo />
         </div>
         <SidebarNav />
       </SheetContent>

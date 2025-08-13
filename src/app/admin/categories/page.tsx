@@ -140,7 +140,7 @@ export default async function CategoriesPage() {
   ]);
 
   return (
-    <div className="flex-1 space-y-6 p-6">
+    <div className="flex-1 space-y-6 ">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -170,7 +170,7 @@ export default async function CategoriesPage() {
             Manage your content categories, their descriptions, and organization
           </p>
         </CardHeader>
-        <CardContent>
+        <CardContent className="max-w-md">
           <DataTable columns={columns} data={categories} />
         </CardContent>
       </Card>

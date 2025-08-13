@@ -122,7 +122,7 @@ export default async function UsersPage() {
   const [stats, users] = await Promise.all([getUserStats(), getUsers()]);
 
   return (
-    <div className="flex-1 space-y-6 p-6">
+    <div className="flex-1 space-y-6 ">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -146,7 +146,7 @@ export default async function UsersPage() {
             A comprehensive list of all users with their details and actions
           </p>
         </CardHeader>
-        <CardContent>
+        <CardContent className="max-w-md">
           <DataTable columns={columns} data={users} />
         </CardContent>
       </Card>

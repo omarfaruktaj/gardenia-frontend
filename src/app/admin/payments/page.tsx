@@ -186,7 +186,7 @@ export default async function PaymentsPage() {
   ]);
 
   return (
-    <div className="flex-1 space-y-6 p-6">
+    <div className="flex-1 space-y-6 ">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -221,7 +221,7 @@ export default async function PaymentsPage() {
             information
           </p>
         </CardHeader>
-        <CardContent>
+        <CardContent className="w-11/12">
           <DataTable columns={columns} data={payments} />
         </CardContent>
       </Card>

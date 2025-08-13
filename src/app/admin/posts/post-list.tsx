@@ -186,16 +186,16 @@ function PostListToolbar({
   totalPosts,
 }: PostListToolbarProps) {
   return (
-    <div className="flex flex-col space-y-4 lg:flex-row lg:items-center lg:justify-between lg:space-y-0">
+    <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
       {/* Left side - Search and Filters */}
-      <div className="flex flex-1 items-center space-x-2">
-        <div className="relative max-w-sm">
+      <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center lg:flex-1 lg:space-x-2">
+        <div className="relative w-full sm:max-w-sm">
           <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
             placeholder="Search posts..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-8"
+            className="pl-8 w-full"
           />
           {searchQuery && (
             <Button
@@ -209,7 +209,7 @@ function PostListToolbar({
         </div>
 
         <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-[140px]">
+          <SelectTrigger className="w-full sm:w-[140px]">
             <SelectValue placeholder="Status" />
           </SelectTrigger>
           <SelectContent>
@@ -221,7 +221,7 @@ function PostListToolbar({
         </Select>
 
         <Select value={sortBy} onValueChange={setSortBy}>
-          <SelectTrigger className="w-[140px]">
+          <SelectTrigger className="w-full sm:w-[140px]">
             <SelectValue placeholder="Sort by" />
           </SelectTrigger>
           <SelectContent>
@@ -233,14 +233,14 @@ function PostListToolbar({
           </SelectContent>
         </Select>
 
-        <Button variant="outline" size="sm">
+        <Button variant="outline" size="sm" className="w-full sm:w-auto">
           <Filter className="mr-2 h-4 w-4" />
           More Filters
         </Button>
       </div>
 
       {/* Right side - View controls and stats */}
-      <div className="flex items-center space-x-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-end space-y-2 sm:space-y-0 sm:space-x-4">
         <span className="text-sm text-muted-foreground">
           {totalPosts} {totalPosts === 1 ? 'post' : 'posts'}
         </span>
@@ -249,12 +249,18 @@ function PostListToolbar({
           value={viewMode}
           onValueChange={(value) => setViewMode(value as 'grid' | 'list')}
         >
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="grid" className="flex items-center space-x-1">
+          <TabsList className="grid grid-cols-2 w-full sm:w-auto">
+            <TabsTrigger
+              value="grid"
+              className="flex items-center justify-center space-x-1"
+            >
               <Grid3X3 className="h-4 w-4" />
               <span className="hidden sm:inline">Grid</span>
             </TabsTrigger>
-            <TabsTrigger value="list" className="flex items-center space-x-1">
+            <TabsTrigger
+              value="list"
+              className="flex items-center justify-center space-x-1"
+            >
               <List className="h-4 w-4" />
               <span className="hidden sm:inline">List</span>
             </TabsTrigger>

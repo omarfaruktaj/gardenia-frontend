@@ -12,7 +12,7 @@ export default function Logo() {
           className="h-6 w-6"
         />
       </div>
-      <span className="font-bold text-lg hidden xl:block">Gardenia</span>
+      <span className={'font-bold text-lg  xl:block hidden'}>Gardenia</span>
     </div>
   );
 }

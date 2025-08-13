@@ -127,7 +127,7 @@ export default async function PostsPage() {
   const stats = await getPostStats();
 
   return (
-    <div className="flex-1 space-y-6 p-6">
+    <div className="flex-1 space-y-6 ">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>

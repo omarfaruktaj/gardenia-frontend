@@ -108,7 +108,7 @@ export function AppSidebar() {
 
         <SidebarContent className="my-6">
           {/* Search Bar - Only visible on large screens */}
-          {/* <SidebarGroup className="hidden lg:block">
+          {/* <SidebarGroup className="hidden xl:block">
             <SidebarGroupContent>
               <div className="px-2">
                 <div className="relative">
@@ -136,14 +136,14 @@ export function AppSidebar() {
                       asChild
                       isActive={isActive}
                       size="lg"
-                      className="hover:bg-muted/50 data-[active=true]:bg-primary/10 data-[active=true]:text-primary data-[active=true]:font-semibold justify-center lg:justify-start rounded-full px-4"
+                      className="hover:bg-muted/50 data-[active=true]:bg-primary/10 data-[active=true]:text-primary data-[active=true]:font-semibold justify-center xl:justify-start rounded-full px-4"
                     >
                       <Link
                         href={item.href}
                         className="flex items-center gap-3 relative w-full"
                       >
                         <Icon className="!h-6 !w-6 flex-shrink-0" />
-                        <span className="text-lg hidden lg:block">
+                        <span className="text-lg hidden xl:block">
                           {item.label}
                         </span>
                         {item.badge && (
@@ -151,14 +151,14 @@ export function AppSidebar() {
                             {/* Badge for large screens */}
                             <Badge
                               variant="secondary"
-                              className="ml-auto h-5 w-5  items-center justify-center p-0 text-xs bg-primary text-primary-foreground hidden lg:flex z-50"
+                              className="ml-auto h-5 w-5  items-center justify-center p-0 text-xs bg-primary text-primary-foreground hidden xl:flex z-50"
                             >
                               {item.badge}
                             </Badge>
                             {/* Badge for small/medium screens */}
                             <Badge
                               variant="secondary"
-                              className="absolute top-0 right-0 h-4 w-4 flex items-center justify-center p-0 text-xs bg-primary text-primary-foreground border-2 border-background rounded-full lg:hidden z-50"
+                              className="absolute top-0 right-0 h-4 w-4 flex items-center justify-center p-0 text-xs bg-primary text-primary-foreground border-2 border-background rounded-full xl:hidden z-50"
                             >
                               {item.badge > 9 ? '9+' : item.badge}
                             </Badge>
@@ -171,7 +171,7 @@ export function AppSidebar() {
                   return (
                     <SidebarMenuItem key={item.label}>
                       {/* Show tooltip only on small/medium screens */}
-                      <div className="lg:hidden">
+                      <div className="xl:hidden">
                         <Tooltip>
                           <TooltipTrigger asChild>{menuButton}</TooltipTrigger>
                           <TooltipContent side="right" align="center">
@@ -180,7 +180,7 @@ export function AppSidebar() {
                         </Tooltip>
                       </div>
                       {/* Show without tooltip on large screens */}
-                      <div className="hidden lg:block">{menuButton}</div>
+                      <div className="hidden xl:block">{menuButton}</div>
                     </SidebarMenuItem>
                   );
                 })}
@@ -207,7 +207,7 @@ export function AppSidebar() {
                 <DropdownMenuTrigger asChild>
                   <div>
                     {/* Tooltip for small/medium screens */}
-                    <div className="lg:hidden">
+                    <div className="xl:hidden">
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <SidebarMenuButton
@@ -243,7 +243,7 @@ export function AppSidebar() {
                       </Tooltip>
                     </div>
                     {/* Full profile for large screens */}
-                    <div className="hidden lg:block">
+                    <div className="hidden xl:block">
                       <SidebarMenuButton
                         size="lg"
                         className="hover:bg-muted/50 data-[state=open]:bg-muted/50 "

@@ -21,7 +21,7 @@ export default async function MainLayout({
       {/* <Navbar /> */}
       <ResponsiveLayoutWrapper>
         <div className=" flex w-full ">
-          <div className="h-screen sticky left-0 top-0 z-50">
+          <div className="h-screen sticky left-0 top-0 z-50 p-3">
             <AppSidebar />
           </div>
 
