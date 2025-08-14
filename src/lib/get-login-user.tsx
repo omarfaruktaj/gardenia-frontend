@@ -2,7 +2,19 @@ import { cookies } from 'next/headers';
 
 import { decodeJwt } from './decode-jwt';
 
-export default async function getLoginUser() {
+export type UserInfo = {
+  _id: string;
+  username: string;
+  email: string;
+  avatar: string;
+  name: string;
+  isVerified: boolean;
+  role: string;
+  exp: number;
+  iat: number;
+};
+
+export default async function getLoginUser(): Promise<UserInfo | null> {
   const token = cookies().get('access_token');
   // console.log('token', token);
 

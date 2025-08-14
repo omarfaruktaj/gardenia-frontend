@@ -5,8 +5,6 @@ import { useCallback, useEffect, useRef, useState, useTransition } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import {
-  AlertCircle,
-  Check,
   Crown,
   Eye,
   FileText,
@@ -198,7 +196,7 @@ export default function PostForm({ initialData, closeModel }: PostFormProps) {
   }, []);
 
   const isFormValid = form.formState.isValid;
-  const hasErrors = Object.keys(form.formState.errors).length > 0;
+  // const hasErrors = Object.keys(form.formState.errors).length > 0;
 
   if (!isMounted.current) return null;
 
@@ -231,7 +229,7 @@ export default function PostForm({ initialData, closeModel }: PostFormProps) {
       </div>
 
       {/* Form Status Indicator */}
-      <Card
+      {/* <Card
         className={`border-l-4 ${isFormValid ? 'border-l-green-500' : hasErrors ? 'border-l-red-500' : 'border-l-yellow-500'}`}
       >
         <CardContent className="pt-4">
@@ -252,7 +250,7 @@ export default function PostForm({ initialData, closeModel }: PostFormProps) {
             </span>
           </div>
         </CardContent>
-      </Card>
+      </Card> */}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main Form */}
@@ -293,10 +291,9 @@ export default function PostForm({ initialData, closeModel }: PostFormProps) {
                       <FormItem>
                         <FormLabel className="flex items-center space-x-2">
                           <FileText className="h-4 w-4" />
-                          <span>Post Title</span>
-                          <Badge variant="destructive" className="text-xs">
-                            Required
-                          </Badge>
+                          <p>Post Title</p>
+
+                          <span className="text-red-500">*</span>
                         </FormLabel>
                         <FormControl>
                           <div className="space-y-2">
@@ -348,9 +345,7 @@ export default function PostForm({ initialData, closeModel }: PostFormProps) {
                         <FormLabel className="flex items-center space-x-2">
                           <Type className="h-4 w-4" />
                           <span>Content</span>
-                          <Badge variant="destructive" className="text-xs">
-                            Required
-                          </Badge>
+                          <span className="text-red-500">*</span>
                         </FormLabel>
                         <FormControl>
                           <div className="space-y-2">
@@ -423,9 +418,7 @@ export default function PostForm({ initialData, closeModel }: PostFormProps) {
                         <FormLabel className="flex items-center space-x-2">
                           <Tag className="h-4 w-4" />
                           <span>Category</span>
-                          <Badge variant="destructive" className="text-xs">
-                            Required
-                          </Badge>
+                          <span className="text-red-500">*</span>
                         </FormLabel>
                         <Select
                           onValueChange={field.onChange}
@@ -470,9 +463,6 @@ export default function PostForm({ initialData, closeModel }: PostFormProps) {
                         <FormLabel className="flex items-center space-x-2">
                           <ImageIcon className="h-4 w-4" />
                           <span>Images</span>
-                          <Badge variant="secondary" className="text-xs">
-                            Optional
-                          </Badge>
                         </FormLabel>
                         <FormControl>
                           <ImageUpload

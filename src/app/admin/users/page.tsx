@@ -146,7 +146,7 @@ export default async function UsersPage() {
             A comprehensive list of all users with their details and actions
           </p>
         </CardHeader>
-        <CardContent className="max-w-md">
+        <CardContent>
           <DataTable columns={columns} data={users} />
         </CardContent>
       </Card>

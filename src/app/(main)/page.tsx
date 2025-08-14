@@ -1,11 +1,15 @@
 import { Suspense } from 'react';
 
+import CreatePostCard from '@/components/create-post-card';
 import FeedPostList from '@/components/post/feed-post-list';
 import SearchBar from '@/components/searchbar';
 import PostFilterSkeleton from '@/components/skeleton/post-filter-skeleton';
 import { Separator } from '@/components/ui/separator';
+import getLoginUser from '@/lib/get-login-user';
 
-export default function Home() {
+export default async function Home() {
+  const user = await getLoginUser();
+  if (!user) return null;
   return (
     <div className="p-4 lg:p-6 ">
       <div className="lg:hidden mb-6">
@@ -22,7 +26,7 @@ export default function Home() {
         Explore the latest gardening tips and advice shared by the community.
       </p>
       <Separator className="mb-4" />
-
+      <CreatePostCard user={user} />
       <Suspense fallback={<p>Loading...</p>}>
         <FeedPostList />
       </Suspense>

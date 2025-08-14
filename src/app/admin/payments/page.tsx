@@ -221,7 +221,7 @@ export default async function PaymentsPage() {
             information
           </p>
         </CardHeader>
-        <CardContent className="w-11/12">
+        <CardContent>
           <DataTable columns={columns} data={payments} />
         </CardContent>
       </Card>

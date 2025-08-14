@@ -170,7 +170,7 @@ export default async function CategoriesPage() {
             Manage your content categories, their descriptions, and organization
           </p>
         </CardHeader>
-        <CardContent className="max-w-md">
+        <CardContent>
           <DataTable columns={columns} data={categories} />
         </CardContent>
       </Card>
