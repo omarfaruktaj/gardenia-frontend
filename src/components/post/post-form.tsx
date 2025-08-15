@@ -364,7 +364,7 @@ export default function PostForm({ initialData, closeModel }: PostFormProps) {
                                   theme="snow"
                                   modules={quillModules}
                                   formats={quillFormats}
-                                  className="h-full"
+                                  className="h-full border-b border-white"
                                   placeholder="Start writing your post content..."
                                 />
                               ) : (
