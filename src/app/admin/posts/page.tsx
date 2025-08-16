@@ -1,9 +1,7 @@
 import { Suspense } from 'react';
 
-import { Eye, FileText, Heart, Plus, TrendingUp } from 'lucide-react';
-import Link from 'next/link';
+import { Eye, FileText, Heart, TrendingUp } from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -136,12 +134,12 @@ export default async function PostsPage() {
             Create, manage, and monitor all your content
           </p>
         </div>
-        <Button asChild className="flex items-center space-x-2">
+        {/* <Button asChild className="flex items-center space-x-2">
           <Link href="/admin/posts/create">
             <Plus className="h-4 w-4" />
             <span>New Post</span>
           </Link>
-        </Button>
+        </Button> */}
       </div>
 
       {/* Stats Cards */}

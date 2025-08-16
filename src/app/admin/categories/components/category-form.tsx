@@ -18,7 +18,7 @@ import {
 import { Input } from '@/components/ui/input';
 import LoadingButton from '@/components/ui/loading-button';
 import { Textarea } from '@/components/ui/textarea';
-import { CategorySchema, CategoryType } from '@/schemas/category-schema';
+import { CategorySchema, type CategoryType } from '@/schemas/category-schema';
 import { createCategory } from '@/services/category-service';
 
 interface CategoryFormProps {
@@ -29,8 +29,10 @@ export default function CategoryForm({ initialData }: CategoryFormProps) {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>(undefined);
 
-  const action = initialData ? 'Save changes' : 'Create';
-  const actionLoading = initialData ? 'Saving changes..' : 'Creating...';
+  const action = initialData ? 'Save changes' : 'Create Category';
+  const actionLoading = initialData
+    ? 'Saving changes...'
+    : 'Creating category...';
 
   const router = useRouter();
 
@@ -64,17 +66,20 @@ export default function CategoryForm({ initialData }: CategoryFormProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel className="text-sm font-medium text-foreground">
+                Category Name
+              </FormLabel>
               <FormControl>
                 <Input
                   type="text"
-                  placeholder="Enter category name"
+                  placeholder="e.g., Technology, Marketing, Design"
+                  className="h-11 bg-background/50 border-border/50 focus:border-primary/50 focus:ring-primary/20"
                   {...field}
                 />
               </FormControl>
@@ -88,9 +93,15 @@ export default function CategoryForm({ initialData }: CategoryFormProps) {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Description</FormLabel>
+              <FormLabel className="text-sm font-medium text-foreground">
+                Description
+              </FormLabel>
               <FormControl>
-                <Textarea placeholder="Enter category description" {...field} />
+                <Textarea
+                  placeholder="Describe what this category is for and what content it should contain..."
+                  className="min-h-[100px] bg-background/50 border-border/50 focus:border-primary/50 focus:ring-primary/20 resize-none"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -99,9 +110,15 @@ export default function CategoryForm({ initialData }: CategoryFormProps) {
 
         <ErrorCard message={error} />
 
-        <LoadingButton loading={isPending} type="submit" className="w-full">
-          {isPending ? actionLoading : action}
-        </LoadingButton>
+        <div className="pt-4">
+          <LoadingButton
+            loading={isPending}
+            type="submit"
+            className="w-full h-11 font-medium"
+          >
+            {isPending ? actionLoading : action}
+          </LoadingButton>
+        </div>
       </form>
     </Form>
   );
