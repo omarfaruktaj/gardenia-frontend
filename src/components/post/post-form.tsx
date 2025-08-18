@@ -18,9 +18,7 @@ import { useForm } from 'react-hook-form';
 import 'react-quill/dist/quill.snow.css';
 import { toast } from 'sonner';
 
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
   Form,
@@ -203,7 +201,7 @@ export default function PostForm({ initialData, closeModel }: PostFormProps) {
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="md:flex items-center justify-between space-y-4">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">
             {initialData ? 'Edit Post' : 'Create New Post'}
@@ -228,33 +226,9 @@ export default function PostForm({ initialData, closeModel }: PostFormProps) {
         </div>
       </div>
 
-      {/* Form Status Indicator */}
-      {/* <Card
-        className={`border-l-4 ${isFormValid ? 'border-l-green-500' : hasErrors ? 'border-l-red-500' : 'border-l-yellow-500'}`}
-      >
-        <CardContent className="pt-4">
-          <div className="flex items-center space-x-2">
-            {isFormValid ? (
-              <Check className="h-5 w-5 text-green-500" />
-            ) : hasErrors ? (
-              <AlertCircle className="h-5 w-5 text-red-500" />
-            ) : (
-              <AlertCircle className="h-5 w-5 text-yellow-500" />
-            )}
-            <span className="text-sm font-medium">
-              {isFormValid
-                ? 'Form is ready to submit'
-                : hasErrors
-                  ? 'Please fix the errors below'
-                  : 'Fill in the required fields'}
-            </span>
-          </div>
-        </CardContent>
-      </Card> */}
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div>
         {/* Main Form */}
-        <div className="lg:col-span-2">
+        <div>
           <Tabs
             value={activeTab}
             onValueChange={setActiveTab}
@@ -574,9 +548,9 @@ export default function PostForm({ initialData, closeModel }: PostFormProps) {
         </div>
 
         {/* Sidebar */}
-        <div className="space-y-6">
-          {/* Quick Stats */}
-          <Card>
+        {/* <div className="space-y-6"> */}
+        {/* Quick Stats */}
+        {/* <Card>
             <CardHeader>
               <CardTitle className="text-lg">Post Statistics</CardTitle>
             </CardHeader>
@@ -616,10 +590,10 @@ export default function PostForm({ initialData, closeModel }: PostFormProps) {
                 </Badge>
               </div>
             </CardContent>
-          </Card>
+          </Card> */}
 
-          {/* Writing Tips */}
-          <Card>
+        {/* Writing Tips */}
+        {/* <Card>
             <CardHeader>
               <CardTitle className="text-lg">Writing Tips</CardTitle>
             </CardHeader>
@@ -641,8 +615,8 @@ export default function PostForm({ initialData, closeModel }: PostFormProps) {
                 <p>Choose the most relevant category</p>
               </div>
             </CardContent>
-          </Card>
-        </div>
+          </Card> */}
+        {/* </div> */}
       </div>
     </div>
   );

@@ -192,7 +192,7 @@ export function AppSidebar() {
           {/* Post Button */}
           <SidebarGroup>
             <SidebarGroupContent>
-              <div className="px-2">
+              <div className="px-1">
                 <PostButton />
               </div>
             </SidebarGroupContent>
@@ -200,7 +200,7 @@ export function AppSidebar() {
         </SidebarContent>
 
         {/* User Profile Footer */}
-        <SidebarFooter className="p-4">
+        <SidebarFooter className="py-4">
           <SidebarMenu>
             <SidebarMenuItem>
               <DropdownMenu>

@@ -17,7 +17,7 @@ export default function ProfileUpdateButton() {
   return (
     <div>
       <Model isOpen={openModel} onClose={closeModel}>
-        <div className="px-2">
+        <div>
           <UpdateProfileForm closeModel={closeModel} />
         </div>
       </Model>

@@ -15,10 +15,10 @@ export default function Model({ isOpen, onClose, children }: ModelProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-5xl h-[90vh] overflow-hidden">
+      <DialogContent className="flex max-h-[min(800px,90vh)] flex-col gap-0 p-0 max-w-4xl">
         <DialogTitle></DialogTitle>
-        <ScrollArea className="max-h-screen ">
-          <div className="mb-10">{children}</div>
+        <ScrollArea className="flex max-h-full flex-col overflow-hidden">
+          <div>{children}</div>
         </ScrollArea>
       </DialogContent>
     </Dialog>

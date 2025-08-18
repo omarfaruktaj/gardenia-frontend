@@ -128,28 +128,6 @@ export default function SignUp() {
             </Card>
           </div>
         </div>
-
-        {/* Bottom Stats */}
-        <div className="mt-16 text-center">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-2xl mx-auto">
-            <div>
-              <div className="text-2xl font-bold text-green-800">10K+</div>
-              <div className="text-sm text-green-600">Active Members</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-green-800">500+</div>
-              <div className="text-sm text-green-600">Expert Guides</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-green-800">50K+</div>
-              <div className="text-sm text-green-600">Plants Grown</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-green-800">24/7</div>
-              <div className="text-sm text-green-600">Community Support</div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

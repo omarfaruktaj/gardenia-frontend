@@ -158,46 +158,6 @@ export default function Login() {
             </Card>
           </div>
         </div>
-
-        {/* Bottom Features */}
-        <div className="mt-16 text-center">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="bg-white/30 backdrop-blur-sm rounded-xl p-6 border border-green-100">
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Leaf className="h-6 w-6 text-green-600" />
-              </div>
-              <h3 className="font-semibold text-green-800 mb-2">
-                Expert Content
-              </h3>
-              <p className="text-sm text-green-600">
-                Access premium guides and tutorials from gardening professionals
-              </p>
-            </div>
-            <div className="bg-white/30 backdrop-blur-sm rounded-xl p-6 border border-green-100">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="h-6 w-6 text-blue-600" />
-              </div>
-              <h3 className="font-semibold text-green-800 mb-2">
-                Active Community
-              </h3>
-              <p className="text-sm text-green-600">
-                Connect with thousands of gardening enthusiasts worldwide
-              </p>
-            </div>
-            <div className="bg-white/30 backdrop-blur-sm rounded-xl p-6 border border-green-100">
-              <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Shield className="h-6 w-6 text-purple-600" />
-              </div>
-              <h3 className="font-semibold text-green-800 mb-2">
-                Secure Platform
-              </h3>
-              <p className="text-sm text-green-600">
-                Your data and privacy are protected with enterprise-grade
-                security
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

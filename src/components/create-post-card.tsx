@@ -34,7 +34,7 @@ export default function CreatePostCard({ user }: { user: UserInfo }) {
 
           <div className="flex-1">
             <div className="bg-muted rounded-full px-6 py-4 hover:bg-muted/80 transition-colors">
-              <span className="text-muted-foreground text-lg font-medium">
+              <span className="text-muted-foreground text-sm sm:text-lg font-medium">
                 What&apos;s growing in your garden?
               </span>
             </div>
