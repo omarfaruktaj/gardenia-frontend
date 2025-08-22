@@ -1,4 +1,5 @@
 import CommunityCard from '@/components/community-card';
+import { Heading } from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
 import api from '@/config/axios';
 import getLoginUser from '@/lib/get-login-user';
@@ -11,9 +12,9 @@ export default async function Communities() {
   const data = response.data;
   const userData = data?.data;
   return (
-    <div className="p-4">
+    <div className="px-4 py-8">
       <div className="space-y-4 ">
-        <h2 className="text-xl font-semibold mb-4">Communities</h2>
+        <Heading title="Communities" />
         <Separator />
         <div className="flex flex-col space-y-4">
           {userData.map((follower: UserResponse) => (

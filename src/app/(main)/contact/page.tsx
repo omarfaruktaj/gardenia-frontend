@@ -3,7 +3,7 @@
 import { useTransition } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Mail, MapPin, MessageSquare, Phone, Send } from 'lucide-react';
+import { Mail, MapPin, Phone, Send } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -24,7 +24,9 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { Heading } from '@/components/ui/heading';
 import { Input } from '@/components/ui/input';
+import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 
 const formSchema = z.object({
@@ -68,19 +70,15 @@ export default function Contact() {
   ];
 
   return (
-    <div className="min-h-screen px-4 ">
+    <div className="min-h-screen px-4 py-8">
       {/* Header */}
-      <div className="text-center mb-12">
-        <div className="flex justify-center mb-4">
-          <MessageSquare className="h-10 w-10 text-green-600" />
-        </div>
-        <h1 className="text-3xl sm:text-5xl font-bold text-green-800">
-          Contact Us
-        </h1>
-        <p className="mt-4 text-green-600 text-sm sm:text-base max-w-xl mx-auto">
-          Have questions or feedback? We&apos;d love to hear from you.
-        </p>
-      </div>
+
+      <Heading
+        title="Contact Us
+"
+        description="Have questions or feedback? We'd love to hear from you."
+      />
+      <Separator className="my-6" />
 
       {/* Main Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
