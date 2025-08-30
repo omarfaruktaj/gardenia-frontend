@@ -2,8 +2,7 @@
 
 import { useState, useTransition } from 'react';
 
-import { Copy, Edit, Eye, MoreHorizontal, Trash } from 'lucide-react';
-import Link from 'next/link';
+import { Copy, Eye, MoreHorizontal, Trash } from 'lucide-react';
 import { toast } from 'sonner';
 
 import AlertModal from '@/components/ui/alert-model';
@@ -68,12 +67,12 @@ export function CellAction({ data }: { data: TCategory }) {
             View Details
           </DropdownMenuItem>
 
-          <DropdownMenuItem className="cursor-pointer" asChild>
+          {/* <DropdownMenuItem className="cursor-pointer" asChild>
             <Link href={`/admin/categories/${data._id}/edit`}>
               <Edit className="mr-2 h-4 w-4" />
               Edit Category
             </Link>
-          </DropdownMenuItem>
+          </DropdownMenuItem> */}
 
           <DropdownMenuItem className="cursor-pointer" onClick={onCopy}>
             <Copy className="mr-2 h-4 w-4" />
