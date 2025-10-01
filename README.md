@@ -62,15 +62,39 @@ To set up and run this project locally, follow these steps:
 
 3. **Set up environment variables:**
 
-   Create a `.env` file in the root directory and add the necessary environment variables:
+   Create a `.env` file in the root directory and add the following environment variables:
 
    ```plaintext
-   BASE_API=http://localhost:5000/api/v1
-    NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME= you cloudinary cloud name
-    NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=you cloudinary upload perset
-    NEXT_PUBLIC_STRIPE_PUBLIC_KEY=Your Stripe public key
+   # API Configuration
+   BASE_API=http://localhost:5000/api/v1    # Update this if your backend runs on a different port
 
+   # Cloudinary Configuration
+   NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloud_name
+   NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=your_upload_preset
+
+   # Stripe Configuration
+   NEXT_PUBLIC_STRIPE_PUBLIC_KEY=pk_test_your_stripe_public_key
    ```
+
+   To obtain these values:
+
+   - **Cloudinary Setup**:
+
+     1. Create a free account at [Cloudinary](https://cloudinary.com/users/register/free)
+     2. Navigate to Dashboard > Settings > Account Details to find your Cloud Name
+     3. Create an upload preset: Settings > Upload > Upload presets > Add upload preset
+     4. Set the upload preset to "Unsigned" mode and copy the preset name
+
+   - **Stripe Setup**:
+
+     1. Create a free account at [Stripe](https://dashboard.stripe.com/register)
+     2. Get your publishable key from Dashboard > Developers > API keys
+     3. Use the test mode key for development
+
+   - **BASE_API**:
+     - Default is `http://localhost:5000/api/v1` assuming backend runs on port 5000
+     - Adjust the port number if your backend uses a different port
+     - For production, update to your deployed backend URL
 
 4. **Start the development server:**
 
