@@ -6,12 +6,14 @@ import Image from 'next/image';
 
 import { Button } from '@/components/ui/button';
 import envConfig from '@/config/env-config';
+import { cn } from '@/lib/utils';
 
 interface UploadImageProps {
   disabled?: boolean;
   onChange: (value: string | null) => void;
   onRemove: () => void;
   value: string | null;
+  className?: string;
 }
 
 export default function ProfileImageInput({
@@ -19,6 +21,7 @@ export default function ProfileImageInput({
   onChange,
   onRemove,
   value,
+  className,
 }: UploadImageProps) {
   const [isUploading, setIsUploading] = useState(false);
 
@@ -56,7 +59,7 @@ export default function ProfileImageInput({
   return (
     <div className="flex flex-col">
       {value ? (
-        <div className="relative w-24 h-24 rounded-lg overflow-hidden border hover:shadow-md transition-shadow">
+        <div className={cn('relative w-24 h-24 ')}>
           <Button
             type="button"
             onClick={onRemove}
@@ -68,7 +71,10 @@ export default function ProfileImageInput({
             <Trash className="h-4 w-4" />
           </Button>
           <Image
-            className="object-cover w-full h-full"
+            className={cn(
+              'object-cover rounded-lg overflow-hidden border hover:shadow-md transition-shadow w-full h-full',
+              className
+            )}
             alt="Uploaded"
             src={value}
             layout="fill"

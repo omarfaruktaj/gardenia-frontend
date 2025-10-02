@@ -7,7 +7,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import ProfileImageInput from '@/app/(main)/[userId]/(profile)/_components/profile-image-input';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -67,23 +67,31 @@ export default function ProfileForm() {
   }
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-6">
-        <Avatar className="h-20 w-20">
-          <AvatarImage src={user?.avatar} alt="Profile" />
-          <AvatarFallback>JD</AvatarFallback>
-        </Avatar>
-        <div>
-          <Button variant="outline" size="sm">
-            Change Avatar
-          </Button>
-          <p className="text-sm text-muted-foreground mt-2">
-            JPG, GIF or PNG. 1MB max.
-          </p>
-        </div>
-      </div>
-
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          {/* Avatar Upload Field */}
+          <FormField
+            control={form.control}
+            name="avatar"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Profile Image</FormLabel>
+                <FormDescription>JPG, GIF, or PNG. Max 1MB.</FormDescription>
+                <FormControl>
+                  <ProfileImageInput
+                    value={field.value as string}
+                    disabled={isPending}
+                    onChange={(url) => field.onChange(url)}
+                    onRemove={() => field.onChange(null)}
+                    className="rounded-full"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Name */}
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <FormField
               control={form.control}
@@ -117,20 +125,7 @@ export default function ProfileForm() {
             />
           </div>
 
-          {/* <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input placeholder="Email address" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          /> */}
-
+          {/* Bio */}
           <FormField
             control={form.control}
             name="bio"
@@ -157,7 +152,104 @@ export default function ProfileForm() {
           </Button>
         </form>
       </Form>
+
       {error && <ErrorCard message={error} />}
     </div>
   );
+
+  // return (
+  //   <div className="space-y-6">
+  //     <div className="flex items-center gap-6">
+  //       <Avatar className="h-20 w-20">
+  //         <AvatarImage src={user?.avatar} alt="Profile" />
+  //         <AvatarFallback>JD</AvatarFallback>
+  //       </Avatar>
+  //       <div>
+  //         <Button variant="outline" size="sm">
+  //           Change Avatar
+  //         </Button>
+  //         <p className="text-sm text-muted-foreground mt-2">
+  //           JPG, GIF or PNG. 1MB max.
+  //         </p>
+  //       </div>
+  //     </div>
+
+  //     <Form {...form}>
+  //       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+  //         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+  //           <FormField
+  //             control={form.control}
+  //             name="name"
+  //             render={({ field }) => (
+  //               <FormItem>
+  //                 <FormLabel>Name</FormLabel>
+  //                 <FormControl>
+  //                   <Input placeholder="Your name" {...field} />
+  //                 </FormControl>
+  //                 <FormMessage />
+  //               </FormItem>
+  //             )}
+  //           />
+
+  //           <FormField
+  //             control={form.control}
+  //             name="username"
+  //             render={({ field }) => (
+  //               <FormItem>
+  //                 <FormLabel>Username</FormLabel>
+  //                 <FormControl>
+  //                   <Input placeholder="Username" {...field} />
+  //                 </FormControl>
+  //                 <FormDescription>
+  //                   This is your public display name.
+  //                 </FormDescription>
+  //                 <FormMessage />
+  //               </FormItem>
+  //             )}
+  //           />
+  //         </div>
+
+  //         {/* <FormField
+  //           control={form.control}
+  //           name="email"
+  //           render={({ field }) => (
+  //             <FormItem>
+  //               <FormLabel>Email</FormLabel>
+  //               <FormControl>
+  //                 <Input placeholder="Email address" {...field} />
+  //               </FormControl>
+  //               <FormMessage />
+  //             </FormItem>
+  //           )}
+  //         /> */}
+
+  //         <FormField
+  //           control={form.control}
+  //           name="bio"
+  //           render={({ field }) => (
+  //             <FormItem>
+  //               <FormLabel>Bio</FormLabel>
+  //               <FormControl>
+  //                 <Textarea
+  //                   placeholder="Tell us a little bit about yourself"
+  //                   className="resize-none"
+  //                   {...field}
+  //                 />
+  //               </FormControl>
+  //               <FormDescription>
+  //                 Brief description for your profile. Maximum 160 characters.
+  //               </FormDescription>
+  //               <FormMessage />
+  //             </FormItem>
+  //           )}
+  //         />
+
+  //         <Button type="submit" disabled={isPending}>
+  //           {isPending ? 'Saving...' : 'Save changes'}
+  //         </Button>
+  //       </form>
+  //     </Form>
+  //     {error && <ErrorCard message={error} />}
+  //   </div>
+  // );
 }
