@@ -27,7 +27,7 @@ export default async function MainLayout({
 
           <SidebarInset className="flex-1 ">
             <div className="">
-              <div className="relative mt-1">
+              <div className="relative">
                 <div className="mx-auto flex flex-col lg:flex-row ">
                   {/* Main Content: post feed */}
                   <div className="flex-grow min-h-screen lg:flex-1 border-x border-b transition-all duration-300">

@@ -3,21 +3,19 @@
 import { ChevronLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
-import { Button } from '../ui/button';
-
 export default function PostBackButton() {
   const router = useRouter();
+
   return (
-    <div className="flex items-center pl-0  w-full space-x-1 mt-3 ">
-      <Button
+    <div className="sticky top-0 z-30 bg-background/80 backdrop-blur-md border-b border-border flex items-center h-14 px-4">
+      <button
         onClick={() => router.back()}
-        variant="ghost"
-        size={'icon'}
-        className="rounded-full"
+        className="p-2 rounded-full hover:bg-muted transition"
+        aria-label="Go back"
       >
         <ChevronLeft className="h-5 w-5" />
-      </Button>
-      <h4 className="text-xl">Post</h4>
+      </button>
+      <h1 className="text-lg font-semibold ml-4">Post</h1>
     </div>
   );
 }
