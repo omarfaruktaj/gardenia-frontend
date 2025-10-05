@@ -94,7 +94,7 @@ export const getNewAccessToken = async () => {
     const res = await api.post('/auth/refreshToken', {
       refreshToken,
     });
-
+    console.log(res);
     if (res.data.success) {
       cookies().set('access_token', res.data.data.accessToken);
       cookies().set('refresh_token', res.data.data.refreshToken);

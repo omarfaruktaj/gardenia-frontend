@@ -48,27 +48,30 @@ const SuccessPage = ({ params }: { params: { userId: string } }) => {
   }, [session_id, params.userId]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen ">
-      <Card className="max-w-md w-full">
+    <div className="flex items-center justify-center min-h-screen  px-4 bg-background">
+      <Card className="max-w-md w-full shadow-xl rounded-lg ">
         <CardHeader>
-          <div className="flex items-center justify-center mb-4">
-            <CheckCircle className="h-16 w-16 text-green-600" />
+          <div className="flex flex-col items-center text-center space-y-3 mb-4">
+            <CheckCircle className="h-16 w-16 text-green-500" />
+            <CardTitle className="text-3xl font-bold text-green-600">
+              Payment Successful!
+            </CardTitle>
+            <CardDescription className="text-base text-muted-foreground">
+              Thank you for your payment. Your transaction has been completed.
+            </CardDescription>
           </div>
-          <CardTitle className="text-3xl font-bold text-green-600 text-center">
-            Payment Successful!
-          </CardTitle>
-          <CardDescription className="text-lg text-center">
-            Thank you for your payment. Your transaction has been completed.
-          </CardDescription>
         </CardHeader>
         <CardContent>
-          <p className="text-md text-gray-600 mb-6 text-center">
-            You can now enjoy the verified content and features.
+          <p className="text-sm text-mute mb-6 text-center">
+            You can now enjoy all the verified content and premium features.
           </p>
           <div className="flex justify-center">
-            <Button asChild>
+            <Button
+              asChild
+              className="bg-green-600 hover:bg-green-700 text-white transition-colors duration-200"
+            >
               <Link href={'/'}>
-                <ArrowLeft className="mr-2" /> Return to Home
+                <ArrowLeft className="mr-2 h-4 w-4" /> Return to Home
               </Link>
             </Button>
           </div>
