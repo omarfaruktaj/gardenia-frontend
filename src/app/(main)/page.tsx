@@ -1,5 +1,7 @@
 import { Suspense } from 'react';
 
+import { redirect } from 'next/navigation';
+
 import CreatePostCard from '@/components/create-post-card';
 import FeedPostList from '@/components/post/feed-post-list';
 import SearchBar from '@/components/searchbar';
@@ -9,7 +11,7 @@ import getLoginUser from '@/lib/get-login-user';
 
 export default async function Home() {
   const user = await getLoginUser();
-  if (!user) return null;
+  if (!user) return redirect('/login');
   return (
     <div className="p-4 lg:p-6 ">
       <div className="lg:hidden mb-6">

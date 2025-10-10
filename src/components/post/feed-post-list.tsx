@@ -18,7 +18,6 @@ export default function FeedPostList() {
   const category = params.get('category') || undefined;
   const sort = params.get('sort') || undefined;
 
-  console.log(searchTerm);
   const {
     data,
     fetchNextPage,
