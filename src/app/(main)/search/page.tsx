@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 
 import { ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 import FeedPostList from '@/components/post/feed-post-list';
@@ -15,8 +16,10 @@ export default async function Home() {
   return (
     <div className="p-4 lg:p-6 ">
       <div className=" mb-6 flex items-center space-x-4">
-        <Button variant={'link'} size={'icon'} className="rounded-full">
-          <ArrowLeft className="h-5 w-5" />
+        <Button variant={'link'} size={'icon'} className="rounded-full" asChild>
+          <Link href={'/'}>
+            <ArrowLeft className="h-5 w-5" />
+          </Link>
         </Button>
         <div className="w-full">
           <Suspense fallback={<PostFilterSkeleton />}>

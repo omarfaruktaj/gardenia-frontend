@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 
-import SearchBar from '@/components/searchbar';
+import ConditionalSearchBar from '@/components/conditionalsearchbar';
 import { AppSidebar } from '@/components/sidebar/app-sidebar';
 import { ResponsiveLayoutWrapper } from '@/components/sidebar/responsive-layout-wrapper';
 import PostFilterSkeleton from '@/components/skeleton/post-filter-skeleton';
@@ -38,7 +38,7 @@ export default async function MainLayout({
                   <div className="hidden lg:flex lg:flex-col lg:w-96 xl:w-96 p-4 sticky top-0 h-screen overflow-y-auto">
                     <div className="space-y-6">
                       <Suspense fallback={<PostFilterSkeleton />}>
-                        <SearchBar />
+                        <ConditionalSearchBar />
                         {/* <Discover /> */}
                         {/* <PostFilter /> */}
                       </Suspense>

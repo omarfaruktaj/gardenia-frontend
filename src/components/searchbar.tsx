@@ -3,63 +3,31 @@
 import { useEffect, useState } from 'react';
 
 import { SearchIcon } from 'lucide-react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-
-import useDebounce from '@/hooks/use-debounce';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import { InputGroup, InputGroupAddon, InputGroupInput } from './ui/input-group';
 
 export default function SearchBar() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const pathname = usePathname();
 
   const [searchTerm, setSearchTerm] = useState('');
-  const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
-  // Load initial search term from URL params
   useEffect(() => {
-    const params = new URLSearchParams(searchParams.toString());
-    const getSearchTerm = params.get('searchTerm');
-    setSearchTerm(getSearchTerm || '');
+    const initial = searchParams.get('searchTerm');
+    if (initial) {
+      setSearchTerm(initial);
+    }
   }, [searchParams]);
 
-  // Auto-update URL on /search page only
-  useEffect(() => {
-    if (pathname !== '/search') return;
-
-    const params = new URLSearchParams(searchParams.toString());
-
-    if (debouncedSearchTerm) {
-      params.set('searchTerm', debouncedSearchTerm);
-    } else {
-      params.delete('searchTerm');
-    }
-
-    const newUrl = `${pathname}?${params.toString()}`;
-    if (searchParams.toString() !== params.toString()) {
-      router.push(newUrl);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedSearchTerm, pathname]);
-
-  // Unified search handler for Enter key and icon click
   const triggerSearch = () => {
     const params = new URLSearchParams();
 
-    if (searchTerm) {
-      params.set('searchTerm', searchTerm);
+    if (searchTerm.trim()) {
+      params.set('searchTerm', searchTerm.trim());
     }
 
-    const newUrl = `/search?${params.toString()}`;
-
-    // If already on /search, just update URL
-    if (pathname === '/search') {
-      router.push(newUrl);
-    } else {
-      // Redirect to /search with the search term
-      router.push(newUrl);
-    }
+    router.push(`/search?${params.toString()}`);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -77,7 +45,7 @@ export default function SearchBar() {
         onChange={(e) => setSearchTerm(e.target.value)}
         onKeyDown={handleKeyDown}
       />
-      <InputGroupAddon>
+      <InputGroupAddon onClick={triggerSearch} className="cursor-pointer">
         <SearchIcon />
       </InputGroupAddon>
     </InputGroup>
