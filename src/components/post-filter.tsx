@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import {
   Select,
@@ -14,11 +14,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import useDebounce from '@/hooks/use-debounce';
 import { getCategories } from '@/services/category-service';
 import { TCategory } from '@/types';
 
-import { Input } from './ui/input';
 import { Label } from './ui/label';
 
 export default function PostFilter() {
@@ -28,15 +26,11 @@ export default function PostFilter() {
     queryKey: ['CATEGORIES'],
     queryFn: () => getCategories(),
   });
-  const pathname = usePathname();
 
   const [filters, setFilters] = useState({
-    searchTerm: '',
     category: '',
     sort: '',
   });
-
-  const debouncedSearchTerm = useDebounce(filters.searchTerm, 500);
 
   useEffect(() => {
     const params = new URLSearchParams(searchParams.toString());
@@ -45,7 +39,6 @@ export default function PostFilter() {
     const getCategory = params.get('category');
     const getSort = params.get('sort');
     setFilters({
-      searchTerm: getSearchTerm || '',
       category: getCategory || '',
       sort: getSort
         ? getSort
@@ -54,20 +47,6 @@ export default function PostFilter() {
           : '-createdAt',
     });
   }, [searchParams]);
-
-  useEffect(() => {
-    const params = new URLSearchParams(searchParams.toString());
-    if (debouncedSearchTerm) {
-      params.set('searchTerm', debouncedSearchTerm);
-    } else {
-      params.delete('searchTerm');
-    }
-    const newUrl = `/${pathname}?${params.toString()}`;
-    if (searchParams.toString() !== params.toString()) {
-      router.push(newUrl);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedSearchTerm]);
 
   const handleCategoryChange = useCallback(
     (category: string) => {
@@ -79,7 +58,7 @@ export default function PostFilter() {
       } else {
         params.delete('category');
       }
-      router.push(`/?${params.toString()}`);
+      router.push(`/search/?${params.toString()}`);
     },
     [router, searchParams]
   );
@@ -89,26 +68,13 @@ export default function PostFilter() {
       setFilters((prev) => ({ ...prev, sort: value }));
       const params = new URLSearchParams(searchParams.toString());
       params.set('sort', value);
-      router.push(`/?${params.toString()}`);
+      router.push(`/search/?${params.toString()}`);
     },
     [router, searchParams]
   );
 
   return (
     <div className="w-full">
-      <div className="mb-6">
-        <Input
-          type="text"
-          value={filters.searchTerm}
-          onChange={(e) =>
-            setFilters((prev) => ({ ...prev, searchTerm: e.target.value }))
-          }
-          placeholder="Search for posts..."
-          aria-label="Search posts"
-          className="rounded-full"
-        />
-      </div>
-
       <div className="space-y-4 border p-4 rounded-2xl">
         <h2 className="text-lg font-semibold mb-4">Discover</h2>
         <div>

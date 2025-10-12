@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 
+import PostFilter from './post-filter';
 import SearchBar from './searchbar';
 
 export default function ConditionalSearchBar() {
@@ -9,9 +10,12 @@ export default function ConditionalSearchBar() {
 
   if (pathname.startsWith('/search'))
     return (
-      <div className="p-4 rounded-lg border">
-        <p className="text-lg font-extrabold">Search filters</p>
-      </div>
+      <>
+        <div className="p-4 rounded-lg border">
+          <p className="text-lg font-extrabold">Search filters</p>
+        </div>
+        <PostFilter />
+      </>
     );
 
   return <SearchBar />;
