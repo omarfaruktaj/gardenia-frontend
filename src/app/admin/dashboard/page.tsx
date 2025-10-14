@@ -49,7 +49,6 @@ export default async function Page() {
   const postsData = posts.data.data as PostData[];
   const votesData = votes.data.data;
 
-  console.log(JSON.stringify(paymentsData));
   const totalPosts = postsData.reduce((total, post) => total + post.count, 0);
   const totalPayments = paymentsData.reduce(
     (total, payment) => total + payment.totalAmount,

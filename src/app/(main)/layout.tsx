@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 
 import ConditionalSearchBar from '@/components/conditionalsearchbar';
+import { MobileBottomNav } from '@/components/mobile-nav';
 import { AppSidebar } from '@/components/sidebar/app-sidebar';
 import { ResponsiveLayoutWrapper } from '@/components/sidebar/responsive-layout-wrapper';
 import PostFilterSkeleton from '@/components/skeleton/post-filter-skeleton';
@@ -55,6 +56,7 @@ export default async function MainLayout({
         </div>
       </ResponsiveLayoutWrapper>
       {/* <Footer /> */}
+      <MobileBottomNav />
     </div>
   );
 }

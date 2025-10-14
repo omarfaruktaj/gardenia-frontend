@@ -39,8 +39,6 @@ export default async function Profile({ userId }: { userId: string }) {
     : user._id === currentUser?._id
       ? "You haven't added a bio yet."
       : "This user hasn't added a bio yet.";
-  console.log('User Avatar:', user.avatar);
-  console.log('User Cover:', user.cover);
 
   return (
     <div className="overflow-hidden">

@@ -40,7 +40,6 @@ export const login = async (userData: TLoginSchema) => {
 
     return { data: data.data };
   } catch (error: unknown) {
-    console.log(error);
     if (axios.isAxiosError(error)) {
       return { error: error.response?.data.message || 'Login failed' };
     } else {
@@ -94,7 +93,6 @@ export const getNewAccessToken = async () => {
     const res = await api.post('/auth/refreshToken', {
       refreshToken,
     });
-    console.log(res);
     if (res.data.success) {
       cookies().set('access_token', res.data.data.accessToken);
       cookies().set('refresh_token', res.data.data.refreshToken);

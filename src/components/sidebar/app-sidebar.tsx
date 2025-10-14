@@ -100,31 +100,13 @@ export function AppSidebar() {
     <TooltipProvider delayDuration={0}>
       <Sidebar
         collapsible="none"
-        className=" border-border/40 w-16 xl:w-72 transition-all duration-300 bg-background"
+        className="hidden sm:block border-border/40 w-16 xl:w-72 transition-all duration-300 bg-background"
       >
         <SidebarHeader className="p-4">
           <Logo />
         </SidebarHeader>
 
         <SidebarContent className="my-6">
-          {/* Search Bar - Only visible on large screens */}
-          {/* <SidebarGroup className="hidden xl:block">
-            <SidebarGroupContent>
-              <div className="px-2">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                  <SidebarInput
-                    placeholder="Search..."
-                    className="pl-9 bg-muted/50 border-0 focus-visible:ring-1"
-                  />
-                </div>
-              </div>
-            </SidebarGroupContent>
-          </SidebarGroup> */}
-
-          {/* <SidebarSeparator /> */}
-
-          {/* Main Navigation */}
           <SidebarGroup>
             <SidebarGroupContent>
               <SidebarMenu className="gap-y-3">

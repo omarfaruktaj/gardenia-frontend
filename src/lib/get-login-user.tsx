@@ -16,7 +16,6 @@ export type UserInfo = {
 
 export default async function getLoginUser(): Promise<UserInfo | null> {
   const token = cookies().get('access_token');
-  // console.log('token', token);
 
   if (!token || token.value === '') {
     return null;

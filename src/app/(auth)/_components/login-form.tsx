@@ -63,7 +63,6 @@ export default function LoginForm() {
       if (data) {
         queryClient.invalidateQueries({ queryKey: ['ME'] });
         const user = await getCurrentUser();
-        console.log('user', user);
         if (user.role === 'admin') return router.push('/admin/dashboard');
         router.push('/');
       }
