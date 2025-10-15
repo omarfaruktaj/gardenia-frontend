@@ -9,7 +9,7 @@ import { UserResponse } from '@/types';
 export default function ProfileBack({ user }: { user: UserResponse }) {
   const router = useRouter();
   return (
-    <div className=" w-full py-3 px-2">
+    <div className="sticky top-0 z-30 bg-background/80 backdrop-blur-md border-b border-border w-full py-3 px-2">
       <div className="flex items-center gap-8 ">
         <Button
           onClick={() => router.back()}

@@ -41,9 +41,9 @@ export default async function Profile({ userId }: { userId: string }) {
       : "This user hasn't added a bio yet.";
 
   return (
-    <div className="overflow-hidden">
+    <div>
       <ProfileBack user={user} />
-      <div className="relative w-full h-48 sm:h-64 md:h-72 overflow-hidden">
+      <div className="relative w-full h-48 sm:h-64 md:h-72 ">
         <Image
           src={user.cover || fallbackCoverPic}
           alt="Cover image"
