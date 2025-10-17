@@ -219,7 +219,7 @@ export default function ForgotPasswordForm() {
           <Button
             type="submit"
             disabled={isPending}
-            className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-medium py-2.5 transition-all duration-200"
+            className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-medium py-2.5 transition-all duration-200"
           >
             {isPending ? (
               <div className="flex items-center space-x-2">

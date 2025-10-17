@@ -15,7 +15,7 @@ export default function ForgotPassword() {
 
       {/* Header */}
       <div className="relative z-10 p-4">
-        <Button variant="ghost" asChild className="mb-4">
+        <Button variant="link" asChild className="mb-4">
           <Link
             href="/login"
             className="flex items-center space-x-2 text-green-700 hover:text-green-800"
@@ -148,10 +148,7 @@ export default function ForgotPassword() {
                   <span>Contact support if you continue having issues</span>
                 </div>
               </div>
-              <Button
-                variant="outline"
-                className="mt-4 w-full border-green-200 hover:bg-green-50"
-              >
+              <Button variant="secondary" className="mt-4 w-full ">
                 Contact Support Team
               </Button>
             </div>
@@ -179,7 +176,7 @@ export default function ForgotPassword() {
           <div className="flex justify-center lg:justify-end">
             <Card className="w-full max-w-md shadow-2xl border-0 bg-white/80 backdrop-blur-sm">
               <CardHeader className="text-center pb-6">
-                <div className="mx-auto w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center mb-4">
+                <div className="mx-auto w-16 h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mb-4">
                   <Mail className="h-8 w-8 text-white" />
                 </div>
                 <h2 className="text-2xl font-bold text-green-800">
