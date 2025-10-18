@@ -70,18 +70,19 @@ export default function Contact() {
   ];
 
   return (
-    <div className="min-h-screen px-4 py-8">
+    <div>
       {/* Header */}
-
-      <Heading
-        title="Contact Us
-"
-        description="Have questions or feedback? We'd love to hear from you."
-      />
-      <Separator className="my-6" />
+      <div className="sticky top-0 bg-background p-4 lg:p-6 z-50">
+        <Heading
+          title="Contact Us"
+          description="Have questions or feedback? We'd love to hear from you."
+          isLanding
+        />
+        <Separator className="mt-4" />
+      </div>
 
       {/* Main Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 px-4">
         {/* Contact Form */}
         <Card>
           <CardHeader>
@@ -216,7 +217,7 @@ export default function Contact() {
       </div>
 
       {/* FAQ */}
-      <div className="mt-16">
+      <div className="my-16 px-4">
         <h2 className="text-2xl font-semibold text-green-700 mb-4 text-center">
           Frequently Asked Questions
         </h2>

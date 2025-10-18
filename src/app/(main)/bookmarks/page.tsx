@@ -12,9 +12,15 @@ export default async function Favorites() {
   }
 
   return (
-    <div className="mt-6 p-4 lg:p-6 ">
-      <Heading title="Bookmarks" description="Manage your Bookmarks" />
-      <div className="mt-6 ">
+    <div>
+      <div className="sticky top-0 bg-background p-4 lg:p-6 z-50">
+        <Heading
+          title="Bookmarks"
+          description="Manage your Bookmarks"
+          isLanding
+        />
+      </div>
+      <div className="mt-6 px-4">
         <FavoritePostList userId={user?._id} />
       </div>
     </div>

@@ -12,10 +12,16 @@ export default async function Communities() {
   const data = response.data;
   const userData = data?.data;
   return (
-    <div className="px-4 py-8">
-      <div className="space-y-4 ">
-        <Heading title="Communities" />
-        <Separator />
+    <div>
+      <div className="sticky top-0 bg-background p-4 lg:p-6 z-50">
+        <Heading
+          title="Communities"
+          description="Join in our communities"
+          isLanding
+        />
+        <Separator className="my-4" />
+      </div>
+      <div className="space-y-4 px-4 ">
         <div className="flex flex-col space-y-4">
           {userData.map((follower: UserResponse) => (
             <CommunityCard
