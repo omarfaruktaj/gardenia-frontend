@@ -3,6 +3,7 @@
 import {
   BookmarkIcon,
   CameraIcon,
+  FlowerIcon,
   HomeIcon,
   InfoIcon,
   Layout,
@@ -92,6 +93,12 @@ export function AppSidebar() {
     { icon: InfoIcon, label: 'About Us', href: '/about', badge: null },
 
     { icon: MailIcon, label: 'Contact Us', href: '/contact', badge: null },
+    {
+      icon: FlowerIcon,
+      label: 'Journal',
+      href: '/garden-journal',
+      badge: null,
+    },
 
     { icon: Settings, label: 'Settings', href: '/settings', badge: null },
   ];

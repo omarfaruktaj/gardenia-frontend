@@ -3,6 +3,7 @@
 import type { LucideIcon } from 'lucide-react';
 import {
   BookmarkIcon,
+  Flower as FlowerIcon,
   HomeIcon,
   PlusIcon,
   UserIcon,
@@ -47,6 +48,12 @@ export function MobileBottomNav() {
       label: 'Post',
       href: '#',
       isAction: true,
+    },
+    {
+      icon: FlowerIcon,
+      label: 'Garden',
+      href: '/garden-journal',
+      badge: null,
     },
     {
       icon: BookmarkIcon,

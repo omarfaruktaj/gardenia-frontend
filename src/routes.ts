@@ -13,4 +13,7 @@ export const authRoutes = [
   '/forgot-password',
   '/reset-password',
 ];
+
 export const adminRoutes = ['/admin', '/admin/*'];
+
+export const gardenRoutes = ['/garden-journal', '/garden-journal/*'];

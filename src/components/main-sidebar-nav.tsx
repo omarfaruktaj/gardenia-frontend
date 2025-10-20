@@ -3,6 +3,7 @@
 import {
   BookmarkIcon,
   CameraIcon,
+  FlowerIcon,
   HomeIcon,
   InfoIcon,
   MailIcon,
@@ -24,6 +25,7 @@ export default function MainSidebarNav() {
     { icon: BookmarkIcon, label: 'Bookmarks', href: '/bookmarks' },
     { icon: Users, label: 'Communities', href: '/communities' },
     { icon: UserIcon, label: 'Profile', href: `/${user?._id}` },
+    { icon: FlowerIcon, label: 'Garden Journal', href: '/garden-journal' },
     { icon: CameraIcon, label: 'Gallery', href: '/gallery' },
     { icon: InfoIcon, label: 'About Us', href: '/about' },
     { icon: MailIcon, label: 'Contact Us', href: '/contact' },
