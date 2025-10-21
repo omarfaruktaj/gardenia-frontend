@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -85,7 +85,6 @@ export default function PlotDetails() {
       notes: '',
     },
   });
-
   const loadPlotData = async () => {
     if (!params.plotId) {
       toast({
@@ -115,6 +114,9 @@ export default function PlotDetails() {
       setIsLoading(false);
     }
   };
+  useEffect(() => {
+    loadPlotData();
+  }, []);
 
   const handleAddPlant = async (data: z.infer<typeof PlantSchema>) => {
     try {
