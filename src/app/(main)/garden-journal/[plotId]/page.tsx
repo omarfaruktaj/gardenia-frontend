@@ -156,13 +156,11 @@ export default function PlotDetails() {
       <div className="sticky top-0 bg-background p-4 lg:p-6 z-50">
         <div className="flex items-center justify-between">
           <Heading
+            back
             title={plot.name}
             description={`${plot.type.charAt(0).toUpperCase() + plot.type.slice(1)} garden`}
             isLanding
           />
-          <Button variant="outline" onClick={() => router.back()}>
-            Back to Journal
-          </Button>
         </div>
         <Separator className="my-4" />
       </div>
