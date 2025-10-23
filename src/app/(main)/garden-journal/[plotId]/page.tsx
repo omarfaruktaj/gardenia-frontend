@@ -48,6 +48,7 @@ import {
   createPlantEntry,
   getPlantEntries,
   getPlot,
+  updatePlantEntry,
 } from '@/services/garden-journal-service';
 import type { GardenPlot, PlantEntry } from '@/types/garden-journal';
 
@@ -73,6 +74,8 @@ export default function PlotDetails() {
   const [plot, setPlot] = useState<GardenPlot | null>(null);
   const [plants, setPlants] = useState<PlantEntry[]>([]);
   const [isAddingPlant, setIsAddingPlant] = useState(false);
+  const [isEditingPlant, setIsEditingPlant] = useState(false);
+  const [selectedPlant, setSelectedPlant] = useState<PlantEntry | null>(null);
 
   type FormData = z.infer<typeof PlantSchema>;
 
@@ -138,6 +141,40 @@ export default function PlotDetails() {
       toast({
         title: 'Error',
         description: 'Failed to add plant',
+        variant: 'destructive',
+      });
+    }
+  };
+  const handleEditClick = (plant: PlantEntry) => {
+    setSelectedPlant(plant);
+    form.reset({
+      plantName: plant.plantName,
+      variety: plant.variety || '',
+      status: plant.status,
+      notes: plant.notes || '',
+    });
+    setIsEditingPlant(true);
+  };
+
+  const handleEditPlant = async (data: z.infer<typeof PlantSchema>) => {
+    try {
+      if (!selectedPlant || !plot) return;
+
+      await updatePlantEntry(plot._id, selectedPlant._id, data);
+
+      toast({
+        title: 'Success',
+        description: 'Plant updated successfully',
+      });
+
+      setIsEditingPlant(false);
+      setSelectedPlant(null);
+      loadPlotData();
+    } catch (err) {
+      console.error('Failed to update plant:', err);
+      toast({
+        title: 'Error',
+        description: 'Failed to update plant',
         variant: 'destructive',
       });
     }
@@ -212,9 +249,14 @@ export default function PlotDetails() {
                     )}
                   </CardContent>
                   <CardFooter className="flex justify-end space-x-2">
-                    <Button size="icon" variant="ghost">
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      onClick={() => handleEditClick(plant)}
+                    >
                       <Edit3 className="h-4 w-4" />
                     </Button>
+
                     <Button
                       size="icon"
                       variant="ghost"
@@ -367,6 +409,93 @@ export default function PlotDetails() {
                   Cancel
                 </Button>
                 <Button type="submit">Add Plant</Button>
+              </DialogFooter>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
+      {/* Edit Plant Dialog */}
+      <Dialog open={isEditingPlant} onOpenChange={setIsEditingPlant}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Edit Plant</DialogTitle>
+            <DialogDescription>
+              Update details for{' '}
+              <span className="font-semibold">{selectedPlant?.plantName}</span>
+            </DialogDescription>
+          </DialogHeader>
+
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(handleEditPlant)}
+              className="space-y-4"
+            >
+              <div className="space-y-4">
+                <div className="grid w-full items-center gap-1.5">
+                  <label htmlFor="plantName">Plant Name</label>
+                  <input
+                    {...form.register('plantName')}
+                    className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                  />
+                </div>
+
+                <div className="grid w-full items-center gap-1.5">
+                  <label htmlFor="variety">Variety (Optional)</label>
+                  <input
+                    {...form.register('variety')}
+                    className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm"
+                  />
+                </div>
+
+                <div className="grid w-full items-center gap-1.5">
+                  <label htmlFor="status">Current Status</label>
+                  <Select
+                    onValueChange={(value: string) =>
+                      form.setValue(
+                        'status',
+                        value as
+                          | 'planted'
+                          | 'sprouted'
+                          | 'growing'
+                          | 'flowering'
+                          | 'fruiting'
+                          | 'harvested'
+                      )
+                    }
+                    defaultValue={form.getValues('status')}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="planted">Planted</SelectItem>
+                      <SelectItem value="sprouted">Sprouted</SelectItem>
+                      <SelectItem value="growing">Growing</SelectItem>
+                      <SelectItem value="flowering">Flowering</SelectItem>
+                      <SelectItem value="fruiting">Fruiting</SelectItem>
+                      <SelectItem value="harvested">Harvested</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="grid w-full items-center gap-1.5">
+                  <label htmlFor="notes">Notes (Optional)</label>
+                  <textarea
+                    {...form.register('notes')}
+                    className="flex min-h-[60px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm"
+                  />
+                </div>
+              </div>
+
+              <DialogFooter>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setIsEditingPlant(false)}
+                >
+                  Cancel
+                </Button>
+                <Button type="submit">Save Changes</Button>
               </DialogFooter>
             </form>
           </Form>
