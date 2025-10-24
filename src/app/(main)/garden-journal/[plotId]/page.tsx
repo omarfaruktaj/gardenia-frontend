@@ -46,6 +46,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import {
   createPlantEntry,
+  deletePlantEntry,
   getPlantEntries,
   getPlot,
   updatePlantEntry,
@@ -76,6 +77,8 @@ export default function PlotDetails() {
   const [isAddingPlant, setIsAddingPlant] = useState(false);
   const [isEditingPlant, setIsEditingPlant] = useState(false);
   const [selectedPlant, setSelectedPlant] = useState<PlantEntry | null>(null);
+  const [isDeletingPlant, setIsDeletingPlant] = useState(false);
+  const [plantToDelete, setPlantToDelete] = useState<PlantEntry | null>(null);
 
   type FormData = z.infer<typeof PlantSchema>;
 
@@ -155,6 +158,32 @@ export default function PlotDetails() {
     });
     setIsEditingPlant(true);
   };
+  const handleDeleteClick = (plant: PlantEntry) => {
+    setPlantToDelete(plant);
+    setIsDeletingPlant(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!plantToDelete || !plot) return;
+
+    try {
+      await deletePlantEntry(plot._id, plantToDelete._id);
+      toast({
+        title: 'Plant deleted',
+        description: `${plantToDelete.plantName} has been removed from your garden.`,
+      });
+      setIsDeletingPlant(false);
+      setPlantToDelete(null);
+      loadPlotData();
+    } catch (err) {
+      console.error('Failed to delete plant:', err);
+      toast({
+        title: 'Error',
+        description: 'Failed to delete plant.',
+        variant: 'destructive',
+      });
+    }
+  };
 
   const handleEditPlant = async (data: z.infer<typeof PlantSchema>) => {
     try {
@@ -201,7 +230,6 @@ export default function PlotDetails() {
         </div>
         <Separator className="my-4" />
       </div>
-
       <div className="p-4 lg:p-6">
         <Tabs defaultValue="plants" className="space-y-4">
           <TabsList>
@@ -261,6 +289,7 @@ export default function PlotDetails() {
                       size="icon"
                       variant="ghost"
                       className="text-destructive"
+                      onClick={() => handleDeleteClick(plant)}
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
@@ -327,7 +356,6 @@ export default function PlotDetails() {
           </TabsContent>
         </Tabs>
       </div>
-
       {/* Add Plant Dialog */}
       <Dialog open={isAddingPlant} onOpenChange={setIsAddingPlant}>
         <DialogContent>
@@ -501,6 +529,36 @@ export default function PlotDetails() {
           </Form>
         </DialogContent>
       </Dialog>
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={isDeletingPlant} onOpenChange={setIsDeletingPlant}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete Plant</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to delete{' '}
+              <span className="font-semibold">{plantToDelete?.plantName}</span>?
+              This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setIsDeletingPlant(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="button"
+              variant="destructive"
+              onClick={handleConfirmDelete}
+            >
+              Delete
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      ;
     </div>
   );
 }
