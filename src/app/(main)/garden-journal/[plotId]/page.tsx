@@ -53,6 +53,8 @@ import {
 } from '@/services/garden-journal-service';
 import type { GardenPlot, PlantEntry } from '@/types/garden-journal';
 
+import PlotEvents from '../_components/plot-events';
+
 const PlantSchema = z.object({
   plantName: z.string().min(1, 'Plant name is required'),
   variety: z.string().optional(),
@@ -330,10 +332,7 @@ export default function PlotDetails() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                {/* TODO: Implement events list */}
-                <p className="text-center text-muted-foreground">
-                  Events tracking coming soon
-                </p>
+                <PlotEvents plot={plot} />
               </CardContent>
             </Card>
           </TabsContent>
