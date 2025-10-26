@@ -54,6 +54,7 @@ import {
 import type { GardenPlot, PlantEntry } from '@/types/garden-journal';
 
 import PlotEvents from '../_components/plot-events';
+import PlotReminders from '../_components/plot-reminders';
 
 const PlantSchema = z.object({
   plantName: z.string().min(1, 'Plant name is required'),
@@ -324,34 +325,11 @@ export default function PlotDetails() {
           </TabsContent>
 
           <TabsContent value="events">
-            <Card>
-              <CardHeader>
-                <CardTitle>Garden Events</CardTitle>
-                <CardDescription>
-                  Track important events in your garden plot
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <PlotEvents plot={plot} />
-              </CardContent>
-            </Card>
+            <PlotEvents plot={plot} />
           </TabsContent>
 
           <TabsContent value="reminders">
-            <Card>
-              <CardHeader>
-                <CardTitle>Care Reminders</CardTitle>
-                <CardDescription>
-                  Set and manage reminders for your garden tasks
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                {/* TODO: Implement reminders list */}
-                <p className="text-center text-muted-foreground">
-                  Reminders feature coming soon
-                </p>
-              </CardContent>
-            </Card>
+            <PlotReminders plot={plot} />
           </TabsContent>
         </Tabs>
       </div>

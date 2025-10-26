@@ -4,7 +4,7 @@
 import { useEffect, useState } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Calendar, Plus, Trash2 } from 'lucide-react';
+import { Calendar, Edit3, Plus, Trash2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
@@ -41,6 +41,14 @@ import {
   updateEvent,
 } from '@/services/garden-events-service';
 import type { GardenPlot } from '@/types/garden-journal';
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
@@ -210,75 +218,88 @@ export default function PlotEvents({ plot }: PlotEventsProps) {
 
   return (
     <div className="space-y-4">
-      <div className="flex justify-end">
-        <Button onClick={() => setIsAdding(true)}>
-          <Plus className="h-4 w-4 mr-2" />
-          Add Event
-        </Button>
-      </div>
-
-      {/* Events list */}
-      {isLoading ? (
-        <p className="text-center text-muted-foreground">Loading events...</p>
-      ) : events.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {events.map((event) => (
-            <Card key={event._id}>
+      <Card>
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle>Garden Events</CardTitle>
+              <CardDescription>
+                Track important events in your garden plot
+              </CardDescription>
+            </div>
+            <Button onClick={() => setIsAdding(true)}>
+              <Plus className="h-4 w-4 mr-2" />
+              Add Event
+            </Button>
+          </div>
+        </CardHeader>
+        <CardContent>
+          {/* Events list */}
+          {isLoading ? (
+            <p className="text-center text-muted-foreground">
+              Loading events...
+            </p>
+          ) : events.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {events.map((event) => (
+                <Card key={event._id}>
+                  <CardHeader>
+                    <CardTitle>{event.title}</CardTitle>
+                    <CardDescription className="capitalize">
+                      {event.type}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Calendar className="h-4 w-4" />
+                      {new Date(event.date).toLocaleDateString()}
+                    </div>
+                    {event.notes && (
+                      <p className="mt-2 text-sm text-muted-foreground">
+                        {event.notes}
+                      </p>
+                    )}
+                  </CardContent>
+                  <CardFooter className="flex justify-end space-x-2">
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      onClick={() => handleEditClick(event)}
+                    >
+                      <Edit3 className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      className="text-destructive"
+                      onClick={() => handleDeleteClick(event)}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <Card>
               <CardHeader>
-                <CardTitle>{event.title}</CardTitle>
-                <CardDescription className="capitalize">
-                  {event.type}
+                <CardTitle className="text-center text-muted-foreground">
+                  No Events Yet
+                </CardTitle>
+                <CardDescription className="text-center">
+                  Start logging your garden activities
                 </CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Calendar className="h-4 w-4" />
-                  {new Date(event.date).toLocaleDateString()}
-                </div>
-                {event.notes && (
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    {event.notes}
-                  </p>
-                )}
+              <CardContent className="flex justify-center">
+                <Button onClick={() => setIsAdding(true)} variant="outline">
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add Your First Event
+                </Button>
               </CardContent>
-              <CardFooter className="flex justify-end space-x-2">
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  onClick={() => handleEditClick(event)}
-                >
-                  ✏️
-                </Button>
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  className="text-destructive"
-                  onClick={() => handleDeleteClick(event)}
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              </CardFooter>
             </Card>
-          ))}
-        </div>
-      ) : (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-center text-muted-foreground">
-              No Events Yet
-            </CardTitle>
-            <CardDescription className="text-center">
-              Start logging your garden activities
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="flex justify-center">
-            <Button onClick={() => setIsAdding(true)} variant="outline">
-              <Plus className="h-4 w-4 mr-2" />
-              Add Your First Event
-            </Button>
-          </CardContent>
-        </Card>
-      )}
+          )}
+        </CardContent>
+      </Card>
 
       {/* Add Event Dialog */}
       <Dialog open={isAdding} onOpenChange={setIsAdding}>
