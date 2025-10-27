@@ -242,86 +242,97 @@ export default function PlotDetails() {
           </TabsList>
 
           <TabsContent value="plants" className="space-y-4">
-            <div className="flex justify-end">
-              <Button onClick={() => setIsAddingPlant(true)}>
-                <Plus className="h-4 w-4 mr-2" />
-                Add Plant
-              </Button>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {plants.map((plant) => (
-                <Card key={plant._id}>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <FlowerIcon className="h-5 w-5 text-primary" />
-                      {plant.plantName}
-                    </CardTitle>
-                    {plant.variety && (
-                      <CardDescription>{plant.variety}</CardDescription>
-                    )}
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Calendar className="h-4 w-4" />
-                      Planted:{' '}
-                      {new Date(plant.plantedDate).toLocaleDateString()}
-                    </div>
-                    <div className="mt-2">
-                      <span className="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
-                        {plant.status.charAt(0).toUpperCase() +
-                          plant.status.slice(1)}
-                      </span>
-                    </div>
-                    {plant.notes && (
-                      <p className="mt-2 text-sm text-muted-foreground">
-                        {plant.notes}
-                      </p>
-                    )}
-                  </CardContent>
-                  <CardFooter className="flex justify-end space-x-2">
-                    <Button
-                      size="icon"
-                      variant="ghost"
-                      onClick={() => handleEditClick(plant)}
-                    >
-                      <Edit3 className="h-4 w-4" />
-                    </Button>
-
-                    <Button
-                      size="icon"
-                      variant="ghost"
-                      className="text-destructive"
-                      onClick={() => handleDeleteClick(plant)}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </CardFooter>
-                </Card>
-              ))}
-
-              {plants.length === 0 && (
-                <Card className="col-span-full">
-                  <CardHeader>
-                    <CardTitle className="text-center text-muted-foreground">
-                      No Plants Yet
-                    </CardTitle>
-                    <CardDescription className="text-center">
-                      Start tracking your plants by adding your first one
+            <Card>
+              <CardHeader>
+                <div className="flex items-center justify-between ">
+                  <div>
+                    <CardTitle>Garden Plants</CardTitle>
+                    <CardDescription>
+                      Track Plants in your garden plot
                     </CardDescription>
-                  </CardHeader>
-                  <CardContent className="flex justify-center">
-                    <Button
-                      onClick={() => setIsAddingPlant(true)}
-                      variant="outline"
-                    >
-                      <Plus className="h-4 w-4 mr-2" />
-                      Add Your First Plant
-                    </Button>
-                  </CardContent>
-                </Card>
-              )}
-            </div>
+                  </div>
+                  <Button onClick={() => setIsAddingPlant(true)}>
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add Plant
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {plants.map((plant) => (
+                    <Card key={plant._id}>
+                      <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                          <FlowerIcon className="h-5 w-5 text-primary" />
+                          {plant.plantName}
+                        </CardTitle>
+                        {plant.variety && (
+                          <CardDescription>{plant.variety}</CardDescription>
+                        )}
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <Calendar className="h-4 w-4" />
+                          Planted:{' '}
+                          {new Date(plant.plantedDate).toLocaleDateString()}
+                        </div>
+                        <div className="mt-2">
+                          <span className="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
+                            {plant.status.charAt(0).toUpperCase() +
+                              plant.status.slice(1)}
+                          </span>
+                        </div>
+                        {plant.notes && (
+                          <p className="mt-2 text-sm text-muted-foreground">
+                            {plant.notes}
+                          </p>
+                        )}
+                      </CardContent>
+                      <CardFooter className="flex justify-end space-x-2">
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          onClick={() => handleEditClick(plant)}
+                        >
+                          <Edit3 className="h-4 w-4" />
+                        </Button>
+
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          className="text-destructive"
+                          onClick={() => handleDeleteClick(plant)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                  ))}
+
+                  {plants.length === 0 && (
+                    <Card className="col-span-full">
+                      <CardHeader>
+                        <CardTitle className="text-center text-muted-foreground">
+                          No Plants Yet
+                        </CardTitle>
+                        <CardDescription className="text-center">
+                          Start tracking your plants by adding your first one
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="flex justify-center">
+                        <Button
+                          onClick={() => setIsAddingPlant(true)}
+                          variant="outline"
+                        >
+                          <Plus className="h-4 w-4 mr-2" />
+                          Add Your First Plant
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="events">

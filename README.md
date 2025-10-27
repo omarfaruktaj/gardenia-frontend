@@ -1,12 +1,16 @@
 # Gardenia - Frontend
 
-This is the frontend code for the Gardening Tips & Advice Platform, a web application that enables gardening enthusiasts to share and discover gardening knowledge. It features user authentication, content creation with a rich text editor, community interaction, and premium content access via payment integration.
+Welcome to Gardenia, a modern web application that connects gardening enthusiasts worldwide. This platform enables users to share gardening knowledge, interact with fellow gardeners, and access premium content. Built with Next.js and TypeScript, Gardenia offers a responsive, user-friendly interface for both casual and serious gardeners.
 
 ## Table of Contents
 
 - [Features](#features)
 - [Tech Stack](#tech-stack)
-- [Setup Instructions](#setup-instructions)
+- [Getting Started](#getting-started)
+- [Key Functionality](#key-functionality)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Features
 
@@ -23,15 +27,17 @@ This is the frontend code for the Gardening Tips & Advice Platform, a web applic
 
 ## Tech Stack
 
-### Frontend:
+### Core Technologies
 
-- **Framework**: [Next.js](https://nextjs.org/)
-- **Language**: TypeScript
-- **UI Framework**: Tailwind CSS
-- **State Management**: Context API or Redux (Optional)
-- **Text Editor**: Quill / Draft.js / Slate (to be determined based on project needs)
-- **Payment Gateway**: Stripe integration
-- **Icons**: React Icons, Lucide-react
+- **Framework**: [Next.js 14](https://nextjs.org/) with App Router
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **UI Framework**: [Tailwind CSS](https://tailwindcss.com/) with [shadcn/ui](https://ui.shadcn.com/)
+- **State Management**: React Context API
+- **Form Handling**: [React Hook Form](https://react-hook-form.com/) with [Zod](https://zod.dev/)
+- **Text Editor**: [TipTap](https://tiptap.dev/) for rich text editing
+- **Payment Gateway**: [Stripe](https://stripe.com/) integration
+- **Image Upload**: [Cloudinary](https://cloudinary.com/)
+- **Icons**: [Lucide React](https://lucide.dev/)
 
 ## Getting Started
 
@@ -41,7 +47,7 @@ Make sure you have the following installed:
 
 - **Node.js** (v14.x or higher) & npm (v6.x or higher)
 - **Yarn** (optional, if preferred over npm)
-- A running **backend server** (refer to the backend repository)
+- A running **backend server** ( [backend repository](https://github.com/omarfaruktaj/gardenia-backend))
 
 ## Instructions
 
@@ -130,3 +136,48 @@ To set up and run this project locally, follow these steps:
 
 - Search for content by keywords, categories, and popularity.
 - Filter posts by categories such as Vegetables, Flowers, Landscaping, and more.
+
+### Garden Journal
+
+- Personal digital garden tracking system for users to document their gardening journey
+- Create and manage multiple garden plots with detailed information
+- Track planting dates, watering schedules, and plant growth progress
+- Add notes, photos, and maintenance records for each garden plot
+- Set reminders for important gardening tasks and seasonal activities
+
+## Project Structure
+
+```
+src/
+├── app/                    # Next.js 14 app directory
+│   ├── (auth)/            # Authentication related pages
+│   ├── (dashboard)/       # User dashboard features
+│   ├── (main)/           # Main application pages
+│   └── admin/            # Admin dashboard
+├── components/            # Reusable UI components
+│   ├── ui/               # shadcn/ui components
+│   └── ...               # Other components
+├── context/              # React Context providers
+├── hooks/                # Custom React hooks
+├── lib/                  # Utility functions and configurations
+├── schemas/              # Zod validation schemas
+├── services/            # API service functions
+└── types/               # TypeScript type definitions
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+- GitHub: [@omarfaruktaj](https://github.com/omarfaruktaj)
+- Project Link: [https://github.com/omarfaruktaj/gardenia-frontend](https://github.com/omarfaruktaj/gardenia-frontend)
