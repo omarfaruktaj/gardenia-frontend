@@ -56,6 +56,12 @@ import type { GardenPlot } from '@/types/garden-journal';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 export interface GardenEvent {
   _id: string;
   plotId: string;
@@ -113,7 +119,6 @@ export default function PlotEvents({ plot }: PlotEventsProps) {
     },
   });
 
-  // ✅ Load events
   const loadEvents = async () => {
     try {
       setIsLoading(true);
@@ -136,7 +141,6 @@ export default function PlotEvents({ plot }: PlotEventsProps) {
     loadEvents();
   }, [plot._id]);
 
-  // ✅ Add new event
   const handleAddEvent = async (data: FormData) => {
     try {
       await createEvent(plot._id, data);
@@ -157,7 +161,6 @@ export default function PlotEvents({ plot }: PlotEventsProps) {
     }
   };
 
-  // ✅ Edit event
   const handleEditClick = (event: GardenEvent) => {
     setSelectedEvent(event);
     form.reset({
@@ -190,7 +193,6 @@ export default function PlotEvents({ plot }: PlotEventsProps) {
     }
   };
 
-  // ✅ Delete event
   const handleDeleteClick = (event: GardenEvent) => {
     setEventToDelete(event);
     setIsDeleting(true);
